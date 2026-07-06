@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BrandLogo from "./brand-logo";
+import UAEFlag from "./uae-flag";
 
 const columns = [
   {
@@ -35,7 +36,7 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="flex flex-col gap-5 pt-7 text-[8px] text-[#918A97] md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-wrap gap-x-6 gap-y-2"><p>© 2026 NEFE Business Network</p><p>Built in the United Arab Emirates.</p></div>
+          <div className="flex flex-wrap gap-x-6 gap-y-2"><p>© 2026 NEFE Business Network</p><p className="inline-flex items-center gap-2"><UAEFlag className="h-3.5 w-auto" title="United Arab Emirates flag"/>Built in the United Arab Emirates.</p></div>
           <div className="flex items-center gap-4" aria-label="Social media placeholders">{["LinkedIn","X","Instagram"].map(label=><span key={label} className="cursor-default font-semibold text-[#6F6876]">{label}</span>)}</div>
         </div>
       </div>

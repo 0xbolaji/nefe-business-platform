@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import BrandLogo from "../components/brand-logo";
+import UAEFlag from "../components/uae-flag";
 
 const industries = [
   ["Hotels","Boutique, luxury and resort hospitality","HT"],
@@ -68,7 +69,7 @@ export default function OnboardingWizard() {
 
     <div className="relative z-10 mx-auto max-w-[1080px] px-5 pb-16 pt-5 sm:px-8">
       <div className="mx-auto max-w-[820px]">
-        <div className="flex items-center justify-between"><p className="text-[9px] font-bold uppercase tracking-[.15em] text-[#6C50D4]">Business onboarding</p><p className="text-[9px] font-semibold text-[#8E8794]">Step {step} of 5</p></div>
+        <div className="flex items-center justify-between"><div><p className="text-[9px] font-bold uppercase tracking-[.15em] text-[#6C50D4]">Business onboarding</p><p className="mt-2 inline-flex items-center gap-2 text-[8px] font-medium text-[#827B88]"><UAEFlag className="h-3.5 w-auto" title="United Arab Emirates flag"/>Accepting UAE businesses</p></div><p className="text-[9px] font-semibold text-[#8E8794]">Step {step} of 5</p></div>
         <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#E8E3EC]"><div className="h-full rounded-full bg-gradient-to-r from-[#5E3BEE] via-[#8A6AEA] to-[#D0A647] transition-all duration-500 ease-out" style={{width:`${progress}%`}}/></div>
         <div className="mt-3 flex justify-between">{["Business","Industry","Goals","Partners","Complete"].map((item,i)=><span key={item} className={`text-[7px] font-semibold transition ${step>=i+1?"text-[#5E3BEE]":"text-[#B0AAB4]"}`}>{item}</span>)}</div>
       </div>

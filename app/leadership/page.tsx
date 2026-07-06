@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import UAEFlag from "../components/uae-flag";
 
 export const metadata: Metadata = {
   title: "Leadership | NEFE Business Network",
@@ -40,7 +41,7 @@ export default function LeadershipPage() {
           <div className="mt-9"><p className="text-[9px] font-bold uppercase tracking-[.18em] text-[#6747D7]">Current Focus</p><div className="mt-4 grid gap-2 sm:grid-cols-2">{focus.map(item=><div key={item} className="flex items-center gap-3 rounded-[14px] border border-[#E6E1EA] bg-white px-4 py-3 text-[9px] font-semibold"><span className="h-1.5 w-1.5 rounded-full bg-[#C69A43]"/>{item}</div>)}</div></div>
         </div>
       </div>
-      <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{summaries.map(([label,value])=><article key={label} className="rounded-[20px] border border-[#E7E2EA] bg-white p-5 shadow-[0_7px_24px_rgba(45,30,70,.035)]"><p className="text-[7px] font-bold uppercase tracking-[.14em] text-[#98919D]">{label}</p><p className="mt-3 text-[12px] font-semibold leading-5">{value}</p></article>)}</div>
+      <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{summaries.map(([label,value])=><article key={label} className="rounded-[20px] border border-[#E7E2EA] bg-white p-5 shadow-[0_7px_24px_rgba(45,30,70,.035)]"><p className="text-[7px] font-bold uppercase tracking-[.14em] text-[#98919D]">{label}</p><p className="mt-3 flex items-center gap-2 text-[12px] font-semibold leading-5">{label==="Region"&&<UAEFlag className="h-4 w-auto" title="United Arab Emirates flag"/>}{value}</p></article>)}</div>
     </section>
 
     <section className="bg-[#171122] px-5 py-24 text-white sm:px-8 sm:py-28"><div className="mx-auto grid max-w-[1240px] gap-10 lg:grid-cols-[.7fr_1.3fr]"><div><p className="text-[9px] font-bold uppercase tracking-[.18em] text-[#D7B95F]">Long-term Direction</p><h2 className="mt-6 text-4xl font-semibold leading-tight tracking-[-.05em] sm:text-5xl">A network designed to compound.</h2></div><p className="text-base leading-8 text-white/60">The leadership mandate is to turn fragmented customer journeys into coordinated economic activity—giving businesses clearer opportunities, cities stronger commercial participation, and customers more relevant experiences across every sector they use.</p></div></section>

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import L from "leaflet";
 import { MapContainer, Marker, Polyline, TileLayer, Tooltip, useMap, useMapEvents } from "react-leaflet";
 import type { Business, MapFocus } from "./opportunity-map";
+import UAEFlag from "../components/uae-flag";
 
 const HOME: [number, number] = [24.55, 54.9];
 type MapLanguage = "en" | "ar";
@@ -91,7 +92,7 @@ export default function LeafletMap({ businesses, selected, focus, onSelect, onHo
         <Tooltip direction="top" offset={[0, -42]} className={`business-map-tooltip ${business.ceo ? "ceo-business-tooltip" : ""}`}>
           <div className="map-tooltip-card">
             <div className="flex items-start justify-between gap-4">
-              <div><strong>{business.name}</strong><small>{business.category} · {business.location}</small></div>
+              <div><strong>{business.name}</strong><small className="flex items-center gap-1.5"><UAEFlag className="h-3 w-auto"/>{business.city} · {business.location}</small></div>
               <b>{business.ceo ? "CEO Network" : `${business.fit}% fit`}</b>
             </div>
             <div className="map-tooltip-metrics">
@@ -108,7 +109,7 @@ export default function LeafletMap({ businesses, selected, focus, onSelect, onHo
       <span><i aria-hidden="true">◎</i> Map Language</span>
       <select value={language} onChange={event => changeLanguage(event.target.value as MapLanguage)} aria-label="Map Language">
         <option value="en">🇬🇧 English</option>
-        <option value="ar">🇦🇪 العربية</option>
+        <option value="ar">العربية</option>
       </select>
     </label>
     {tileError && <div className="pointer-events-none absolute inset-x-4 bottom-4 z-[1000] rounded-xl border border-[#D7C9A2] bg-[#FFF9E8]/95 px-4 py-3 text-[8px] text-[#795F28] shadow-lg backdrop-blur">Map tiles are temporarily unavailable. Business intelligence and marker interactions remain active.</div>}
