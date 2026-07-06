@@ -2,7 +2,7 @@ import Link from "next/link";
 import BrandLogo from "./brand-logo";
 
 const quickLinks = [["Home","/"],["CEO Demo","/ceo-demo"],["Pilot Plan","/pilot-plan"],["Founder Room","/founder-room"],["Why Botchain","/why-botchain"],["Executive Insights","/executive-insights"]];
-const platformLinks = [["Platform","/platform"],["Commerce Graph","/commerce-graph"],["ROI Calculator","/roi-calculator"],["Business Portal","/business-portal"],["Consumer App","/consumer"],["Experience Builder","/experience-builder"]];
+const platformLinks = [["Platform","/platform"],["Commerce Graph","/commerce-graph"],["UAE Opportunity Map","/uae-opportunity-map"],["ROI Calculator","/roi-calculator"],["Business Portal","/business-portal"],["Consumer App","/consumer"],["Experience Builder","/experience-builder"]];
 
 export default function SiteFooter() {
   return (
