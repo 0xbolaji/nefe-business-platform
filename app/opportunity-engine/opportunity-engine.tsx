@@ -18,6 +18,7 @@ const recommendations = [
   "Luxury retail is currently underrepresented.",
 ];
 const slideCount = 7;
+const simulationStages = ["Executive alignment","Merchant onboarding","Bundle creation","Customer launch","Campaign testing","Performance review","Expansion decision"];
 
 function initials(name: string) {
   return name.split(/[\s&-]+/).filter(Boolean).slice(0, 2).map(part => part[0]).join("").toUpperCase();
@@ -25,6 +26,20 @@ function initials(name: string) {
 
 function AnimatedValue({ value }: { value: string | number }) {
   return <AnimatePresence mode="popLayout"><motion.span key={value} initial={{ opacity: 0, y: 8, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -7 }} transition={{ duration: .28 }}>{value}</motion.span></AnimatePresence>;
+}
+
+function downloadHtml(filename: string, title: string, sections: { label: string; value: string }[]) {
+  const escape = (value: string) => value.replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character] ?? character);
+  const rows = sections.map(section => `<section><small>${escape(section.label)}</small><p>${escape(section.value)}</p></section>`).join("");
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${escape(title)}</title><style>body{margin:0;background:#f6f4f8;color:#1b1725;font:15px/1.6 Inter,Arial,sans-serif}.page{max-width:850px;margin:40px auto;background:white;border:1px solid #e5dfea;border-radius:24px;overflow:hidden;box-shadow:0 24px 70px #281d3d1a}.hero{padding:42px;background:linear-gradient(135deg,#1b1228,#5e3bee);color:white}.hero b{color:#dfbd67;font-size:12px;letter-spacing:.15em}.hero h1{margin:12px 0 6px;font-size:36px}.hero p{margin:0;color:#ffffff99}.content{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:30px}.content section{padding:18px;border-radius:14px;background:#f8f6fa;border:1px solid #ebe6ee}.content small{color:#7560bd;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.content p{margin:8px 0 0;font-weight:600}.footer{padding:0 30px 30px;color:#8f8895;font-size:12px}@media(max-width:640px){.page{margin:0;border-radius:0}.content{grid-template-columns:1fr}}</style></head><body><main class="page"><header class="hero"><b>NEFE OPPORTUNITY ENGINE</b><h1>${escape(title)}</h1><p>Executive prototype report generated from sample commercial intelligence.</p></header><div class="content">${rows}</div><footer class="footer">NEFE · Connected businesses create connected growth.</footer></main></body></html>`;
+  const url = URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8" }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 export default function OpportunityEngine() {
@@ -38,8 +53,12 @@ export default function OpportunityEngine() {
   const [slide, setSlide] = useState(0);
   const [executiveModal, setExecutiveModal] = useState<"report" | "pilot" | null>(null);
   const [simulationState, setSimulationState] = useState<"idle" | "running" | "complete">("idle");
+  const [simulationStage, setSimulationStage] = useState(0);
+  const [simulationProgress, setSimulationProgress] = useState(0);
+  const [pilotSummaryVisible, setPilotSummaryVisible] = useState(false);
   const [inputs, setInputs] = useState<RevenueInputs>({ businesses: 12, visitors: 8400, conversion: 24, participation: 38, spend: 620, retention: 31 });
   const graphRef = useRef<HTMLDivElement>(null);
+  const simulationTimerRef = useRef<number | null>(null);
 
   const selected = useMemo(() => merchants.filter(merchant => selectedNames.includes(merchant.name)), [selectedNames]);
   const filtered = useMemo(() => merchants.filter(merchant => (category === "All" || category === "CEO Network" ? category !== "CEO Network" || merchant.ceo : merchant.category === category) && merchant.name.toLowerCase().includes(query.toLowerCase())), [category, query]);
@@ -99,6 +118,7 @@ export default function OpportunityEngine() {
       document.body.classList.remove("opportunity-presentation");
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
+      if (simulationTimerRef.current !== null) window.clearInterval(simulationTimerRef.current);
     };
   }, [presenting]);
 
@@ -109,6 +129,9 @@ export default function OpportunityEngine() {
     }
     if (message === "Pilot simulation launched") {
       setSimulationState("idle");
+      setSimulationStage(0);
+      setSimulationProgress(0);
+      setPilotSummaryVisible(false);
       setExecutiveModal("pilot");
       return;
     }
@@ -116,16 +139,62 @@ export default function OpportunityEngine() {
     window.setTimeout(() => setToast(""), 2200);
   };
   const closeExecutiveModal = () => {
+    if (simulationTimerRef.current !== null) {
+      window.clearInterval(simulationTimerRef.current);
+      simulationTimerRef.current = null;
+    }
     setExecutiveModal(null);
     setSimulationState("idle");
+    setSimulationStage(0);
+    setSimulationProgress(0);
+    setPilotSummaryVisible(false);
   };
   const startSimulation = () => {
+    if (simulationTimerRef.current !== null) window.clearInterval(simulationTimerRef.current);
     setSimulationState("running");
-    window.setTimeout(() => {
-      setSimulationState("complete");
-      setToast("Pilot simulation activated.");
-      window.setTimeout(() => setToast(""), 2400);
-    }, 1800);
+    setSimulationStage(0);
+    setSimulationProgress(0);
+    setPilotSummaryVisible(false);
+    simulationTimerRef.current = window.setInterval(() => {
+      setSimulationStage(current => {
+        const next = current + 1;
+        setSimulationProgress(Math.round((next / simulationStages.length) * 100));
+        if (next >= simulationStages.length) {
+          if (simulationTimerRef.current !== null) window.clearInterval(simulationTimerRef.current);
+          simulationTimerRef.current = null;
+          setSimulationState("complete");
+          setToast("Pilot simulation complete. Ready for executive review.");
+          window.setTimeout(() => setToast(""), 2800);
+          return simulationStages.length;
+        }
+        return next;
+      });
+    }, 620);
+  };
+  const downloadExecutiveReport = () => {
+    downloadHtml("nefe-executive-commercial-report.html", "Executive Commercial Report", [
+      { label: "Selected businesses", value: selected.map(merchant => merchant.name).join(", ") || "No businesses selected" },
+      { label: "Commercial score", value: `${commercialScore}/100` },
+      { label: "Network strength", value: `${networkStrength}%` },
+      { label: "Projected monthly value", value: `AED ${valueTotal.toLocaleString()}` },
+      { label: "Bundle readiness", value: `${bundleReadiness}%` },
+      { label: "Recommended next step", value: "Approve a 90-day commercial pilot with executive sponsorship, shared campaign ownership and weekly KPI review." },
+      { label: "Pilot recommendation", value: ceoPilot ? "Launch the Ras Al Khaimah CEO Network cluster as the first controlled regional pilot." : "Begin with the highest-fit hospitality, mobility and experience partners in one city." },
+    ]);
+    setToast("Report preview downloaded.");
+    window.setTimeout(() => setToast(""), 2400);
+  };
+  const downloadSimulationReport = () => {
+    downloadHtml("nefe-90-day-pilot-simulation.html", "90-Day Pilot Simulation", [
+      { label: "Pilot cluster", value: ceoPilot ? "RAK Resort Development, F10 Car Rental and RAK Hotel Partner" : "Premium UAE Commercial Cluster" },
+      { label: "Launch sequence", value: simulationStages.join(" → ") },
+      { label: "Simulation status", value: "Pilot simulation complete. Ready for executive review." },
+      { label: "Expected KPIs", value: "AED 2.86M revenue, 2,840 referrals, 27% conversion and 34% repeat customer rate" },
+      { label: "Recommended pilot owner", value: "NEFE Commercial Director, supported by merchant GMs and partner experience leads" },
+      { label: "Recommended next step", value: "Executive approval followed by commercial alignment and Week 1 pilot activation." },
+    ]);
+    setToast("Simulation report downloaded.");
+    window.setTimeout(() => setToast(""), 2400);
   };
   const toggleMerchant = (merchant: Merchant) => setSelectedNames(current => current.includes(merchant.name) ? current.filter(name => name !== merchant.name) : [...current, merchant.name]);
   const enterPresentation = () => {
@@ -194,12 +263,13 @@ export default function OpportunityEngine() {
             <div><p className="engine-eyebrow">Selected businesses</p><div className="mt-3 flex flex-wrap gap-2">{selected.map(merchant=><span key={merchant.name} className={`rounded-full border px-3 py-2 text-[7px] font-semibold ${merchant.ceo?"border-[#D5AE51]/40 bg-[#FFF4D9] text-[#916719]":"border-[#DDD5F5] bg-[#F1EDFF] text-[#5E3BEE]"}`}>{merchant.ceo?"★ ":""}{merchant.name}</span>)}</div></div>
             <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">{[["Commercial score",`${commercialScore}/100`],["Network strength",`${networkStrength}%`],["Monthly value",`AED ${(valueTotal/1000).toFixed(0)}K`],["Bundle readiness",`${bundleReadiness}%`]].map(([label,value])=><div key={label} className="rounded-[16px] border border-[#E5DFE9] bg-white p-4"><p className="text-[6px] text-[#958E9A]">{label}</p><p className="mt-2 text-lg font-semibold tracking-[-.03em]">{value}</p></div>)}</div>
             <div className="mt-5 grid gap-3 sm:grid-cols-2"><div className="rounded-[17px] bg-[#F1EDFF] p-5"><p className="text-[7px] font-bold uppercase text-[#7257D2]">Recommended next step</p><p className="mt-2 text-[9px] leading-5 text-[#51456D]">Approve a 90-day commercial pilot with executive sponsorship, shared campaign ownership and weekly KPI review.</p></div><div className="rounded-[17px] bg-[#FFF7E5] p-5"><p className="text-[7px] font-bold uppercase text-[#9B7428]">Pilot recommendation</p><p className="mt-2 text-[9px] leading-5 text-[#64543A]">{ceoPilot?"Launch the Ras Al Khaimah CEO Network cluster as the first controlled regional pilot.":"Begin with the highest-fit hospitality, mobility and experience partners in one city."}</p></div></div>
-            <div className="mt-7 flex justify-end gap-2"><button type="button" onClick={closeExecutiveModal} className="rounded-xl border border-[#DDD7E3] px-5 py-3 text-[8px] font-bold text-[#625B68]">Close</button><button type="button" onClick={()=>{setToast("PDF preview downloaded successfully.");window.setTimeout(()=>setToast(""),2400)}} className="rounded-xl bg-[#5E3BEE] px-5 py-3 text-[8px] font-bold text-white shadow-[0_10px_25px_rgba(94,59,238,.22)]">Download PDF Preview</button></div>
+            <div className="mt-7 flex justify-end gap-2"><button type="button" onClick={closeExecutiveModal} className="rounded-xl border border-[#DDD7E3] px-5 py-3 text-[8px] font-bold text-[#625B68]">Close</button><button type="button" onClick={downloadExecutiveReport} className="relative z-10 touch-manipulation rounded-xl bg-[#5E3BEE] px-5 py-3 text-[8px] font-bold text-white shadow-[0_10px_25px_rgba(94,59,238,.22)]">Download PDF Preview</button></div>
           </div>:<div className="p-6 sm:p-8">
             <div className="rounded-[18px] border border-[#E1C471] bg-gradient-to-r from-[#FFF8E5] to-[#F5F0FF] p-5"><div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-[7px] font-bold uppercase text-[#967022]">Pilot cluster</p><p className="mt-2 text-[11px] font-semibold">{ceoPilot?"RAK Resort Development + F10 Car Rental + RAK Hotel Partner":"Premium UAE Commercial Cluster"}</p></div><span className="rounded-full bg-[#AE8129] px-3 py-2 text-[7px] font-bold text-white">90 days</span></div></div>
             <div className="mt-5 grid gap-3 sm:grid-cols-2"><div className="rounded-[17px] border border-[#E6E1EA] bg-white p-5"><p className="engine-eyebrow">Launch sequence</p><div className="mt-4 space-y-3">{[["Week 1","Executive alignment and commercial ownership"],["Week 2","Merchant onboarding and data setup"],["Week 3","Bundle design and campaign approvals"],["Week 4","Staff readiness and controlled customer launch"],["Month 2","Campaign testing, referral optimization and rewards"],["Month 3","Performance review and expansion decision"]].map(([period,task],index)=><div key={period} className="flex gap-3"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#F0ECFF] text-[6px] font-bold text-[#5E3BEE]">0{index+1}</span><div><p className="text-[7px] font-bold">{period}</p><p className="mt-1 text-[6px] leading-3 text-[#8D8692]">{task}</p></div></div>)}</div></div><div className="space-y-3"><div className="rounded-[17px] border border-[#E6E1EA] bg-white p-5"><p className="engine-eyebrow">Expected KPIs</p><div className="mt-4 grid grid-cols-2 gap-2">{[["Revenue","AED 2.86M"],["Referrals","2,840"],["Conversion","27%"],["Repeat rate","34%"]].map(([label,value])=><div key={label} className="rounded-xl bg-[#F8F6FA] p-3"><p className="text-[6px] text-[#99929E]">{label}</p><p className="mt-1 text-[10px] font-semibold">{value}</p></div>)}</div></div><div className="rounded-[17px] border border-[#E6E1EA] bg-white p-5"><p className="text-[7px] font-bold uppercase text-[#8C8491]">Recommended pilot owner</p><p className="mt-2 text-[10px] font-semibold">NEFE Commercial Director</p><p className="mt-1 text-[7px] text-[#99929E]">Supported by merchant GMs and partner experience leads.</p></div></div></div>
-            {simulationState!=="idle"&&<div className="mt-5 rounded-[16px] bg-[#171120] p-4 text-white"><div className="flex items-center justify-between"><p className="text-[8px] font-semibold">{simulationState==="running"?"Activating pilot simulation…":"Pilot simulation activated."}</p><span className={`text-[8px] font-bold ${simulationState==="complete"?"text-[#65D3A7]":"text-[#D9BD70]"}`}>{simulationState==="complete"?"100%":"Processing"}</span></div><div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10"><motion.i className="block h-full rounded-full bg-gradient-to-r from-[#7250DF] to-[#D6AF55]" initial={{width:"5%"}} animate={{width:simulationState==="complete"?"100%":"88%"}} transition={{duration:simulationState==="complete"?.35:1.7,ease:"easeInOut"}}/></div></div>}
-            <div className="mt-7 flex justify-end gap-2"><button type="button" onClick={closeExecutiveModal} className="rounded-xl border border-[#DDD7E3] px-5 py-3 text-[8px] font-bold text-[#625B68]">Close</button><button type="button" disabled={simulationState==="running"||simulationState==="complete"} onClick={startSimulation} className="min-w-36 rounded-xl bg-[#5E3BEE] px-5 py-3 text-[8px] font-bold text-white shadow-[0_10px_25px_rgba(94,59,238,.22)] disabled:opacity-55">{simulationState==="running"?"Starting…":simulationState==="complete"?"Simulation Active":"Start Simulation"}</button></div>
+            {simulationState!=="idle"&&<div className="mt-5 rounded-[16px] bg-[#171120] p-4 text-white"><div className="flex items-center justify-between gap-4"><div><p className="text-[8px] font-semibold">{simulationState==="complete"?"Pilot simulation complete. Ready for executive review.":simulationStages[Math.min(simulationStage,simulationStages.length-1)]}</p><p className="mt-1 text-[6px] text-white/35">{simulationState==="complete"?"All seven stages completed":`Stage ${Math.min(simulationStage+1,simulationStages.length)} of ${simulationStages.length}`}</p></div><span className={`text-[8px] font-bold ${simulationState==="complete"?"text-[#65D3A7]":"text-[#D9BD70]"}`}>{simulationProgress}%</span></div><div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10"><motion.i className="block h-full rounded-full bg-gradient-to-r from-[#7250DF] to-[#D6AF55]" animate={{width:`${simulationProgress}%`}} transition={{duration:.5,ease:"easeInOut"}}/></div><div className="mt-4 grid gap-2 sm:grid-cols-2">{simulationStages.map((stage,index)=>{const complete=index<simulationStage||simulationState==="complete";const active=simulationState==="running"&&index===simulationStage;return <div key={stage} className={`flex items-center gap-2 rounded-lg px-2.5 py-2 text-[6px] transition ${active?"bg-[#7452DF]/25 text-[#D8CCFF]":complete?"bg-[#51B98E]/10 text-[#75D5AE]":"bg-white/[.035] text-white/30"}`}><span className={`grid h-5 w-5 shrink-0 place-items-center rounded-full ${complete?"bg-[#50B98D]/20":active?"bg-[#7653E0]/25":"bg-white/[.05]"}`}>{complete?"✓":index+1}</span><span>{stage}</span>{active&&<i className="ml-auto h-1.5 w-1.5 animate-pulse rounded-full bg-[#D7B55C]"/>}</div>})}</div></div>}
+            {simulationState==="complete"&&pilotSummaryVisible&&<motion.div initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} className="mt-4 rounded-[16px] border border-[#CFC2F4] bg-[#F3EFFF] p-4"><p className="text-[7px] font-bold uppercase text-[#6549C6]">Pilot summary</p><p className="mt-2 text-[8px] leading-5 text-[#554A70]">Seven rollout stages completed successfully. The scenario is ready for executive approval, commercial-owner assignment and controlled Week 1 activation.</p></motion.div>}
+            <div className="mt-7 flex flex-wrap justify-end gap-2"><button type="button" onClick={closeExecutiveModal} className="rounded-xl border border-[#DDD7E3] px-5 py-3 text-[8px] font-bold text-[#625B68]">Close</button>{simulationState==="complete"?<><button type="button" onClick={()=>setPilotSummaryVisible(true)} className="rounded-xl border border-[#CFC1F5] bg-[#F5F1FF] px-5 py-3 text-[8px] font-bold text-[#5E3BEE]">View Pilot Summary</button><button type="button" onClick={downloadSimulationReport} className="rounded-xl bg-[#5E3BEE] px-5 py-3 text-[8px] font-bold text-white shadow-[0_10px_25px_rgba(94,59,238,.22)]">Export Simulation Report</button></>:<button type="button" disabled={simulationState==="running"} onClick={startSimulation} className="min-w-36 rounded-xl bg-[#5E3BEE] px-5 py-3 text-[8px] font-bold text-white shadow-[0_10px_25px_rgba(94,59,238,.22)] disabled:opacity-55">{simulationState==="running"?"Simulation Running…":"Start Simulation"}</button>}</div>
           </div>}
         </motion.div>
       </motion.div>}
