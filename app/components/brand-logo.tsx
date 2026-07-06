@@ -32,18 +32,21 @@ export default function BrandLogo({
       aria-label="NEFE home"
       className={`inline-flex shrink-0 items-center ${style.gap} ${className}`}
     >
-      <Image
-        src={variant === "white" ? "/nefe-logo-white.png" : "/nefe-logo-purple.png"}
-        alt=""
-        width={200}
-        height={200}
-        priority={priority}
-        className={`${style.image} shrink-0 object-contain`}
-      />
+      <span className={`${style.image} relative block shrink-0`}>
+        <Image
+          src={variant === "white" ? "/nefe-logo-white.png" : "/nefe-logo-purple.png"}
+          alt=""
+          fill
+          sizes="56px"
+          priority={priority}
+          className={`${variant === "white" ? "" : "brand-logo-light"} object-contain`}
+        />
+        {variant !== "white" && <Image src="/nefe-logo-white.png" alt="" fill sizes="56px" priority={priority} className="brand-logo-dark hidden object-contain"/>}
+      </span>
       {showText && (
         <span
           className={`${style.text} font-bold leading-none tracking-[.12em] ${
-            variant === "white" ? "text-white" : "text-[#211733]"
+            variant === "white" ? "text-white" : "brand-wordmark text-[#211733]"
           }`}
         >
           NEFE

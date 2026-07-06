@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import BrandLogo from "./brand-logo";
+import ThemeToggle from "./theme-toggle";
 
 const links = [
   ["Home", "/"],
@@ -42,6 +43,7 @@ export default function SiteNavbar() {
           })}
         </nav>
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <Link href="/onboarding" className="hidden rounded-xl bg-[#5E3BEE] px-4 py-2.5 text-[9px] font-semibold text-white shadow-[0_8px_20px_rgba(94,59,238,.2)] transition hover:-translate-y-0.5 sm:block">
             Join the network
           </Link>
