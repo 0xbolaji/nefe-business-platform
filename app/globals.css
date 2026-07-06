@@ -299,3 +299,8 @@ main:has(>.financial-hero.text-center) [class*="text-[#29916E]"]::before{content
 html[data-theme="dark"] main:has(>.financial-hero.text-center) [class*="text-[#29916E]"]::before{background:rgba(70,181,137,.14);color:#6ed1a8}
 html[data-theme="dark"] main:has(>.financial-hero.text-center) [class*="text-[#C0BAC4]"]{color:#716879!important;font-size:0}
 html[data-theme="dark"] main:has(>.financial-hero.text-center) [class*="text-[#C0BAC4]"]::before{content:"—";font-size:12px;color:#716879}
+html[data-theme="dark"] .pricing-comparison,html[data-theme="dark"] .pricing-comparison-mobile{border-color:rgba(255,255,255,.12)!important;background:#15111e!important}
+html[data-theme="dark"] .pricing-comparison [role="row"]:not(:first-child),html[data-theme="dark"] .pricing-comparison-mobile>div>div{border-color:rgba(255,255,255,.075)!important;background:#18131f!important;color:#eee9f3!important}
+html[data-theme="dark"] .pricing-comparison [role="row"]:nth-child(odd),html[data-theme="dark"] .pricing-comparison-mobile>div>div:nth-child(even){background:#1c1625!important}
+html[data-theme="dark"] .pricing-comparison [aria-label="Included"],html[data-theme="dark"] .pricing-comparison-mobile [aria-label="Included"]{background:rgba(67,181,136,.16)!important;color:#72D4AD!important}
+html[data-theme="dark"] .pricing-comparison [aria-label="Not included"],html[data-theme="dark"] .pricing-comparison-mobile [aria-label="Not included"]{color:#756D7D!important}
