@@ -90,7 +90,7 @@ export default function ExperienceBuilder() {
     <header className="sticky top-0 z-30 border-b border-[#E9E5ED] bg-white/85 backdrop-blur-xl">
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-4 sm:px-7 lg:px-10">
         <div className="flex items-center gap-5"><BrandLogo priority /><span className="hidden h-6 w-px bg-[#E7E2EB] sm:block" /><div className="hidden sm:block"><p className="text-[10px] text-[#99939F]">Business Portal</p><p className="text-xs font-semibold">Experience Builder</p></div></div>
-        <div className="flex items-center gap-2"><Link href="/consumer" className="hidden rounded-xl px-3 py-2.5 text-[10px] font-semibold text-[#6C6574] transition hover:bg-[#F4F1F8] hover:text-[#5E3BEE] sm:block">View Consumer App</Link><Link href="/portal" className="rounded-xl border border-[#E5E0E9] bg-white px-4 py-2.5 text-[10px] font-semibold text-[#585160] shadow-sm transition hover:border-[#C8BAF6] hover:text-[#5E3BEE]">← Business Portal</Link></div>
+        <div className="flex items-center gap-2"><Link href="/consumer" className="hidden rounded-xl px-3 py-2.5 text-[10px] font-semibold text-[#6C6574] transition hover:bg-[#F4F1F8] hover:text-[#5E3BEE] sm:block">View Consumer App</Link><Link href="/business-portal" className="rounded-xl border border-[#E5E0E9] bg-white px-4 py-2.5 text-[10px] font-semibold text-[#585160] shadow-sm transition hover:border-[#C8BAF6] hover:text-[#5E3BEE]">← Business Portal</Link></div>
       </div>
     </header>
 

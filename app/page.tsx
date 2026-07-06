@@ -113,17 +113,6 @@ export default function Home() {
   return (
     <main className="overflow-hidden bg-white text-[#17132A]">
       <section className="hero-bg relative">
-        <nav className="page-shell flex h-20 items-center justify-between">
-          <BrandLogo priority />
-          <div className="hidden items-center gap-5 text-sm font-medium text-[#5F5A70] lg:flex xl:gap-7">
-            <a href="#platform" className="nav-link">Platform</a><Link href="/commerce-graph" className="nav-link">Commerce Graph</Link><Link href="/roi-calculator" className="nav-link">ROI Calculator</Link><Link href="/founder-room" className="nav-link">Founder Room</Link><Link href="/why-botchain" className="nav-link">Why Botchain</Link>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link href="/consumer" className="hidden text-sm font-semibold text-[#4B4658] transition hover:text-[#5E3BEE] lg:block">View Consumer App</Link>
-            <Link href="/portal" className="hidden text-sm font-semibold text-[#4B4658] transition hover:text-[#5E3BEE] sm:block">View Business Portal</Link>
-            <Link href="/onboarding" className="button-primary !min-h-10 !px-4 text-sm sm:!px-5">Request access <Icon name="arrow" className="h-4 w-4" /></Link>
-          </div>
-        </nav>
         <div className="page-shell grid min-h-[710px] items-center gap-14 pb-24 pt-16 lg:grid-cols-[.9fr_1.1fr] lg:pb-32 lg:pt-20">
           <div className="relative z-10">
             <div className="eyebrow"><Icon name="spark" className="h-4 w-4" /> Built for ambitious businesses</div>
@@ -131,8 +120,8 @@ export default function Home() {
             <p className="mt-7 max-w-[590px] text-base leading-7 text-[#686276] sm:text-lg sm:leading-8">Connect with trusted businesses, launch joint campaigns, exchange referrals, create bundled experiences and unlock new revenue opportunities.</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link id="access" href="/onboarding" className="button-primary">Request Early Access <Icon name="arrow" /></Link>
-              <a href="#platform" className="button-secondary">Explore Platform <span className="grid h-6 w-6 place-items-center rounded-full bg-[#EEE9FF] text-[#5E3BEE]">↓</span></a>
-              <Link href="/portal" className="button-secondary">View Business Portal <Icon name="arrow" className="h-4 w-4" /></Link>
+              <Link href="/platform" className="button-secondary">Explore Platform <Icon name="arrow" className="h-4 w-4" /></Link>
+              <Link href="/business-portal" className="button-secondary">View Business Portal <Icon name="arrow" className="h-4 w-4" /></Link>
               <Link href="/consumer" className="button-secondary">View Consumer App <Icon name="arrow" className="h-4 w-4" /></Link>
             </div>
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium text-[#746E80]">
@@ -162,7 +151,7 @@ export default function Home() {
             <p>From first connection to measurable growth, NEFE gives your team the tools to move together.</p>
           </div>
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature, i) => <article key={feature.title} className="feature-card"><div className="feature-number">0{i + 1}</div><div className="feature-icon"><Icon name={feature.icon} /></div><h3>{feature.title}</h3><p>{feature.text}</p><a href="#access">Learn more <Icon name="arrow" className="h-4 w-4" /></a></article>)}
+            {features.map((feature, i) => <article key={feature.title} className="feature-card"><div className="feature-number">0{i + 1}</div><div className="feature-icon"><Icon name={feature.icon} /></div><h3>{feature.title}</h3><p>{feature.text}</p><Link href="/platform">Learn more <Icon name="arrow" className="h-4 w-4" /></Link></article>)}
           </div>
         </div>
       </section>
@@ -191,7 +180,7 @@ export default function Home() {
             <div className="mt-9 space-y-4">
               {["Real-time revenue attribution", "Partner and campaign insights", "Beautiful, exportable reports"].map(t => <div key={t} className="flex items-center gap-3 text-sm text-white/85"><span className="grid h-6 w-6 place-items-center rounded-full bg-white/10 text-[#C5B7FF]"><Icon name="check" className="h-3.5 w-3.5" /></span>{t}</div>)}
             </div>
-            <a href="#access" className="mt-10 inline-flex items-center gap-2 font-semibold text-white">Explore the dashboard <Icon name="arrow" /></a>
+            <Link href="/business-portal" className="mt-10 inline-flex items-center gap-2 font-semibold text-white">Explore the dashboard <Icon name="arrow" /></Link>
           </div>
           <div className="relative">
             <div className="dashboard-glow" />
@@ -222,22 +211,11 @@ export default function Home() {
             <div className="eyebrow mx-auto w-fit border-white/15 bg-white/10 text-white/85"><Icon name="spark" className="h-4 w-4" /> Your next opportunity is waiting</div>
             <h2 className="mx-auto mt-7 max-w-3xl text-4xl font-semibold leading-tight tracking-[-.045em] text-white sm:text-5xl">Better business starts with<br />better connections.</h2>
             <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-white/60">Join the early access list and be among the first businesses shaping a new way to grow together.</p>
-            <a href="mailto:hello@nefe.com" className="mt-9 inline-flex min-h-13 items-center justify-center gap-2 rounded-xl bg-white px-6 font-semibold text-[#4F30D7] shadow-xl transition hover:-translate-y-1">Request Early Access <Icon name="arrow" /></a>
+            <Link href="/onboarding" className="mt-9 inline-flex min-h-13 items-center justify-center gap-2 rounded-xl bg-white px-6 font-semibold text-[#4F30D7] shadow-xl transition hover:-translate-y-1">Request Early Access <Icon name="arrow" /></Link>
           </div>
         </div>
       </section>
 
-      <footer id="company" className="border-t border-[#EEEAF4]">
-        <div className="page-shell grid gap-12 py-16 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
-          <div><BrandLogo /><p className="mt-5 max-w-xs text-sm leading-6 text-[#777181]">The partnership platform helping ambitious businesses connect, collaborate, and grow.</p></div>
-          {[
-            ["Platform", ["Discover partners", "Campaigns", "Referrals", "Analytics"]],
-            ["Company", ["About", "Careers", "Contact", "Journal"]],
-            ["Resources", ["Help center", "Privacy", "Terms", "Security"]],
-          ].map(([heading,links]) => <div key={heading as string}><h3 className="text-sm font-semibold">{heading as string}</h3><div className="mt-5 space-y-3">{(links as string[]).map(link => <a key={link} href="#" className="block text-sm text-[#777181] transition hover:text-[#5E3BEE]">{link}</a>)}</div></div>)}
-        </div>
-        <div className="page-shell flex flex-col gap-3 border-t border-[#EEEAF4] py-6 text-xs text-[#8B8594] sm:flex-row sm:items-center sm:justify-between"><p>© 2026 NEFE, Inc. All rights reserved.</p><p>Built for businesses that believe in better together.</p></div>
-      </footer>
       <PrototypeAssistant />
     </main>
   );

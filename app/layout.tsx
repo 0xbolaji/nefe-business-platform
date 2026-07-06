@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SiteFooter from "./components/site-footer";
+import SiteNavbar from "./components/site-navbar";
 
 export const metadata: Metadata = {
   title: "NEFE — Grow Through Strategic Partnerships",
@@ -18,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col"><SiteNavbar />{children}<SiteFooter /></body>
     </html>
   );
 }
