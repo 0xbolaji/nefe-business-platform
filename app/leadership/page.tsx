@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -16,8 +17,20 @@ export default function LeadershipPage() {
 
     <section className="mx-auto max-w-[1240px] px-5 py-20 sm:px-8 sm:py-28">
       <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-start">
-        <aside className="overflow-hidden rounded-[30px] border border-[#3D2C65] bg-gradient-to-br from-[#171021] via-[#241641] to-[#5837C5] text-white shadow-[0_30px_80px_rgba(41,27,72,.2)]">
-          <div className="relative grid aspect-[4/4.5] place-items-center overflow-hidden"><div className="absolute inset-0 opacity-25 company-grid"/><div className="absolute h-60 w-60 rounded-full border border-white/10"/><div className="relative grid h-36 w-36 place-items-center rounded-full border border-white/15 bg-white/[.07] text-5xl font-semibold tracking-[-.06em] text-[#E4C66F] shadow-[0_0_70px_rgba(113,77,232,.35)]">AA</div><span className="absolute bottom-6 rounded-full border border-white/10 bg-black/20 px-3 py-2 text-[7px] uppercase tracking-[.14em] text-white/55">Official portrait placement</span></div>
+        <aside className="relative overflow-hidden rounded-[30px] border border-[#7658C8]/70 bg-gradient-to-br from-[#171021] via-[#241641] to-[#5837C5] text-white shadow-[0_34px_90px_rgba(41,27,72,.24),0_0_0_1px_rgba(205,166,76,.1)]">
+          <div className="pointer-events-none absolute inset-x-10 top-0 z-10 h-px bg-gradient-to-r from-transparent via-[#E3C470] to-transparent"/>
+          <div className="relative aspect-[4/4.75] overflow-hidden bg-[#27222B]">
+            <Image
+              src="/ali-ahmad-alsharif.png"
+              alt="Ali Ahmad Alsharif, Founder and Chief Executive Officer"
+              fill
+              priority
+              sizes="(min-width: 1024px) 420px, (min-width: 640px) 70vw, calc(100vw - 40px)"
+              className="object-cover object-[center_26%]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#171021]/75 via-transparent to-[#5E3BEE]/5"/>
+            <span className="absolute bottom-5 left-5 rounded-full border border-[#E3C470]/35 bg-[#171021]/75 px-3 py-2 text-[7px] font-bold uppercase tracking-[.14em] text-[#E6CA78] shadow-lg backdrop-blur-md">Founder &amp; CEO</span>
+          </div>
           <div className="border-t border-white/10 p-7"><p className="text-[8px] font-bold uppercase tracking-[.16em] text-[#D7BD71]">Founder profile</p><h2 className="mt-3 text-2xl font-semibold">Ali Ahmad Alsharif</h2><p className="mt-2 text-[10px] text-[#CDBFF7]">Founder &amp; Chief Executive Officer</p><p className="mt-6 text-[8px] uppercase tracking-[.12em] text-white/35">Golden Rock Blockchain LTD</p><p className="mt-2 text-[10px] font-semibold">Founder &amp; CEO</p></div>
         </aside>
 
