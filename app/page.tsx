@@ -159,7 +159,7 @@ export default function Home() {
           <div className="section-heading">
             <div className="eyebrow">Everything in one place</div>
             <h2>Connect businesses.<br /><span className="gradient-text">Increase customer value.</span></h2>
-            <p>Create premium experiences across one network, from first connection to measurable growth.</p>
+            <p>Create coordinated customer journeys, from first introduction to repeat purchase.</p>
           </div>
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, i) => <article key={feature.title} className="feature-card"><div className="feature-number">0{i + 1}</div><div className="feature-icon"><Icon name={feature.icon} /></div><h3>{feature.title}</h3><p>{feature.text}</p><Link href="/platform">Learn more <Icon name="arrow" className="h-4 w-4" /></Link></article>)}
@@ -186,7 +186,7 @@ export default function Home() {
         <div className="page-shell grid items-center gap-16 lg:grid-cols-[.82fr_1.18fr]">
           <div>
             <div className="eyebrow eyebrow-dark">Clarity at every turn</div>
-            <h2 className="mt-7 text-4xl font-semibold leading-tight tracking-[-.045em] sm:text-5xl">Where partnerships become measurable growth.</h2>
+            <h2 className="mt-7 text-4xl font-semibold leading-tight tracking-[-.045em] sm:text-5xl">Where customer flow becomes visible.</h2>
             <p className="mt-6 max-w-lg text-base leading-7 text-white/60">Turn every connection into clear, actionable insight. NEFE brings your network, campaigns, customers, and revenue together.</p>
             <div className="mt-9 space-y-4">
               {["Real-time revenue attribution", "Partner and campaign insights", "Beautiful, exportable reports"].map(t => <div key={t} className="flex items-center gap-3 text-sm text-white/85"><span className="grid h-6 w-6 place-items-center rounded-full bg-white/10 text-[#C5B7FF]"><Icon name="check" className="h-3.5 w-3.5" /></span>{t}</div>)}
@@ -220,8 +220,8 @@ export default function Home() {
           <div className="cta-orb cta-orb-one" /><div className="cta-orb cta-orb-two" />
           <div className="relative z-10">
             <div className="eyebrow mx-auto w-fit border-white/15 bg-white/10 text-white/85"><Icon name="spark" className="h-4 w-4" /> Your next opportunity is waiting</div>
-            <h2 className="mx-auto mt-7 max-w-3xl text-4xl font-semibold leading-tight tracking-[-.045em] text-white sm:text-5xl">Better business starts with<br />better connections.</h2>
-            <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-white/60">Join the early access list and be among the first businesses shaping a new way to grow together.</p>
+            <h2 className="mx-auto mt-7 max-w-3xl text-4xl font-semibold leading-tight tracking-[-.045em] text-white sm:text-5xl">Start with one valuable connection.</h2>
+            <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-white/60">Join the early access list and help shape the first generation of cross-business customer journeys.</p>
             <Link href="/onboarding" className="mt-9 inline-flex min-h-13 items-center justify-center gap-2 rounded-xl bg-white px-6 font-semibold text-[#4F30D7] shadow-xl transition hover:-translate-y-1">Request Early Access <Icon name="arrow" /></Link>
           </div>
         </div>

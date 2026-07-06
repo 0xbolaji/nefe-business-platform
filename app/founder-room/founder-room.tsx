@@ -6,7 +6,7 @@ import BrandLogo from "../components/brand-logo";
 import Image from "next/image";
 
 const phases = [
-  { phase:"Phase 1", label:"Foundation", period:"Now — 2026", thesis:"Prove connected commerce in one premium market.", items:["Business Platform","Consumer App","Experience Builder","Commerce Graph"], color:"#7D5AF0" },
+  { phase:"Phase 1", label:"Foundation", period:"Now — 2026", thesis:"Prove partner-led commerce in one premium market.", items:["Business Platform","Consumer App","Experience Builder","Commerce Graph"], color:"#7D5AF0" },
   { phase:"Phase 2", label:"Intelligence", period:"2027", thesis:"Turn network behavior into an autonomous growth engine.", items:["AI Growth Engine","Merchant Intelligence","Premium Membership","Rewards Layer"], color:"#C89A41" },
   { phase:"Phase 3", label:"Infrastructure", period:"2028", thesis:"Become embedded infrastructure for enterprise commerce.", items:["Enterprise APIs","Payment Infrastructure","Cross-border Commerce"], color:"#4FA58B" },
   { phase:"Phase 4", label:"Network", period:"2029+", thesis:"Connect businesses and customer value across global markets.", items:["Global Commerce Network"], color:"#557BD1" },
@@ -18,7 +18,7 @@ const revenueLayers = [
   { name:"Campaign Marketplace", detail:"Promoted collaborations and performance tools", value:"AED 8.2M ARR", color:"#BA8C9A" },
   { name:"Business Intelligence", detail:"Premium data products and decision support", value:"AED 6.7M ARR", color:"#C99C52" },
   { name:"Enterprise Services", detail:"Custom orchestration for groups and destinations", value:"AED 5.4M ARR", color:"#71A792" },
-  { name:"Future Transaction Infrastructure", detail:"Quiet infrastructure across connected commerce", value:"AED 3.5M ARR", color:"#5579C5" },
+  { name:"Future Transaction Infrastructure", detail:"Quiet infrastructure for multi-merchant transactions", value:"AED 3.5M ARR", color:"#5579C5" },
 ];
 
 function Logo({ light = false }: { light?:boolean }) {
