@@ -257,3 +257,27 @@ html[data-theme="dark"] .hero-commerce-network{opacity:.62}.hero-commerce-networ
 /* Visibility-safe motion: content is never gated by scroll position */
 @supports(animation-timeline:view()){.page-shell>section:not(:first-child){animation:none!important;opacity:1!important;transform:none!important}}
 main>section,.page-shell>section{visibility:visible}
+
+/* Dark hero contrast and dashboard separation */
+html[data-theme="dark"] .hero-bg{background:radial-gradient(circle at 18% 34%,rgba(105,76,166,.13),transparent 31%),radial-gradient(circle at 78% 30%,rgba(110,70,220,.11),transparent 27%),radial-gradient(circle at 85% 8%,rgba(202,158,68,.055),transparent 18%),linear-gradient(145deg,#100c17,#151020 58%,#0d0a13)!important}
+html[data-theme="dark"] .hero-bg h1{color:#fbf9fd!important;text-shadow:0 2px 20px rgba(0,0,0,.2)}
+html[data-theme="dark"] .hero-bg>.landing-hero-shell>div:first-of-type>p{color:#c8c0ce!important}
+html[data-theme="dark"] .hero-bg .gradient-text{background:linear-gradient(105deg,#b9a3ff,#d2c2ff 54%,#d8b76a);-webkit-background-clip:text;background-clip:text;color:transparent}
+html[data-theme="dark"] .hero-bg .eyebrow{color:#cbbcff}
+html[data-theme="dark"] .hero-actions .button-secondary{border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.075);color:#f1edf6;box-shadow:0 10px 26px rgba(0,0,0,.18),inset 0 1px 0 rgba(219,185,99,.08)}
+.hero-dashboard::before{content:"";position:absolute;inset:-9%;z-index:-1;border-radius:36%;background:radial-gradient(ellipse at 56% 52%,rgba(105,70,220,.15),transparent 57%),radial-gradient(ellipse at 72% 25%,rgba(203,160,70,.11),transparent 42%);filter:blur(18px);opacity:.72;pointer-events:none}
+html[data-theme="dark"] .hero-dashboard::before{background:radial-gradient(ellipse at 50% 55%,rgba(117,78,229,.29),transparent 58%),radial-gradient(ellipse at 76% 22%,rgba(211,168,75,.17),transparent 40%);filter:blur(20px);opacity:.9}
+html[data-theme="dark"] .hero-dashboard>div:last-child{border-color:rgba(220,190,111,.24)!important;background:rgba(34,26,47,.96)!important;box-shadow:0 34px 78px rgba(0,0,0,.34),0 0 0 1px rgba(126,91,226,.10),0 0 42px rgba(113,72,224,.10)!important}
+html[data-theme="dark"] .hero-dashboard>div:last-child>div{border-color:#ded8e5!important;background:#f7f5fa!important;color:#201a29!important}
+html[data-theme="dark"] .hero-dashboard [class*="bg-white"]{background-color:#fff!important}
+html[data-theme="dark"] .hero-dashboard [class*="border-slate"]{border-color:#e7e2eb!important}
+html[data-theme="dark"] .hero-dashboard [class*="text-slate-9"],html[data-theme="dark"] .hero-dashboard [class*="text-slate-8"],html[data-theme="dark"] .hero-dashboard [class*="text-slate-7"]{color:#2b2432!important}
+html[data-theme="dark"] .hero-dashboard [class*="text-slate-5"],html[data-theme="dark"] .hero-dashboard [class*="text-slate-4"]{color:#89818f!important}
+html[data-theme="dark"] .hero-dashboard .brand-logo-light{display:block!important}html[data-theme="dark"] .hero-dashboard .brand-logo-dark{display:none!important}html[data-theme="dark"] .hero-dashboard .brand-wordmark{color:#211733!important}
+html[data-theme="dark"] .dashboard-section .relative.rounded-\[26px\]>div{background:#f6f4f9!important;color:#211a2a!important}
+html[data-theme="dark"] .dashboard-section .metric-card,html[data-theme="dark"] .dashboard-section [class*="bg-white"]{border-color:#e6e0e9!important;background:#fff!important;color:#211a2a!important}
+html[data-theme="dark"] .dashboard-section .metric-card p{color:#8d8593!important}
+html[data-theme="dark"] .dashboard-section .metric-card strong{color:#211a2a!important}
+html[data-theme="dark"] .dashboard-section [class*="text-slate"]{color:#77707d!important}
+html[data-theme="dark"] .dashboard-section{background:#171221}
+@media(max-width:640px){.hero-dashboard::before{inset:-4%;filter:blur(14px)}}

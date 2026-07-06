@@ -125,8 +125,8 @@ export default function Home() {
         <div className="landing-hero-shell grid min-h-[710px] items-center gap-14 pb-24 pt-16 lg:grid-cols-[minmax(0,.95fr)_minmax(460px,1.05fr)] lg:gap-10 lg:pb-32 lg:pt-20 xl:gap-16">
           <div className="relative z-10 min-w-0">
             <div className="eyebrow"><Icon name="spark" className="h-4 w-4" /> Built for ambitious businesses</div>
-            <h1 className="mt-7 max-w-[650px] text-[44px] font-semibold leading-[1.08] tracking-[-.055em] text-[#181329] sm:text-[58px] lg:text-[67px]">Grow Your Business Through <span className="gradient-text">Strategic Partnerships.</span></h1>
-            <p className="mt-7 max-w-[590px] text-base leading-7 text-[#686276] sm:text-lg sm:leading-8">Connect with trusted businesses, launch joint campaigns, exchange referrals, create bundled experiences and unlock new revenue opportunities.</p>
+            <h1 className="mt-7 max-w-[650px] text-[44px] font-semibold leading-[1.08] tracking-[-.055em] text-[#181329] sm:text-[58px] lg:text-[67px]">Grow Your Business Through <span className="gradient-text">Connected Commerce.</span></h1>
+            <p className="mt-7 max-w-[590px] text-base leading-7 text-[#686276] sm:text-lg sm:leading-8">Connect with trusted businesses, launch joint campaigns, exchange referrals, and create measurable growth opportunities.</p>
             <div className="hero-actions mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link id="access" href="/onboarding" className="button-primary">Request Early Access <Icon name="arrow" /></Link>
               <Link href="/platform" className="button-secondary">Explore Platform <Icon name="arrow" className="h-4 w-4" /></Link>
@@ -146,7 +146,7 @@ export default function Home() {
       <section id="solutions" className="page-shell py-24 sm:py-32">
         <div className="section-heading">
           <div className="eyebrow">Built for every industry</div>
-          <h2>One network. <span className="gradient-text">Endless opportunities.</span></h2>
+          <h2>Build with <span className="gradient-text">trusted partners.</span></h2>
           <p>Discover trusted partners across the industries your customers already love.</p>
         </div>
         <div className="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-5">
@@ -158,8 +158,8 @@ export default function Home() {
         <div className="page-shell">
           <div className="section-heading">
             <div className="eyebrow">Everything in one place</div>
-            <h2>Partnership infrastructure,<br /><span className="gradient-text">beautifully simplified.</span></h2>
-            <p>From first connection to measurable growth, NEFE gives your team the tools to move together.</p>
+            <h2>Connect businesses.<br /><span className="gradient-text">Increase customer value.</span></h2>
+            <p>Create premium experiences across one network, from first connection to measurable growth.</p>
           </div>
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, i) => <article key={feature.title} className="feature-card"><div className="feature-number">0{i + 1}</div><div className="feature-icon"><Icon name={feature.icon} /></div><h3>{feature.title}</h3><p>{feature.text}</p><Link href="/platform">Learn more <Icon name="arrow" className="h-4 w-4" /></Link></article>)}
@@ -170,7 +170,7 @@ export default function Home() {
       <section id="how-it-works" className="page-shell py-24 sm:py-32">
         <div className="section-heading">
           <div className="eyebrow">Simple by design</div>
-          <h2>From connection to growth<br /><span className="gradient-text">in three simple steps.</span></h2>
+          <h2>Turn customer flow into<br /><span className="gradient-text">shared growth.</span></h2>
         </div>
         <div className="relative mt-20 grid gap-12 md:grid-cols-3 md:gap-8">
           <div className="absolute left-[16.66%] right-[16.66%] top-11 hidden h-px bg-gradient-to-r from-transparent via-[#CABEFF] to-transparent md:block" />
@@ -186,7 +186,7 @@ export default function Home() {
         <div className="page-shell grid items-center gap-16 lg:grid-cols-[.82fr_1.18fr]">
           <div>
             <div className="eyebrow eyebrow-dark">Clarity at every turn</div>
-            <h2 className="mt-7 text-4xl font-semibold leading-tight tracking-[-.045em] sm:text-5xl">See exactly how your partnerships perform.</h2>
+            <h2 className="mt-7 text-4xl font-semibold leading-tight tracking-[-.045em] sm:text-5xl">Where partnerships become measurable growth.</h2>
             <p className="mt-6 max-w-lg text-base leading-7 text-white/60">Turn every connection into clear, actionable insight. NEFE brings your network, campaigns, customers, and revenue together.</p>
             <div className="mt-9 space-y-4">
               {["Real-time revenue attribution", "Partner and campaign insights", "Beautiful, exportable reports"].map(t => <div key={t} className="flex items-center gap-3 text-sm text-white/85"><span className="grid h-6 w-6 place-items-center rounded-full bg-white/10 text-[#C5B7FF]"><Icon name="check" className="h-3.5 w-3.5" /></span>{t}</div>)}
