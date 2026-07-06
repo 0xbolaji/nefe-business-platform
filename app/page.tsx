@@ -128,7 +128,7 @@ export default function Home() {
         <nav className="page-shell flex h-20 items-center justify-between">
           <Logo />
           <div className="hidden items-center gap-8 text-sm font-medium text-[#5F5A70] md:flex">
-            <a href="#platform" className="nav-link">Platform</a><Link href="/experience-builder" className="nav-link">Experience Builder</Link><a href="#how-it-works" className="nav-link">How it works</a><a href="#company" className="nav-link">Company</a>
+            <a href="#platform" className="nav-link">Platform</a><Link href="/experience-builder" className="nav-link">Experience Builder</Link><Link href="/executive-insights" className="nav-link">Executive Insights</Link><a href="#company" className="nav-link">Company</a>
           </div>
           <div className="flex items-center gap-3">
             <Link href="/consumer" className="hidden text-sm font-semibold text-[#4B4658] transition hover:text-[#5E3BEE] lg:block">View Consumer App</Link>
