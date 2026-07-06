@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import PrototypeAssistant from "../components/prototype-assistant";
-import BrandLogo from "../components/brand-logo";
 import Image from "next/image";
 
 type Tab = "Discover" | "Offers" | "Rewards" | "Wallet" | "Profile";
@@ -164,7 +162,6 @@ export default function ConsumerApp() {
   const tabIcons: Record<Tab, IconName> = { Discover:"discover", Offers:"offers", Rewards:"rewards", Wallet:"wallet", Profile:"profile" };
 
   return <main className="consumer-page min-h-screen overflow-hidden text-[#1B1627]">
-    <header className="relative z-20 mx-auto flex h-20 w-[min(1180px,calc(100%-32px))] items-center justify-between"><BrandLogo priority /><div className="flex items-center gap-4"><Link href="/business-portal" className="hidden text-xs font-semibold text-[#655E70] transition hover:text-[#5E3BEE] sm:block">View Business Portal</Link><Link href="/" className="rounded-xl border border-[#DED7EA] bg-white/70 px-4 py-2.5 text-xs font-semibold text-[#4F475A] backdrop-blur transition hover:border-[#C4B7F2] hover:text-[#5E3BEE]">Back to website</Link></div></header>
     <div className="relative z-10 mx-auto grid min-h-[calc(100vh-80px)] max-w-[1180px] items-center gap-12 px-4 pb-12 pt-5 lg:grid-cols-[1fr_470px] lg:px-8 lg:pb-16">
       <section className="hidden lg:block">
         <div className="inline-flex items-center gap-2 rounded-full border border-[#DED5F9] bg-white/60 px-3 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#5E3BEE] backdrop-blur"><Icon name="spark" className="h-4 w-4" /> The city, connected</div>

@@ -45,7 +45,7 @@ export default function SiteNavbar() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Link href="/onboarding" className="hidden rounded-xl bg-[#5E3BEE] px-4 py-2.5 text-[9px] font-semibold text-white shadow-[0_8px_20px_rgba(94,59,238,.2)] transition hover:-translate-y-0.5 sm:block">
-            Join the network
+            Join the Network
           </Link>
           <button onClick={() => setOpen(!open)} aria-label="Toggle navigation" className="grid h-10 w-10 place-items-center rounded-xl border border-[#E4DFE8] text-lg text-[#5B5463] xl:hidden">
             {open ? "×" : "≡"}
@@ -56,7 +56,7 @@ export default function SiteNavbar() {
         <nav className="absolute inset-x-0 top-full border-b border-[#E5E0E9] bg-white/96 p-4 shadow-xl backdrop-blur-xl xl:hidden">
           <div className="mx-auto grid max-w-[900px] gap-1 sm:grid-cols-2">
             {links.map(([label, href]) => (
-              <Link key={href} href={href} onClick={() => setOpen(false)} className={`rounded-xl px-4 py-3 text-[11px] font-semibold ${pathname === href ? "bg-[#F0ECFF] text-[#5E3BEE]" : "text-[#625B6A] hover:bg-[#F8F6FA]"}`}>
+              <Link key={href} href={href} onClick={() => setOpen(false)} className={`rounded-xl px-4 py-3 text-[11px] font-semibold ${(href === "/" ? pathname === "/" : pathname.startsWith(href)) ? "bg-[#F0ECFF] text-[#5E3BEE]" : "text-[#625B6A] hover:bg-[#F8F6FA]"}`}>
                 {label}
               </Link>
             ))}
