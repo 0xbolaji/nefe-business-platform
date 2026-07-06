@@ -198,7 +198,7 @@ export default function PortalPage() {
   );
 
   return (
-    <main className="min-h-screen bg-[#F7F6FA] text-[#19152A]">
+    <main className="portal-page min-h-screen bg-[#F7F6FA] text-[#19152A]">
       {loading && <div className="fixed inset-0 z-[100] bg-[#F7F6FA] p-8"><div className="mx-auto max-w-[1100px] animate-pulse"><BrandLogo badge="Portal" priority /><div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-6">{[1,2,3,4,5,6].map(i => <div key={i} className="h-32 rounded-2xl bg-white" />)}</div><div className="mt-6 grid gap-4 lg:grid-cols-3"><div className="h-80 rounded-2xl bg-white lg:col-span-2" /><div className="h-80 rounded-2xl bg-white" /></div></div></div>}
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[248px] flex-col border-r border-[#EAE6EF] bg-white px-4 py-6 lg:flex">
         <div className="px-2"><BrandLogo badge="Portal" priority /></div>

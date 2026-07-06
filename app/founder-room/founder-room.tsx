@@ -32,7 +32,7 @@ function SectionLabel({ number, children, dark = false }: { number:string; child
 export default function FounderRoom() {
   const [activePhase,setActivePhase] = useState(0);
 
-  return <main className="overflow-hidden bg-[#FAF9FB] text-[#171322]">
+  return <main className="founder-room-page overflow-hidden bg-[#FAF9FB] text-[#171322]">
     <header className="absolute inset-x-0 top-0 z-40">
       <div className="mx-auto flex h-24 max-w-[1380px] items-center justify-between px-5 sm:px-8 lg:px-12"><Logo/><div className="flex items-center gap-3"><span className="hidden rounded-full border border-[#E1DAE8] bg-white/55 px-3 py-2 text-[8px] font-bold uppercase tracking-[.14em] text-[#746C7C] backdrop-blur sm:block">Confidential · Leadership preview</span><Link href="/why-botchain" className="hidden text-[10px] font-semibold text-[#655D6D] transition hover:text-[#5E3BEE] md:block">Why Botchain</Link><Link href="/business-model" className="hidden text-[10px] font-semibold text-[#8C681F] transition hover:text-[#5E3BEE] lg:block">Business Model</Link><Link href="/opportunity-engine" className="hidden text-[10px] font-semibold text-[#5E3BEE] transition hover:text-[#3E25A7] xl:block">Opportunity Engine</Link><Link href="/business-portal" className="rounded-xl bg-[#20172E] px-4 py-2.5 text-[9px] font-semibold text-white shadow-lg">Enter platform →</Link></div></div>
     </header>

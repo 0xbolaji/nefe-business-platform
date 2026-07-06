@@ -32,7 +32,7 @@ const chapters = [
 
 export default function CeoDemoPage() {
   return (
-    <main className="overflow-hidden bg-[#FAF9FB] text-[#19152A]">
+    <main className="ceo-demo-page overflow-hidden bg-[#FAF9FB] text-[#19152A]">
       <div className="fixed bottom-5 left-5 z-40 hidden rounded-[18px] border border-[#E3DDE8] bg-white/88 p-3 shadow-[0_16px_45px_rgba(42,28,72,.12)] backdrop-blur-xl 2xl:block">
         <p className="px-2 text-[7px] font-bold uppercase tracking-[.16em] text-[#8D8693]">5-minute walkthrough</p>
         <nav className="mt-2 space-y-0.5">{chapters.map(([number,label,time])=><a key={number} href={`#chapter-${number}`} className="flex w-48 items-center gap-2 rounded-lg px-2 py-2 text-[8px] text-[#77707E] transition hover:bg-[#F2EEFF] hover:text-[#5E3BEE]"><span className="font-bold text-[#A69EAC]">{number}</span><span>{label}</span><span className="ml-auto text-[6px] text-[#B1AAB5]">{time}</span></a>)}</nav>

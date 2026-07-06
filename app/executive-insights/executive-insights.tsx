@@ -83,7 +83,7 @@ export default function ExecutiveInsights() {
     window.setTimeout(() => setToast(""), 2400);
   }
 
-  return <main className="min-h-screen bg-[#F6F5F8] text-[#19152A]">
+  return <main className="executive-insights-page min-h-screen bg-[#F6F5F8] text-[#19152A]">
     <header className="sticky top-0 z-30 border-b border-[#E7E3EB] bg-white/85 backdrop-blur-xl">
       <div className="mx-auto flex h-[72px] max-w-[1500px] items-center justify-between px-4 sm:px-7 lg:px-10">
         <div className="flex items-center gap-5"><BrandLogo priority /><span className="hidden h-6 w-px bg-[#E7E2EB] sm:block" /><div className="hidden sm:block"><p className="text-[10px] text-[#99939F]">Leadership Workspace</p><p className="text-xs font-semibold">Executive Insights</p></div></div>
