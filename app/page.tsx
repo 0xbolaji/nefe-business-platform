@@ -113,6 +113,15 @@ export default function Home() {
   return (
     <main className="overflow-hidden bg-white text-[#17132A]">
       <section className="hero-bg relative">
+        <div className="hero-commerce-network" aria-hidden="true">
+          <svg viewBox="0 0 1400 720" preserveAspectRatio="none">
+            <path d="M80 545 C310 420 455 590 690 430 S1050 300 1320 410"/>
+            <path d="M180 190 C390 285 535 165 755 275 S1080 340 1260 205"/>
+            <circle cx="130" cy="520" r="5"/><circle cx="420" cy="500" r="4"/><circle cx="690" cy="430" r="5"/><circle cx="1015" cy="330" r="4"/><circle cx="1270" cy="400" r="5"/>
+            <circle cx="220" cy="210" r="4"/><circle cx="550" cy="205" r="5"/><circle cx="820" cy="295" r="4"/><circle cx="1180" cy="250" r="5"/>
+          </svg>
+          <i className="commerce-referral-dot one"/><i className="commerce-referral-dot two"/><i className="commerce-referral-dot three"/>
+        </div>
         <div className="landing-hero-shell grid min-h-[710px] items-center gap-14 pb-24 pt-16 lg:grid-cols-[minmax(0,.95fr)_minmax(460px,1.05fr)] lg:gap-10 lg:pb-32 lg:pt-20 xl:gap-16">
           <div className="relative z-10 min-w-0">
             <div className="eyebrow"><Icon name="spark" className="h-4 w-4" /> Built for ambitious businesses</div>
