@@ -64,7 +64,8 @@ export default function MotionSystem({children}:{children:ReactNode}){
     <div className="nefe-environment" aria-hidden="true">
       <div className="nefe-environment-grid"/>
       <div className="nefe-environment-light"/>
-      <svg viewBox="0 0 1440 900" preserveAspectRatio="none"><path d="M-40 680 C260 560 330 760 610 610 S980 470 1480 590"/><path d="M-80 250 C280 390 500 170 790 315 S1170 390 1510 205"/></svg>
+      <div className="nefe-ribbon one"/><div className="nefe-ribbon two"/>
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="none"><path d="M-40 680 C260 560 330 760 610 610 S980 470 1480 590"/><path d="M-80 250 C280 390 500 170 790 315 S1170 390 1510 205"/><circle cx="184" cy="622" r="3"/><circle cx="455" cy="669" r="2.5"/><circle cx="724" cy="566" r="3"/><circle cx="1018" cy="511" r="2.5"/><circle cx="1270" cy="561" r="3"/><circle cx="306" cy="319" r="2.5"/><circle cx="790" cy="315" r="3"/><circle cx="1174" cy="342" r="2.5"/></svg>
       <i className="particle one"/><i className="particle two"/><i className="particle three"/>
     </div>
     <AnimatePresence mode="wait" initial={false}>
@@ -74,4 +75,3 @@ export default function MotionSystem({children}:{children:ReactNode}){
     </AnimatePresence>
   </>;
 }
-
