@@ -127,13 +127,13 @@ export default function Home() {
       <section className="hero-bg relative">
         <nav className="page-shell flex h-20 items-center justify-between">
           <Logo />
-          <div className="hidden items-center gap-8 text-sm font-medium text-[#5F5A70] md:flex">
-            <a href="#platform" className="nav-link">Platform</a><Link href="/commerce-graph" className="nav-link">Commerce Graph</Link><Link href="/executive-insights" className="nav-link">Executive Insights</Link><a href="#company" className="nav-link">Company</a>
+          <div className="hidden items-center gap-5 text-sm font-medium text-[#5F5A70] lg:flex xl:gap-7">
+            <a href="#platform" className="nav-link">Platform</a><Link href="/commerce-graph" className="nav-link">Commerce Graph</Link><Link href="/roi-calculator" className="nav-link">ROI Calculator</Link><Link href="/founder-room" className="nav-link">Founder Room</Link><Link href="/why-botchain" className="nav-link">Why Botchain</Link>
           </div>
           <div className="flex items-center gap-3">
             <Link href="/consumer" className="hidden text-sm font-semibold text-[#4B4658] transition hover:text-[#5E3BEE] lg:block">View Consumer App</Link>
             <Link href="/portal" className="hidden text-sm font-semibold text-[#4B4658] transition hover:text-[#5E3BEE] sm:block">View Business Portal</Link>
-            <a href="#access" className="button-primary !min-h-10 !px-4 text-sm sm:!px-5">Request access <Icon name="arrow" className="h-4 w-4" /></a>
+            <Link href="/onboarding" className="button-primary !min-h-10 !px-4 text-sm sm:!px-5">Request access <Icon name="arrow" className="h-4 w-4" /></Link>
           </div>
         </nav>
         <div className="page-shell grid min-h-[710px] items-center gap-14 pb-24 pt-16 lg:grid-cols-[.9fr_1.1fr] lg:pb-32 lg:pt-20">
@@ -142,7 +142,7 @@ export default function Home() {
             <h1 className="mt-7 max-w-[650px] text-[44px] font-semibold leading-[1.08] tracking-[-.055em] text-[#181329] sm:text-[58px] lg:text-[67px]">Grow Your Business Through <span className="gradient-text">Strategic Partnerships.</span></h1>
             <p className="mt-7 max-w-[590px] text-base leading-7 text-[#686276] sm:text-lg sm:leading-8">Connect with trusted businesses, launch joint campaigns, exchange referrals, create bundled experiences and unlock new revenue opportunities.</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a id="access" href="mailto:hello@nefe.com" className="button-primary">Request Early Access <Icon name="arrow" /></a>
+              <Link id="access" href="/onboarding" className="button-primary">Request Early Access <Icon name="arrow" /></Link>
               <a href="#platform" className="button-secondary">Explore Platform <span className="grid h-6 w-6 place-items-center rounded-full bg-[#EEE9FF] text-[#5E3BEE]">↓</span></a>
               <Link href="/portal" className="button-secondary">View Business Portal <Icon name="arrow" className="h-4 w-4" /></Link>
               <Link href="/consumer" className="button-secondary">View Consumer App <Icon name="arrow" className="h-4 w-4" /></Link>
