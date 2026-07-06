@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BusinessModel from "./business-model";
+import BusinessModelOverview from "./business-model-overview";
 
 export const metadata: Metadata = {
   title: "Financial Intelligence & Business Model | NEFE",
@@ -7,6 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function BusinessModelPage() {
-  return <BusinessModel />;
+  return <BusinessModelOverview />;
 }
-
