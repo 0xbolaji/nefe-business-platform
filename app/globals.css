@@ -204,7 +204,7 @@ html[data-nefe-page="pricing"]{--motion-ambient:rgba(107,75,190,.028);--motion-l
 html[data-nefe-page="ceo-demo"]{--motion-ambient:rgba(105,67,218,.045);--motion-line:rgba(118,89,187,.045);--motion-gold:rgba(199,155,66,.04)}
 html[data-nefe-page="uae-opportunity-map"]{--motion-ambient:rgba(73,113,102,.035);--motion-line:rgba(73,104,95,.045);--motion-gold:rgba(194,152,65,.032)}
 html[data-nefe-page="founder-room"] .nefe-environment .particle{height:3px;width:3px;background:rgba(203,174,104,.34);box-shadow:0 0 10px rgba(203,174,104,.24);opacity:.62}
-.nefe-reveal-target{opacity:0;transform:translate3d(0,14px,0);animation:none!important;transition:opacity .68s cubic-bezier(.22,1,.36,1),transform .68s cubic-bezier(.22,1,.36,1);transition-delay:calc(var(--reveal-order,0)*45ms);will-change:opacity,transform}.nefe-reveal-target.nefe-revealed{opacity:1;transform:none;will-change:auto}
+.nefe-reveal-target{opacity:1!important;transform:none!important;animation:none!important;transition:none!important}.nefe-reveal-target.nefe-revealed{opacity:1;transform:none}
 .nefe-reveal-target.nefe-revealed>div:first-child,.nefe-reveal-target.nefe-revealed>.section-heading{animation:motion-content-in .6s .06s cubic-bezier(.22,1,.36,1) both}
 @keyframes motion-content-in{from{opacity:.5;transform:translateY(7px)}to{opacity:1;transform:none}}
 .category-card,.feature-card,.finance-card,.engine-card,.engine-kpi,.ceo-tour-card,.merchant-profile-page section[class*="rounded"]{transition:transform .32s cubic-bezier(.22,1,.36,1),box-shadow .32s cubic-bezier(.22,1,.36,1),border-color .32s ease,background-color .32s ease}
@@ -253,3 +253,7 @@ html[data-theme="dark"] .hero-commerce-network{opacity:.62}.hero-commerce-networ
 @keyframes hero-network-flow{to{stroke-dashoffset:-220}}@keyframes hero-node-breathe{0%,100%{opacity:.4;transform:scale(.88)}50%{opacity:.85;transform:scale(1.12)}}@keyframes hero-referral-float{0%,100%{transform:translate3d(0,0,0);opacity:.35}50%{transform:translate3d(8px,-10px,0);opacity:.8}}
 @media(prefers-reduced-motion:reduce){.hero-commerce-network path,.hero-commerce-network circle,.commerce-referral-dot{animation:none!important}}
 @media(max-width:700px){.hero-commerce-network{opacity:.38}.hero-commerce-network path:nth-child(2),.commerce-referral-dot.one{display:none}}
+
+/* Visibility-safe motion: content is never gated by scroll position */
+@supports(animation-timeline:view()){.page-shell>section:not(:first-child){animation:none!important;opacity:1!important;transform:none!important}}
+main>section,.page-shell>section{visibility:visible}
