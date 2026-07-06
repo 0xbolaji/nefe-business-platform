@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import BrandLogo from "../components/brand-logo";
 
 type IconName = "dashboard"|"business"|"customer"|"campaign"|"revenue"|"reward"|"globe"|"approval"|"health"|"activity"|"search"|"bell"|"spark";
 
@@ -67,7 +68,7 @@ const initialActivity=[
 ];
 
 function Logo() {
-  return <Link href="/" className="flex items-center gap-2.5"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#6A47E8] text-white shadow-[0_8px_24px_rgba(94,59,238,.3)]"><svg viewBox="0 0 32 32" className="h-6 w-6" fill="none"><path d="M7 22V10l9 12V10l9 12V10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span><span className="text-[19px] font-bold tracking-[-.04em] text-white">nefe</span><span className="rounded-md bg-white/10 px-1.5 py-1 text-[7px] font-bold uppercase tracking-wider text-[#CDBDFF]">Admin</span></Link>;
+  return <BrandLogo variant="white" badge="Admin" priority />;
 }
 
 export default function AdminCommandCenter() {

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import PrototypeAssistant from "../components/prototype-assistant";
+import BrandLogo from "../components/brand-logo";
 
 type Partner = {
   category: string;
@@ -53,10 +54,6 @@ const concepts = [
   },
 ];
 
-function Logo() {
-  return <Link href="/" className="flex items-center gap-2.5"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#5E3BEE] text-white shadow-[0_8px_24px_rgba(94,59,238,.25)]"><svg viewBox="0 0 32 32" className="h-6 w-6" fill="none"><path d="M7 22V10l9 12V10l9 12V10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg></span><span className="text-[19px] font-bold tracking-[-.04em]">nefe</span></Link>;
-}
-
 function CheckIcon() {
   return <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="m5 12 4 4L19 6" /></svg>;
 }
@@ -92,7 +89,7 @@ export default function ExperienceBuilder() {
   return <main className="min-h-screen bg-[#F7F6FA] text-[#19152A]">
     <header className="sticky top-0 z-30 border-b border-[#E9E5ED] bg-white/85 backdrop-blur-xl">
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-4 sm:px-7 lg:px-10">
-        <div className="flex items-center gap-5"><Logo /><span className="hidden h-6 w-px bg-[#E7E2EB] sm:block" /><div className="hidden sm:block"><p className="text-[10px] text-[#99939F]">Business Portal</p><p className="text-xs font-semibold">Experience Builder</p></div></div>
+        <div className="flex items-center gap-5"><BrandLogo priority /><span className="hidden h-6 w-px bg-[#E7E2EB] sm:block" /><div className="hidden sm:block"><p className="text-[10px] text-[#99939F]">Business Portal</p><p className="text-xs font-semibold">Experience Builder</p></div></div>
         <div className="flex items-center gap-2"><Link href="/consumer" className="hidden rounded-xl px-3 py-2.5 text-[10px] font-semibold text-[#6C6574] transition hover:bg-[#F4F1F8] hover:text-[#5E3BEE] sm:block">View Consumer App</Link><Link href="/portal" className="rounded-xl border border-[#E5E0E9] bg-white px-4 py-2.5 text-[10px] font-semibold text-[#585160] shadow-sm transition hover:border-[#C8BAF6] hover:text-[#5E3BEE]">← Business Portal</Link></div>
       </div>
     </header>

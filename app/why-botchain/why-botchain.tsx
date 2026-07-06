@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import BrandLogo from "../components/brand-logo";
 
 const flywheel = [
   { title:"Business joins", detail:"A verified merchant enters the NEFE ecosystem.", metric:"+1 merchant", icon:"B" },
@@ -28,7 +29,7 @@ const nefeBenefits = [
 ];
 
 function Logo({ light=false }: { light?:boolean }) {
-  return <Link href="/" className="flex items-center gap-2.5"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#5E3BEE] text-white shadow-[0_8px_24px_rgba(94,59,238,.28)]"><svg viewBox="0 0 32 32" className="h-6 w-6" fill="none"><path d="M7 22V10l9 12V10l9 12V10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span><span className={`text-[19px] font-bold tracking-[-.04em] ${light?"text-white":"text-[#171226]"}`}>nefe</span></Link>;
+  return <BrandLogo variant={light ? "white" : "purple"} priority />;
 }
 
 function Label({ number,children,dark=false }: { number:string; children:React.ReactNode; dark?:boolean }) {

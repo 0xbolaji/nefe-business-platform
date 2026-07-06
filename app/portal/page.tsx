@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import PrototypeAssistant from "../components/prototype-assistant";
+import BrandLogo from "../components/brand-logo";
 
 type IconName =
   | "grid" | "partners" | "campaigns" | "referrals" | "analytics"
@@ -30,18 +31,6 @@ function Icon({ name, className = "h-5 w-5" }: { name: IconName; className?: str
     spark: <><path d="m12 3 1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3Z" /><path d="m19 16 .7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z" /></>,
   };
   return <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
-}
-
-function Logo() {
-  return (
-    <Link href="/" className="flex items-center gap-2.5" aria-label="NEFE home">
-      <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#5E3BEE] text-white shadow-[0_8px_24px_rgba(94,59,238,.25)]">
-        <svg viewBox="0 0 32 32" className="h-6 w-6" fill="none"><path d="M7 22V10l9 12V10l9 12V10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-      </span>
-      <span className="text-[19px] font-bold tracking-[-.04em] text-[#151127]">nefe</span>
-      <span className="rounded-md bg-[#F0ECFF] px-1.5 py-1 text-[8px] font-bold uppercase tracking-wider text-[#5E3BEE]">Portal</span>
-    </Link>
-  );
 }
 
 const navItems: { label: string; icon: IconName; href: string }[] = [
@@ -210,9 +199,9 @@ export default function PortalPage() {
 
   return (
     <main className="min-h-screen bg-[#F7F6FA] text-[#19152A]">
-      {loading && <div className="fixed inset-0 z-[100] bg-[#F7F6FA] p-8"><div className="mx-auto max-w-[1100px] animate-pulse"><div className="h-8 w-48 rounded-lg bg-[#EAE6EF]" /><div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-6">{[1,2,3,4,5,6].map(i => <div key={i} className="h-32 rounded-2xl bg-white" />)}</div><div className="mt-6 grid gap-4 lg:grid-cols-3"><div className="h-80 rounded-2xl bg-white lg:col-span-2" /><div className="h-80 rounded-2xl bg-white" /></div></div></div>}
+      {loading && <div className="fixed inset-0 z-[100] bg-[#F7F6FA] p-8"><div className="mx-auto max-w-[1100px] animate-pulse"><BrandLogo badge="Portal" priority /><div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-6">{[1,2,3,4,5,6].map(i => <div key={i} className="h-32 rounded-2xl bg-white" />)}</div><div className="mt-6 grid gap-4 lg:grid-cols-3"><div className="h-80 rounded-2xl bg-white lg:col-span-2" /><div className="h-80 rounded-2xl bg-white" /></div></div></div>}
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[248px] flex-col border-r border-[#EAE6EF] bg-white px-4 py-6 lg:flex">
-        <div className="px-2"><Logo /></div>
+        <div className="px-2"><BrandLogo badge="Portal" priority /></div>
         <div className="mt-9 px-2 text-[9px] font-bold uppercase tracking-[.18em] text-[#AAA4B1]">Workspace</div>
         <nav className="mt-3 space-y-1">
           {navItems.map((item, i) => <a key={item.label} href={item.href} className={`group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-medium transition ${i === 0 ? "bg-[#F0ECFF] text-[#5E3BEE]" : "text-[#716B79] hover:bg-[#F8F6FC] hover:text-[#3F3850]"}`}><Icon name={item.icon} className="h-[18px] w-[18px]" />{item.label}{item.label === "Referrals" && <span className="ml-auto rounded-full bg-[#5E3BEE] px-1.5 py-0.5 text-[8px] text-white">12</span>}</a>)}
@@ -239,7 +228,7 @@ export default function PortalPage() {
       <div className="lg:pl-[248px]">
         <header className="sticky top-0 z-30 border-b border-[#EAE6EF] bg-white/85 backdrop-blur-xl">
           <div className="flex h-[72px] items-center justify-between px-4 sm:px-7 lg:px-9">
-            <div className="lg:hidden"><Logo /></div>
+            <div className="lg:hidden"><BrandLogo badge="Portal" /></div>
             <div className="hidden lg:block"><p className="text-[11px] text-[#98919F]">Business Portal</p><p className="text-sm font-semibold">Celeste Hospitality Group</p></div>
             <div className="flex items-center gap-2 sm:gap-3">
               <Link href="/consumer" className="hidden rounded-xl bg-[#F0ECFF] px-3 py-2.5 text-[10px] font-semibold text-[#5E3BEE] transition hover:bg-[#E8E1FF] sm:block">View Consumer App</Link>

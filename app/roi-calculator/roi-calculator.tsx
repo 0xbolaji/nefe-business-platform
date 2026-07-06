@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import BrandLogo from "../components/brand-logo";
 
 type Inputs = {
   customers:number;
@@ -22,7 +23,7 @@ const inputConfig: { key:keyof Inputs; label:string; description:string; min:num
 ];
 
 function Logo() {
-  return <Link href="/" className="flex items-center gap-2.5"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#5E3BEE] text-white shadow-[0_8px_24px_rgba(94,59,238,.25)]"><svg viewBox="0 0 32 32" className="h-6 w-6" fill="none"><path d="M7 22V10l9 12V10l9 12V10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span><span className="text-[19px] font-bold tracking-[-.04em]">nefe</span></Link>;
+  return <BrandLogo priority />;
 }
 
 function AnimatedValue({ value, prefix = "", suffix = "", decimals = 0 }: { value:number; prefix?:string; suffix?:string; decimals?:number }) {

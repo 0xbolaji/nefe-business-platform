@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import PrototypeAssistant from "../components/prototype-assistant";
+import BrandLogo from "../components/brand-logo";
+import Image from "next/image";
 
 type Tab = "Discover" | "Offers" | "Rewards" | "Wallet" | "Profile";
 type IconName = "discover" | "offers" | "rewards" | "wallet" | "profile" | "search" | "bell" | "heart" | "pin" | "star" | "arrow" | "spark" | "ticket" | "chevron" | "bookmark" | "calendar" | "check" | "plane" | "gift";
@@ -54,7 +56,7 @@ function StatusBar() {
 }
 
 function AppHeader({ title, subtitle }: { title: string; subtitle?: string }) {
-  return <div className="flex items-center justify-between px-5 pb-4 pt-3"><div><p className="text-[10px] text-[#8C8595]">{subtitle}</p><h1 className="text-[24px] font-semibold tracking-[-.045em]">{title}</h1></div><button className="relative grid h-9 w-9 place-items-center rounded-full border border-[#EDE8F0] bg-white text-[#544E5D] shadow-sm"><Icon name="bell" className="h-4 w-4" /><span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#5E3BEE] ring-2 ring-white" /></button></div>;
+  return <div className="flex items-center justify-between px-5 pb-4 pt-3"><div className="flex items-center gap-2.5"><Image src="/nefe-logo-purple.png" alt="" width={200} height={200} className="h-7 w-7 shrink-0 object-contain" /><div><p className="text-[10px] text-[#8C8595]">{subtitle}</p><h1 className="text-[24px] font-semibold tracking-[-.045em]">{title}</h1></div></div><button className="relative grid h-9 w-9 place-items-center rounded-full border border-[#EDE8F0] bg-white text-[#544E5D] shadow-sm"><Icon name="bell" className="h-4 w-4" /><span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#5E3BEE] ring-2 ring-white" /></button></div>;
 }
 
 function DiscoverScreen({ goOffers }: { goOffers: () => void }) {
@@ -117,7 +119,7 @@ function WalletScreen() {
   ];
   return <div className="pb-5"><AppHeader subtitle="All your benefits, together" title="Wallet" />
     <div className="mx-5 overflow-hidden rounded-[22px] bg-gradient-to-br from-[#171222] to-[#3D2C58] p-5 text-white shadow-[0_18px_35px_rgba(35,23,53,.22)]">
-      <div className="flex items-center justify-between"><div className="flex items-center gap-2"><span className="grid h-7 w-7 place-items-center rounded-lg bg-[#6B48E9] text-[10px] font-bold">N</span><span className="text-[10px] font-semibold">NEFE Preferred</span></div><span className="text-[7px] tracking-widest text-[#D9BE72]">MEMBER</span></div>
+      <div className="flex items-center justify-between"><div className="flex items-center gap-2"><span className="grid h-7 w-7 place-items-center rounded-lg bg-[#6B48E9] p-1"><Image src="/nefe-logo-white.png" alt="" width={200} height={200} className="h-full w-full object-contain" /></span><span className="text-[10px] font-semibold">NEFE Preferred</span></div><span className="text-[7px] tracking-widest text-[#D9BE72]">MEMBER</span></div>
       <div className="mt-9"><p className="text-[8px] text-white/45">REWARDS BALANCE</p><p className="mt-1 text-[25px] font-semibold">12,480 <span className="text-[9px] font-normal text-white/45">points</span></p></div>
       <div className="mt-7 flex items-end justify-between"><div><p className="text-[7px] text-white/35">MEMBER SINCE</p><p className="mt-1 text-[9px]">JAN 2026</p></div><div className="text-right"><p className="text-[7px] text-white/35">MEMBER</p><p className="mt-1 text-[9px] tracking-wider">OLIVIA HART</p></div></div>
     </div>
@@ -137,10 +139,6 @@ function ProfileScreen() {
     ].map(([name,detail,icon]) => <button key={name} className="flex w-full items-center gap-3 p-3.5 text-left"><span className="grid h-8 w-8 place-items-center rounded-[10px] bg-[#F2EEFF] text-[#5E3BEE]"><Icon name={icon as IconName} className="h-4 w-4" /></span><div><p className="text-[9px] font-semibold">{name}</p><p className="mt-1 text-[7px] text-[#99939F]">{detail}</p></div><Icon name="chevron" className="ml-auto h-3.5 w-3.5 text-[#B1ABB5]" /></button>)}</div></div>
     <div className="mx-5 mt-5 overflow-hidden rounded-[17px] border border-[#E9E4ED] bg-white"><div className="consumer-art beach h-20"><div className="consumer-scenery" /></div><div className="flex items-center justify-between p-3"><div><p className="text-[9px] font-semibold">Your next saved place</p><p className="mt-1 text-[7px] text-[#99939F]">Azure Beach Society · JBR</p></div><Icon name="bookmark" className="h-4 w-4 fill-[#5E3BEE] text-[#5E3BEE]" /></div></div>
   </div>;
-}
-
-function Logo() {
-  return <Link href="/" className="flex items-center gap-2.5"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#5E3BEE] text-white shadow-[0_8px_24px_rgba(94,59,238,.25)]"><svg viewBox="0 0 32 32" className="h-6 w-6" fill="none"><path d="M7 22V10l9 12V10l9 12V10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg></span><span className="text-[19px] font-bold tracking-[-.04em]">nefe</span></Link>;
 }
 
 export default function ConsumerApp() {
@@ -166,7 +164,7 @@ export default function ConsumerApp() {
   const tabIcons: Record<Tab, IconName> = { Discover:"discover", Offers:"offers", Rewards:"rewards", Wallet:"wallet", Profile:"profile" };
 
   return <main className="consumer-page min-h-screen overflow-hidden text-[#1B1627]">
-    <header className="relative z-20 mx-auto flex h-20 w-[min(1180px,calc(100%-32px))] items-center justify-between"><Logo /><div className="flex items-center gap-4"><Link href="/portal" className="hidden text-xs font-semibold text-[#655E70] transition hover:text-[#5E3BEE] sm:block">View Business Portal</Link><Link href="/" className="rounded-xl border border-[#DED7EA] bg-white/70 px-4 py-2.5 text-xs font-semibold text-[#4F475A] backdrop-blur transition hover:border-[#C4B7F2] hover:text-[#5E3BEE]">Back to website</Link></div></header>
+    <header className="relative z-20 mx-auto flex h-20 w-[min(1180px,calc(100%-32px))] items-center justify-between"><BrandLogo priority /><div className="flex items-center gap-4"><Link href="/portal" className="hidden text-xs font-semibold text-[#655E70] transition hover:text-[#5E3BEE] sm:block">View Business Portal</Link><Link href="/" className="rounded-xl border border-[#DED7EA] bg-white/70 px-4 py-2.5 text-xs font-semibold text-[#4F475A] backdrop-blur transition hover:border-[#C4B7F2] hover:text-[#5E3BEE]">Back to website</Link></div></header>
     <div className="relative z-10 mx-auto grid min-h-[calc(100vh-80px)] max-w-[1180px] items-center gap-12 px-4 pb-12 pt-5 lg:grid-cols-[1fr_470px] lg:px-8 lg:pb-16">
       <section className="hidden lg:block">
         <div className="inline-flex items-center gap-2 rounded-full border border-[#DED5F9] bg-white/60 px-3 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#5E3BEE] backdrop-blur"><Icon name="spark" className="h-4 w-4" /> The city, connected</div>

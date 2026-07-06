@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import BrandLogo from "../components/brand-logo";
+import Image from "next/image";
 
 const phases = [
   { phase:"Phase 1", label:"Foundation", period:"Now — 2026", thesis:"Prove connected commerce in one premium market.", items:["Business Platform","Consumer App","Experience Builder","Commerce Graph"], color:"#7D5AF0" },
@@ -20,7 +22,7 @@ const revenueLayers = [
 ];
 
 function Logo({ light = false }: { light?:boolean }) {
-  return <Link href="/" className="flex items-center gap-2.5"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#5E3BEE] text-white shadow-[0_8px_24px_rgba(94,59,238,.28)]"><svg viewBox="0 0 32 32" className="h-6 w-6" fill="none"><path d="M7 22V10l9 12V10l9 12V10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span><span className={`text-[19px] font-bold tracking-[-.04em] ${light?"text-white":"text-[#171226]"}`}>nefe</span></Link>;
+  return <BrandLogo variant={light ? "white" : "purple"} priority />;
 }
 
 function SectionLabel({ number, children, dark = false }: { number:string; children:React.ReactNode; dark?:boolean }) {
@@ -56,7 +58,7 @@ export default function FounderRoom() {
         <div className="relative z-10"><SectionLabel number="02" dark>The Opportunity</SectionLabel><h2 className="mt-6 text-4xl font-semibold leading-tight tracking-[-.05em] sm:text-5xl">Instead of competing for customers...</h2><p className="mt-7 text-2xl leading-tight tracking-[-.035em] text-[#C8BAF9]">Businesses multiply customer value together.</p><p className="mt-6 max-w-md text-[12px] leading-6 text-white/45">NEFE turns every completed transaction into the beginning of a relevant next experience—creating a network that becomes more valuable with every participating business.</p><div className="mt-9 grid grid-cols-3 gap-3">{[["2.8×","Customer value"],["22%","Revenue lift"],["42.8%","Repeat rate"]].map(([v,l])=><div key={l} className="rounded-xl border border-white/8 bg-white/[.04] p-3"><p className="text-lg font-semibold">{v}</p><p className="mt-1 text-[7px] text-white/35">{l}</p></div>)}</div></div>
         <div className="founder-ecosystem relative mx-auto h-[510px] w-full max-w-[650px]">
           <svg viewBox="0 0 650 510" className="absolute inset-0 h-full w-full"><defs><filter id="founderGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>{[[325,255,110,90],[325,255,530,90],[325,255,570,320],[325,255,325,445],[325,255,80,320],[110,90,530,90],[530,90,570,320],[570,320,325,445],[325,445,80,320],[80,320,110,90]].map((p,i)=><g key={i}><path d={`M${p[0]} ${p[1]} Q325 255 ${p[2]} ${p[3]}`} fill="none" stroke="rgba(151,123,235,.24)" strokeWidth="1" strokeDasharray={i<5?"5 7":"0"} className="commerce-dash"/><circle r="3" fill={i%3===0?"#E3C26D":i%2===0?"#53C99C":"#B39CFC"} filter="url(#founderGlow)"><animateMotion dur={`${4+i*.35}s`} repeatCount="indefinite" begin={`${i*-.5}s`} path={`M${p[0]} ${p[1]} Q325 255 ${p[2]} ${p[3]}`}/></circle></g>)}</svg>
-          <div className="founder-core absolute left-1/2 top-1/2 grid h-32 w-32 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[#9275ED]/30 bg-gradient-to-br from-[#6642DE] to-[#2B1B58] text-center shadow-[0_0_90px_rgba(103,65,223,.35)]"><div><b className="text-xl">NEFE</b><span className="mt-1 block text-[6px] uppercase tracking-[.15em] text-[#C9B9FB]">Connected commerce</span></div></div>
+          <div className="founder-core absolute left-1/2 top-1/2 grid h-32 w-32 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[#9275ED]/30 bg-gradient-to-br from-[#6642DE] to-[#2B1B58] text-center shadow-[0_0_90px_rgba(103,65,223,.35)]"><div><Image src="/nefe-logo-white.png" alt="" width={200} height={200} className="mx-auto h-12 w-12 object-contain" /><span className="mt-1 block text-[6px] uppercase tracking-[.15em] text-[#C9B9FB]">Connected commerce</span></div></div>
           {[["Hotel","CH","17%","left-[8%] top-[12%]"],["Restaurant","MD","14%","right-[8%] top-[12%]"],["Beach Club","AB","16%","right-[2%] top-[58%]"],["Experience","TF","12%","left-1/2 bottom-0 -translate-x-1/2"],["Wellness","SW","13%","left-0 top-[58%]"]].map(([name,id,lift,pos])=><div key={name} className={`absolute ${pos} w-28 rounded-[16px] border border-white/10 bg-white/[.07] p-3 text-center backdrop-blur-xl`}><span className="mx-auto grid h-8 w-8 place-items-center rounded-[10px] bg-gradient-to-br from-[#7754E6] to-[#C29651] text-[7px] font-bold">{id}</span><p className="mt-2 text-[8px] font-semibold">{name}</p><p className="mt-1 text-[6px] text-[#54CCA0]">+{lift} referrals</p></div>)}
         </div>
       </div>

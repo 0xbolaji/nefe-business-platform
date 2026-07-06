@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PrototypeAssistant from "./components/prototype-assistant";
+import BrandLogo from "./components/brand-logo";
 
 type IconName =
   | "arrow"
@@ -65,19 +66,6 @@ const features: { title: string; text: string; icon: IconName }[] = [
   { title: "Membership Management", text: "Manage access, benefits, and partner relationships from one workspace.", icon: "members" },
 ];
 
-function Logo() {
-  return (
-    <a href="#" className="flex items-center gap-2.5" aria-label="NEFE home">
-      <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#5E3BEE] text-white shadow-[0_8px_24px_rgba(94,59,238,.28)]">
-        <svg viewBox="0 0 32 32" className="h-6 w-6" fill="none">
-          <path d="M7 22V10l9 12V10l9 12V10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </span>
-      <span className="text-[19px] font-bold tracking-[-.04em] text-[#151127]">nefe</span>
-    </a>
-  );
-}
-
 function HeroDashboard() {
   return (
     <div className="hero-dashboard relative mx-auto w-full max-w-[610px]">
@@ -92,7 +80,7 @@ function HeroDashboard() {
       <div className="overflow-hidden rounded-[26px] border border-white/80 bg-white/88 p-2.5 shadow-[0_35px_90px_rgba(69,45,140,.18)] backdrop-blur-xl">
         <div className="overflow-hidden rounded-[19px] border border-slate-100 bg-[#FBFAFE]">
           <div className="flex h-14 items-center justify-between border-b border-slate-100 bg-white px-5">
-            <Logo />
+            <BrandLogo size="sm" />
             <div className="flex items-center gap-3 text-slate-400"><Icon name="bell" className="h-4 w-4" /><span className="h-7 w-7 rounded-full bg-gradient-to-br from-[#5E3BEE] to-[#B89CFF]" /></div>
           </div>
           <div className="grid grid-cols-[72px_1fr] sm:grid-cols-[120px_1fr]">
@@ -126,7 +114,7 @@ export default function Home() {
     <main className="overflow-hidden bg-white text-[#17132A]">
       <section className="hero-bg relative">
         <nav className="page-shell flex h-20 items-center justify-between">
-          <Logo />
+          <BrandLogo priority />
           <div className="hidden items-center gap-5 text-sm font-medium text-[#5F5A70] lg:flex xl:gap-7">
             <a href="#platform" className="nav-link">Platform</a><Link href="/commerce-graph" className="nav-link">Commerce Graph</Link><Link href="/roi-calculator" className="nav-link">ROI Calculator</Link><Link href="/founder-room" className="nav-link">Founder Room</Link><Link href="/why-botchain" className="nav-link">Why Botchain</Link>
           </div>
@@ -241,7 +229,7 @@ export default function Home() {
 
       <footer id="company" className="border-t border-[#EEEAF4]">
         <div className="page-shell grid gap-12 py-16 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
-          <div><Logo /><p className="mt-5 max-w-xs text-sm leading-6 text-[#777181]">The partnership platform helping ambitious businesses connect, collaborate, and grow.</p></div>
+          <div><BrandLogo /><p className="mt-5 max-w-xs text-sm leading-6 text-[#777181]">The partnership platform helping ambitious businesses connect, collaborate, and grow.</p></div>
           {[
             ["Platform", ["Discover partners", "Campaigns", "Referrals", "Analytics"]],
             ["Company", ["About", "Careers", "Contact", "Journal"]],

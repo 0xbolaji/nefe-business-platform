@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import BrandLogo from "../components/brand-logo";
+import Image from "next/image";
 
 type Flow = "customers" | "referrals" | "rewards";
 
@@ -78,7 +80,7 @@ function Counter({ end, prefix = "", suffix, decimals = 0 }: { end:number; prefi
 }
 
 function Logo({ dark }: { dark:boolean }) {
-  return <Link href="/" className="flex items-center gap-2.5"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#6D49EE] text-white shadow-[0_8px_24px_rgba(94,59,238,.3)]"><svg viewBox="0 0 32 32" className="h-6 w-6" fill="none"><path d="M7 22V10l9 12V10l9 12V10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg></span><span className={`text-[19px] font-bold tracking-[-.04em] ${dark?"text-white":"text-[#171226]"}`}>nefe</span></Link>;
+  return <BrandLogo variant={dark ? "white" : "purple"} priority />;
 }
 
 function DetailDrawer({ business, onClose, dark }: { business:Business; onClose:()=>void; dark:boolean }) {
@@ -144,7 +146,7 @@ export default function CommerceGraph() {
             <circle cx="500" cy="345" r="82" fill="url(#centerGlow)" className="commerce-center-aura"/>
           </svg>
 
-          <button onClick={()=>setSelected(null)} className="commerce-center absolute z-20 grid h-28 w-28 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[#9D83F8]/30 bg-gradient-to-br from-[#6E49ED]/85 to-[#2D1C62]/90 text-center shadow-[0_0_70px_rgba(105,70,232,.35)] backdrop-blur-xl" style={{left:"50%",top:"50%"}}><span><b className="block text-xl text-white">NEFE</b><small className="mt-1 block text-[6px] font-bold uppercase tracking-[.16em] text-[#CDBEFF]">Commerce Core</small><i className="mx-auto mt-2 block h-1.5 w-1.5 rounded-full bg-[#5AD0A2] shadow-[0_0_10px_#5AD0A2]"/></span></button>
+          <button onClick={()=>setSelected(null)} className="commerce-center absolute z-20 grid h-28 w-28 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[#9D83F8]/30 bg-gradient-to-br from-[#6E49ED]/85 to-[#2D1C62]/90 text-center shadow-[0_0_70px_rgba(105,70,232,.35)] backdrop-blur-xl" style={{left:"50%",top:"50%"}}><span><Image src="/nefe-logo-white.png" alt="" width={200} height={200} className="mx-auto h-10 w-10 object-contain" /><small className="mt-1 block text-[6px] font-bold uppercase tracking-[.16em] text-[#CDBEFF]">Commerce Core</small><i className="mx-auto mt-2 block h-1.5 w-1.5 rounded-full bg-[#5AD0A2] shadow-[0_0_10px_#5AD0A2]"/></span></button>
 
           {businesses.map(business=><button key={business.id} onClick={()=>setSelected(business)} className={`commerce-node absolute z-20 w-[132px] -translate-x-1/2 -translate-y-1/2 rounded-[17px] border p-2.5 text-left backdrop-blur-xl transition hover:z-30 hover:-translate-y-[55%] hover:scale-105 ${selected?.id===business.id?"border-[#9D83F8] ring-2 ring-[#7654E8]/20":dark?"border-white/10 bg-[#171224]/78 hover:border-white/20":"border-[#DED7E6] bg-white/85 hover:border-[#C9BCF6]"}`} style={{left:`${business.x/10}%`,top:`${business.y/6.9}%`}}>
             <span className="flex items-center gap-2"><span className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] text-[7px] font-bold text-white shadow-lg" style={{background:`linear-gradient(135deg,${business.color},#33235f)`}}>{business.initials}</span><span className="min-w-0"><b className="block truncate text-[8px]">{business.name}</b><small className={`mt-1 block truncate text-[6px] ${dark?"text-white/35":"text-[#958E9B]"}`}>{business.category}</small></span></span><span className={`mt-2 flex items-center justify-between border-t pt-2 ${dark?"border-white/8":"border-[#EEEAF1]"}`}><small className={`text-[6px] ${dark?"text-white/25":"text-[#A39CA7]"}`}>Revenue</small><b className="text-[7px] text-[#58C99B]">{business.revenue}</b></span>

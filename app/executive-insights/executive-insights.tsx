@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import PrototypeAssistant from "../components/prototype-assistant";
+import BrandLogo from "../components/brand-logo";
 
 type IconName = "business" | "referral" | "revenue" | "campaign" | "customer" | "reward" | "arrow" | "calendar" | "download" | "spark" | "trend";
 
@@ -21,10 +22,6 @@ function Icon({ name, className = "h-5 w-5" }: { name: IconName; className?: str
     trend: <><path d="m3 17 6-6 4 4 8-9" /><path d="M15 6h6v6" /></>,
   };
   return <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
-}
-
-function Logo() {
-  return <Link href="/" className="flex items-center gap-2.5"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#5E3BEE] text-white shadow-[0_8px_24px_rgba(94,59,238,.25)]"><svg viewBox="0 0 32 32" className="h-6 w-6" fill="none"><path d="M7 22V10l9 12V10l9 12V10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg></span><span className="text-[19px] font-bold tracking-[-.04em]">nefe</span></Link>;
 }
 
 const kpis: { label: string; end: number; prefix?: string; suffix?: string; decimals?: number; change: string; icon: IconName; tone: string }[] = [
@@ -89,7 +86,7 @@ export default function ExecutiveInsights() {
   return <main className="min-h-screen bg-[#F6F5F8] text-[#19152A]">
     <header className="sticky top-0 z-30 border-b border-[#E7E3EB] bg-white/85 backdrop-blur-xl">
       <div className="mx-auto flex h-[72px] max-w-[1500px] items-center justify-between px-4 sm:px-7 lg:px-10">
-        <div className="flex items-center gap-5"><Logo /><span className="hidden h-6 w-px bg-[#E7E2EB] sm:block" /><div className="hidden sm:block"><p className="text-[10px] text-[#99939F]">Leadership Workspace</p><p className="text-xs font-semibold">Executive Insights</p></div></div>
+        <div className="flex items-center gap-5"><BrandLogo priority /><span className="hidden h-6 w-px bg-[#E7E2EB] sm:block" /><div className="hidden sm:block"><p className="text-[10px] text-[#99939F]">Leadership Workspace</p><p className="text-xs font-semibold">Executive Insights</p></div></div>
         <div className="flex items-center gap-2"><Link href="/experience-builder" className="hidden rounded-xl px-3 py-2.5 text-[10px] font-semibold text-[#665F6E] transition hover:bg-[#F4F1F8] hover:text-[#5E3BEE] md:block">Experience Builder</Link><Link href="/portal" className="rounded-xl border border-[#E4DFE9] bg-white px-4 py-2.5 text-[10px] font-semibold text-[#5C5564] shadow-sm transition hover:border-[#C6B8F5] hover:text-[#5E3BEE]">← Business Portal</Link></div>
       </div>
     </header>

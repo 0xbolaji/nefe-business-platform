@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: "NEFE — Grow Through Strategic Partnerships",
   description:
     "Connect with trusted businesses, launch joint campaigns, exchange referrals, and unlock new revenue opportunities.",
+  icons: {
+    icon: "/nefe-logo-purple.png",
+    apple: "/nefe-logo-purple.png",
+  },
 };
 
 export default function RootLayout({
