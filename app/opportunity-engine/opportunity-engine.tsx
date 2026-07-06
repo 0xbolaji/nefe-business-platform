@@ -216,7 +216,7 @@ export default function OpportunityEngine() {
     { name: "NEFE Mobility Partner", service: "Airport transfer", spend: 220, time: "45 min" },
   ];
 
-  return <main className={`opportunity-engine min-h-screen bg-[#F5F3F7] text-[#1B1725] ${presenting ? "is-presenting" : ""}`}>
+  return <main className={`opportunity-engine contrast-audit-page min-h-screen bg-[#F5F3F7] text-[#1B1725] ${presenting ? "is-presenting" : ""}`}>
     {presenting&&<div className="fixed inset-x-0 top-0 z-[200] flex items-center justify-between gap-3 bg-[#171120]/94 px-4 py-3 text-white backdrop-blur-xl sm:px-6"><span className="hidden text-[8px] font-bold uppercase tracking-[.16em] text-[#C8B5FF] sm:block">NEFE Opportunity Engine · Investor Mode</span><span className="text-[9px] font-bold text-white sm:ml-auto">{slide+1} / {slideCount}</span><span className="hidden text-[7px] text-white/40 md:block">Use ← → to navigate · ESC to exit</span><button type="button" onClick={exitPresentation} className="rounded-lg border border-white/10 bg-white/10 px-3 py-2 text-[8px] font-semibold transition hover:bg-white/15">Exit Presentation</button></div>}
 
     <section {...slideProps(0)} className="engine-slide">

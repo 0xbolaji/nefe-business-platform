@@ -15,7 +15,7 @@ const principles = [
 ];
 
 export default function AboutPage() {
-  return <main className="company-page overflow-hidden bg-[#FAF9FB] text-[#191424]">
+  return <main className="about-page company-page contrast-audit-page overflow-hidden bg-[#FAF9FB] text-[#191424]">
     <section className="relative border-b border-[#E8E3EB] px-5 py-24 sm:px-8 sm:py-32">
       <div className="company-grid absolute inset-0"/><div className="relative mx-auto max-w-[1240px]">
         <p className="text-[9px] font-bold uppercase tracking-[.2em] text-[#6747D7]">About NEFE</p>
@@ -25,7 +25,7 @@ export default function AboutPage() {
     </section>
 
     <section className="mx-auto grid max-w-[1240px] gap-5 px-5 py-24 sm:px-8 lg:grid-cols-2">
-      {[["Mission","Helping businesses grow together instead of operating in isolation."],["Vision","To become the commercial operating system connecting thousands of businesses across hospitality, retail, tourism, mobility, real estate and services."]].map(([title,copy],index)=><article key={title} className={`rounded-[28px] border p-8 sm:p-10 ${index===0?"border-[#D9CFF7] bg-white shadow-[0_20px_55px_rgba(51,34,89,.08)]":"border-[#342754] bg-[#171123] text-white shadow-[0_22px_60px_rgba(22,15,35,.18)]"}`}><p className={`text-[8px] font-bold uppercase tracking-[.18em] ${index===0?"text-[#6747D7]":"text-[#D7B85E]"}`}>0{index+1} · {title}</p><p className={`mt-12 text-2xl font-medium leading-10 tracking-[-.03em] sm:text-3xl ${index===0?"text-[#241D2B]":"text-white"}`}>{copy}</p></article>)}
+      {[["Mission","Helping businesses grow together instead of operating in isolation."],["Vision","To become the commercial operating system connecting thousands of businesses across hospitality, retail, tourism, mobility, real estate and services."]].map(([title,copy],index)=><article key={title} className={`mission-vision-card rounded-[28px] border p-8 sm:p-10 ${index===0?"mission-card border-[#D9CFF7] bg-white shadow-[0_20px_55px_rgba(51,34,89,.08)]":"vision-card border-[#342754] bg-[#171123] text-white shadow-[0_22px_60px_rgba(22,15,35,.18)]"}`}><p className={`text-[8px] font-bold uppercase tracking-[.18em] ${index===0?"text-[#6747D7]":"text-[#D7B85E]"}`}>0{index+1} · {title}</p><p className={`mt-12 text-2xl font-medium leading-10 tracking-[-.03em] sm:text-3xl ${index===0?"text-[#241D2B]":"text-white"}`}>{copy}</p></article>)}
     </section>
 
     <section className="border-y border-[#E8E3EB] bg-white/70 px-5 py-24 sm:px-8">

@@ -13,7 +13,7 @@ const summaries = [["Region","United Arab Emirates"],["Focus","Commercial Ecosys
 const roles = [["Product Lead","PL"],["Growth Lead","GL"],["Technology Lead","TL"],["Commercial Partnerships Lead","CP"]];
 
 export default function LeadershipPage() {
-  return <main className="company-page overflow-hidden bg-[#FAF9FB] text-[#191424]">
+  return <main className="leadership-page company-page contrast-audit-page overflow-hidden bg-[#FAF9FB] text-[#191424]">
     <section className="relative border-b border-[#E8E3EB] px-5 py-20 sm:px-8 sm:py-28"><div className="company-grid absolute inset-0"/><div className="relative mx-auto max-w-[1240px]"><p className="text-[9px] font-bold uppercase tracking-[.2em] text-[#6747D7]">Executive Leadership</p><h1 className="mt-6 max-w-4xl text-[46px] font-semibold leading-[1.04] tracking-[-.058em] sm:text-[72px]">Leadership built around <span className="gradient-text">commercial outcomes.</span></h1></div></section>
 
     <section className="mx-auto max-w-[1240px] px-5 py-20 sm:px-8 sm:py-28">

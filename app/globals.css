@@ -318,3 +318,30 @@ html[data-theme="dark"] .site-footer [class*="border-[#"]{border-color:rgba(255,
 html[data-theme="dark"] .site-footer [class*="text-[#655E6C]"],html[data-theme="dark"] .site-footer [class*="text-[#6F6876]"]{color:#c1b8c8!important}
 html[data-theme="dark"] .site-footer [class*="text-[#77707D]"],html[data-theme="dark"] .site-footer [class*="text-[#918A97]"]{color:#9f95a8!important}
 html[data-theme="dark"] .site-footer small{background:rgba(255,255,255,.07)!important}
+
+/* Platform-wide readability floor */
+html[data-theme="light"] .about-page .mission-card{background:#fff!important;color:#211a2a!important}
+html[data-theme="light"] .about-page .mission-card>p:last-child{color:#241d2b!important}
+html[data-theme="light"] .about-page .vision-card>p:last-child{color:#fff!important}
+html[data-theme="dark"] .about-page .mission-vision-card{background:linear-gradient(145deg,#1b1525,#14101c)!important;border-color:rgba(255,255,255,.13)!important}
+html[data-theme="dark"] .about-page .mission-vision-card>p:last-child{color:#f7f3fa!important}
+html[data-theme="dark"] .company-page h1,html[data-theme="dark"] .company-page h2,html[data-theme="dark"] .company-page h3{color:#f8f5fb}
+html[data-theme="dark"] .company-page article p[class*="text-[#9"],html[data-theme="dark"] .company-page article p[class*="text-[#A"],html[data-theme="dark"] .company-page article span[class*="text-[#9"],html[data-theme="dark"] .company-page article span[class*="text-[#A"]{color:#b8afc0!important}
+
+html[data-theme="light"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) p[class*="text-[#7"],html[data-theme="light"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) p[class*="text-[#8"]{color:#5f5865!important}
+html[data-theme="light"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) p[class*="text-[#9"],html[data-theme="light"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) span[class*="text-[#9"]{color:#706976!important}
+html[data-theme="light"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) .engine-eyebrow{color:#6045c4}
+
+html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) h1,html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) h2,html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) h3{color:#f8f5fb}
+html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) [class*="text-white/25"],html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) [class*="text-white/30"],html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) [class*="text-white/35"],html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) [class*="text-white/40"],html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) [class*="text-white/45"]{color:rgba(248,245,251,.7)!important}
+html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) [class*="text-white/50"],html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) [class*="text-white/55"],html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) [class*="text-white/60"],html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) [class*="text-white/65"]{color:rgba(248,245,251,.82)!important}
+html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) .finance-card p[class*="text-[#"],html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) .engine-card p[class*="text-[#"],html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) .engine-kpi p[class*="text-[#"]{color:#bdb4c5!important}
+html[data-theme="dark"] :is(.contrast-audit-page,main:has(>.financial-hero),main:has(>.botchain-hero)) .engine-eyebrow{color:#c7b6f4!important}
+
+html[data-theme="light"] .site-footer [class*="text-[#AAA"],html[data-theme="light"] .site-footer [class*="text-[#A09"],html[data-theme="light"] .site-footer [class*="text-[#918"]{color:#706976!important}
+html[data-theme="dark"] .site-footer [class*="text-[#AAA"],html[data-theme="dark"] .site-footer [class*="text-[#A09"],html[data-theme="dark"] .site-footer [class*="text-[#918"],html[data-theme="dark"] .site-footer [class*="text-[#8D8"]{color:#ada4b5!important}
+html[data-theme="dark"] .site-footer a{color:#c9c1cf!important}
+html[data-theme="dark"] .site-footer a:hover{color:#b9a5ff!important}
+
+section[style*="opacity: 0"]{opacity:1!important}
+@media(prefers-reduced-motion:reduce){.contrast-audit-page [style*="opacity"]{opacity:1!important;transform:none!important}}
