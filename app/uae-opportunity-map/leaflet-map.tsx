@@ -6,6 +6,18 @@ import { MapContainer, Marker, Polyline, TileLayer, Tooltip, useMap, useMapEvent
 import type { Business, MapFocus } from "./opportunity-map";
 
 const HOME: [number, number] = [24.55, 54.9];
+type MapLanguage = "en" | "ar";
+const LANGUAGE_KEY = "nefe-map-language";
+const tileLayers: Record<MapLanguage, { url: string; attribution: string }> = {
+  en: {
+    url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  },
+  ar: {
+    url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+  },
+};
 
 function Controls({ focus, onZoom }: { focus: MapFocus; onZoom: (zoom: number) => void }) {
   const map = useMap();
@@ -39,16 +51,28 @@ export default function LeafletMap({ businesses, selected, focus, onSelect, onHo
   onZoom: (zoom: number) => void;
 }) {
   const [tileError, setTileError] = useState(false);
+  const [language, setLanguage] = useState<MapLanguage>(() => {
+    if (typeof window === "undefined") return "en";
+    const saved = window.sessionStorage.getItem(LANGUAGE_KEY);
+    return saved === "en" || saved === "ar" ? saved : "en";
+  });
+  const changeLanguage = (next: MapLanguage) => {
+    setLanguage(next);
+    setTileError(false);
+    window.sessionStorage.setItem(LANGUAGE_KEY, next);
+  };
   const connections = useMemo(() => businesses.slice(0, 24).map((business, index) => {
     const target = businesses[(index + 3) % businesses.length];
     return target ? [[business.lat, business.lng], [target.lat, target.lng]] as [[number, number], [number, number]] : null;
   }).filter(Boolean) as [[number, number], [number, number]][], [businesses]);
+  const tiles = tileLayers[language];
 
   return <div className="relative h-[680px] overflow-hidden rounded-[25px]">
     <MapContainer center={HOME} zoom={7} minZoom={6} maxZoom={16} zoomControl={false} scrollWheelZoom className="h-full w-full">
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        key={language}
+        attribution={tiles.attribution}
+        url={tiles.url}
         eventHandlers={{ tileerror: () => setTileError(true), load: () => setTileError(false) }}
       />
       <Controls focus={focus} onZoom={onZoom} />
@@ -80,6 +104,13 @@ export default function LeafletMap({ businesses, selected, focus, onSelect, onHo
         </Tooltip>
       </Marker>)}
     </MapContainer>
+    <label className="leaflet-language-control">
+      <span><i aria-hidden="true">◎</i> Map Language</span>
+      <select value={language} onChange={event => changeLanguage(event.target.value as MapLanguage)} aria-label="Map Language">
+        <option value="en">🇬🇧 English</option>
+        <option value="ar">🇦🇪 العربية</option>
+      </select>
+    </label>
     {tileError && <div className="pointer-events-none absolute inset-x-4 bottom-4 z-[1000] rounded-xl border border-[#D7C9A2] bg-[#FFF9E8]/95 px-4 py-3 text-[8px] text-[#795F28] shadow-lg backdrop-blur">Map tiles are temporarily unavailable. Business intelligence and marker interactions remain active.</div>}
   </div>;
 }
