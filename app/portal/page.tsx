@@ -1,10 +1,8 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Business Portal | NEFE",
-  description: "NEFE business partnership performance portal.",
-};
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import PrototypeAssistant from "../components/prototype-assistant";
 
 type IconName =
   | "grid" | "partners" | "campaigns" | "referrals" | "analytics"
@@ -65,6 +63,32 @@ const metrics: { label: string; value: string; change: string; detail: string; i
   { label: "Customer Lifetime Value", value: "AED 4,860", change: "+12.1%", detail: "network average", icon: "value", tone: "orange" },
 ];
 
+function AnimatedNumber({ end, prefix = "", suffix = "", decimals = 0 }: { end: number; prefix?: string; suffix?: string; decimals?: number }) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    const started = performance.now();
+    let frame = 0;
+    const tick = (now: number) => {
+      const progress = Math.min((now - started) / 1100, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(end * eased);
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [end]);
+  return <>{prefix}{value.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}</>;
+}
+
+function MetricValue({ label }: { label: string }) {
+  if (label === "Total Revenue Generated") return <AnimatedNumber end={1.28} prefix="AED " suffix="M" decimals={2} />;
+  if (label === "Partner Businesses") return <AnimatedNumber end={24} />;
+  if (label === "Active Campaigns") return <AnimatedNumber end={8} />;
+  if (label === "Customer Referrals") return <AnimatedNumber end={2841} />;
+  if (label === "Repeat Customer Rate") return <AnimatedNumber end={42.8} suffix="%" decimals={1} />;
+  return <AnimatedNumber end={4860} prefix="AED " />;
+}
+
 const partners = [
   { name: "The Celeste Dubai", category: "Luxury Hotel", location: "Palm Jumeirah", status: "Active", referrals: "486", performance: 94, initials: "CD", color: "from-[#5E3BEE] to-[#9A7CF8]" },
   { name: "Maison D'Or", category: "Fine Dining", location: "DIFC", status: "Active", referrals: "372", performance: 89, initials: "MD", color: "from-[#B57A26] to-[#E0BC6D]" },
@@ -76,7 +100,7 @@ const partners = [
   { name: "The Foundry", category: "Event Venue", location: "Al Quoz", status: "Active", referrals: "143", performance: 81, initials: "TF", color: "from-[#3B63B8] to-[#759BEE]" },
 ];
 
-const campaigns = [
+const initialCampaigns = [
   { name: "Weekend Stay + Fine Dining", businesses: ["CD", "MD"], revenue: "AED 286,400", reach: "18,420", conversion: "12.8%", status: "Live" },
   { name: "Luxury Car + Hotel Pickup", businesses: ["AD", "CD"], revenue: "AED 194,650", reach: "12,840", conversion: "10.4%", status: "Live" },
   { name: "Beach Club + Spa Day", businesses: ["AB", "SW"], revenue: "AED 142,820", reach: "15,290", conversion: "8.9%", status: "Live" },
@@ -91,18 +115,102 @@ const referrals = [
   { from: "Forme Athletic", to: "Serein Wellness", customer: "Recovery session", value: "AED 780", time: "3 hrs ago", initials: ["FA", "SW"] },
 ];
 
-function SectionTitle({ eyebrow, title, detail, action }: { eyebrow: string; title: string; detail: string; action?: string }) {
+function SectionTitle({ eyebrow, title, detail, action, onAction }: { eyebrow: string; title: string; detail: string; action?: string; onAction?: () => void }) {
   return (
     <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div><p className="text-[10px] font-bold uppercase tracking-[.16em] text-[#7B61E8]">{eyebrow}</p><h2 className="mt-1.5 text-[25px] font-semibold tracking-[-.035em] text-[#18142A]">{title}</h2><p className="mt-1 text-sm text-[#888292]">{detail}</p></div>
-      {action && <button className="inline-flex w-fit items-center gap-2 rounded-xl border border-[#E8E3EE] bg-white px-4 py-2.5 text-xs font-semibold text-[#554E61] shadow-sm transition hover:-translate-y-0.5 hover:border-[#CDC1FA] hover:text-[#5E3BEE]">{action}<Icon name="arrow" className="h-3.5 w-3.5" /></button>}
+      {action && <button onClick={onAction} className="inline-flex w-fit items-center gap-2 rounded-xl border border-[#E8E3EE] bg-white px-4 py-2.5 text-xs font-semibold text-[#554E61] shadow-sm transition hover:-translate-y-0.5 hover:border-[#CDC1FA] hover:text-[#5E3BEE]">{action}<Icon name="arrow" className="h-3.5 w-3.5" /></button>}
     </div>
   );
 }
 
+const discoveryPartners = [
+  { name: "One&Only One Za'abeel", category: "Hotels", location: "One Za'abeel", potential: "AED 310K", score: 96, referrals: 184, initials: "OO" },
+  { name: "Trèsind Studio", category: "Restaurants", location: "Palm Jumeirah", potential: "AED 245K", score: 94, referrals: 156, initials: "TS" },
+  { name: "Level Shoes Private", category: "Luxury Retail", location: "Dubai Mall", potential: "AED 198K", score: 91, referrals: 128, initials: "LS" },
+  { name: "VIP Rent A Car", category: "Car Rental", location: "Business Bay", potential: "AED 176K", score: 89, referrals: 112, initials: "VR" },
+  { name: "OMNIYAT Residences", category: "Real Estate", location: "Downtown Dubai", potential: "AED 420K", score: 87, referrals: 74, initials: "OR" },
+  { name: "Embody Fitness", category: "Fitness", location: "DIFC", potential: "AED 118K", score: 92, referrals: 137, initials: "EF" },
+  { name: "Talise Ottoman Spa", category: "Spa", location: "Palm Jumeirah", potential: "AED 164K", score: 95, referrals: 149, initials: "TO" },
+  { name: "King's College Hospital", category: "Medical", location: "Dubai Hills", potential: "AED 138K", score: 84, referrals: 96, initials: "KC" },
+  { name: "Coca-Cola Arena", category: "Events", location: "City Walk", potential: "AED 272K", score: 93, referrals: 171, initials: "CA" },
+];
+
+function ModalShell({ children, onClose, wide = false }: { children: React.ReactNode; onClose: () => void; wide?: boolean }) {
+  return <div className="fixed inset-0 z-[80] grid place-items-center bg-[#120C23]/45 p-4 backdrop-blur-sm" onMouseDown={onClose}><div onMouseDown={event => event.stopPropagation()} className={`max-h-[92vh] w-full overflow-y-auto rounded-[26px] border border-white/60 bg-white shadow-[0_35px_100px_rgba(20,12,45,.3)] prototype-modal ${wide ? "max-w-[780px]" : "max-w-[620px]"}`}>{children}</div></div>;
+}
+
+function CreateCampaignModal({ onClose, onGenerated }: { onClose: () => void; onGenerated: (campaign: (typeof initialCampaigns)[number]) => void }) {
+  const [step, setStep] = useState<"form" | "loading" | "result">("form");
+  const [partner, setPartner] = useState("Azure Beach Society");
+  const [type, setType] = useState("Bundled experience");
+
+  function generate() {
+    setStep("loading");
+    window.setTimeout(() => setStep("result"), 900);
+  }
+
+  return <ModalShell onClose={onClose} wide>
+    <div className="flex items-center justify-between border-b border-[#ECE8F0] px-6 py-5"><div><p className="text-[9px] font-bold uppercase tracking-[.14em] text-[#6D50DD]">Campaign Studio</p><h2 className="mt-1 text-xl font-semibold tracking-[-.03em]">{step === "result" ? "Your campaign is ready" : "Create a joint campaign"}</h2></div><button onClick={onClose} className="grid h-9 w-9 place-items-center rounded-full bg-[#F5F2F8] text-[#716A7A]">×</button></div>
+    {step === "form" && <div className="p-6">
+      <div className="rounded-2xl bg-gradient-to-r from-[#F1EDFF] to-[#FFF9E9] p-4"><p className="text-[10px] font-semibold text-[#4E3A9C]">✦ NEFE campaign intelligence</p><p className="mt-1 text-[9px] leading-4 text-[#786F86]">Choose the commercial inputs. We&apos;ll turn them into a polished, performance-led campaign.</p></div>
+      <div className="mt-5 grid gap-4 sm:grid-cols-2">
+        <label className="prototype-field"><span>Partner business</span><select value={partner} onChange={e => setPartner(e.target.value)}>{partners.slice(1,6).map(item => <option key={item.name}>{item.name}</option>)}</select></label>
+        <label className="prototype-field"><span>Campaign type</span><select value={type} onChange={e => setType(e.target.value)}>{["Bundled experience","Referral partnership","VIP member offer","Seasonal activation"].map(item => <option key={item}>{item}</option>)}</select></label>
+        <label className="prototype-field"><span>Campaign dates</span><input defaultValue="15 Jul — 31 Aug 2026" /></label>
+        <label className="prototype-field"><span>Target audience</span><select defaultValue="Luxury leisure travelers"><option>Luxury leisure travelers</option><option>Dubai residents</option><option>VIP members</option><option>Corporate guests</option></select></label>
+        <label className="prototype-field"><span>Campaign budget</span><div className="relative"><i>AED</i><input className="!pl-12" defaultValue="65,000" /></div></label>
+        <label className="prototype-field"><span>Expected revenue</span><div className="relative"><i>AED</i><input className="!pl-12" defaultValue="320,000" /></div></label>
+      </div>
+      <div className="mt-6 flex justify-end gap-2"><button onClick={onClose} className="rounded-xl border border-[#E5E0E9] px-4 py-3 text-xs font-semibold text-[#746D7C]">Cancel</button><button onClick={generate} className="rounded-xl bg-[#5E3BEE] px-5 py-3 text-xs font-semibold text-white shadow-[0_10px_24px_rgba(94,59,238,.22)]">✦ Generate Campaign</button></div>
+    </div>}
+    {step === "loading" && <div className="p-8"><div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-[#F0ECFF] text-xl text-[#5E3BEE] assistant-thinking">✦</div><p className="mt-4 text-center text-sm font-semibold">Designing your campaign...</p><p className="mt-1 text-center text-[9px] text-[#938C99]">Analyzing partner overlap, audience fit and revenue potential</p><div className="mx-auto mt-7 max-w-md space-y-3"><div className="h-12 animate-pulse rounded-xl bg-[#F3F0F6]" /><div className="grid grid-cols-3 gap-3">{[1,2,3].map(x => <div key={x} className="h-16 animate-pulse rounded-xl bg-[#F3F0F6]" />)}</div><div className="h-20 animate-pulse rounded-xl bg-[#F3F0F6]" /></div></div>}
+    {step === "result" && <div className="p-6">
+      <div className="overflow-hidden rounded-[20px] bg-gradient-to-br from-[#211746] via-[#3A247D] to-[#6B47DD] p-6 text-white"><div className="flex items-start justify-between"><span className="rounded-full bg-white/10 px-2.5 py-1.5 text-[8px] font-bold text-[#D7CBFF]">GENERATED BY NEFE AI</span><span className="rounded-full bg-[#D8B453]/20 px-2.5 py-1.5 text-[8px] font-bold text-[#F0D582]">92% FIT</span></div><h3 className="mt-7 text-2xl font-semibold tracking-[-.04em]">Coast to Calm</h3><p className="mt-2 text-xs text-white/60">{partner} × Serein Wellness</p><p className="mt-5 max-w-lg text-[10px] leading-5 text-white/65">A seamless day-to-evening experience combining premium beach access with a restorative spa ritual and member-only privileges.</p></div>
+      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">{[["AED 328K","Expected revenue"],["4,800","Projected guests"],["13.2%","Conversion"],["4.1×","Projected ROI"]].map(([value,label]) => <div key={label} className="rounded-xl border border-[#EAE6EE] p-3"><p className="text-sm font-bold">{value}</p><p className="mt-1 text-[7px] text-[#96909C]">{label}</p></div>)}</div>
+      <div className="mt-5 flex justify-end gap-2"><button onClick={() => setStep("form")} className="rounded-xl border border-[#E5E0E9] px-4 py-3 text-xs font-semibold text-[#746D7C]">Edit inputs</button><button onClick={() => onGenerated({ name:"Coast to Calm", businesses:["AB","SW"], revenue:"AED 328,000", reach:"24,800", conversion:"13.2%", status:"Draft" })} className="rounded-xl bg-[#5E3BEE] px-5 py-3 text-xs font-semibold text-white">Add to campaigns</button></div>
+    </div>}
+  </ModalShell>;
+}
+
+function CampaignDetailModal({ campaign, onClose, onToast }: { campaign: (typeof initialCampaigns)[number]; onClose: () => void; onToast: (message: string) => void }) {
+  return <ModalShell onClose={onClose} wide><div className="relative overflow-hidden bg-gradient-to-r from-[#211745] to-[#5A38D0] p-6 text-white"><button onClick={onClose} className="absolute right-5 top-5 grid h-8 w-8 place-items-center rounded-full bg-white/10">×</button><span className="rounded-full bg-white/10 px-2.5 py-1.5 text-[8px] font-bold text-[#D5C9FF]">{campaign.status.toUpperCase()} CAMPAIGN</span><h2 className="mt-5 text-2xl font-semibold tracking-[-.04em]">{campaign.name}</h2><p className="mt-2 text-[10px] text-white/55">A premium multi-partner experience built for high-intent customers.</p></div>
+    <div className="p-6"><div className="grid grid-cols-2 gap-3 sm:grid-cols-4">{[[campaign.revenue,"Expected revenue"],["3,240","Customer growth"],[campaign.conversion,"Conversion KPI"],["3.8×","Campaign ROI"]].map(([v,l]) => <div key={l} className="rounded-xl border border-[#EAE6EE] bg-[#FCFBFD] p-3"><p className="text-sm font-bold">{v}</p><p className="mt-1 text-[7px] text-[#99939F]">{l}</p></div>)}</div>
+      <div className="mt-6 grid gap-5 sm:grid-cols-2"><div><h3 className="text-xs font-semibold">Partner businesses</h3><div className="mt-3 flex items-center gap-3 rounded-xl border border-[#EAE6EE] p-3"><div className="flex -space-x-2">{campaign.businesses.map((b,i) => <span key={b} className={`grid h-9 w-9 place-items-center rounded-full border-2 border-white text-[8px] font-bold text-white ${i ? "bg-[#C59B4B]" : "bg-[#5E3BEE]"}`}>{b}</span>)}</div><div><p className="text-[9px] font-semibold">Joint partnership</p><p className="mt-1 text-[7px] text-[#99939F]">{campaign.businesses.length} participating businesses</p></div></div></div>
+      <div><h3 className="text-xs font-semibold">Campaign timeline</h3><div className="mt-3 space-y-3">{[["Creative approval","Completed"],["Partner launch","15 July"],["Mid-campaign review","2 August"],["Final report","31 August"]].map(([a,b],i) => <div key={a} className="flex items-center gap-2 text-[8px]"><span className={`h-2 w-2 rounded-full ${i === 0 ? "bg-[#31A77D]" : "bg-[#CDBFF8]"}`} /><span>{a}</span><span className="ml-auto text-[#99939F]">{b}</span></div>)}</div></div></div>
+      <div className="mt-6 rounded-xl bg-[#F4F1FC] p-4"><p className="text-[9px] font-semibold text-[#5E3BEE]">Key performance indicators</p><div className="mt-3 flex flex-wrap gap-2">{["Qualified reach","Partner referrals","Package bookings","Repeat visits","Revenue per guest"].map(kpi => <span key={kpi} className="rounded-full bg-white px-2.5 py-1.5 text-[8px] text-[#645D6C]">{kpi}</span>)}</div></div>
+      <div className="mt-6 flex justify-end"><button onClick={() => onToast("Campaign proposal downloaded")} className="rounded-xl bg-[#5E3BEE] px-5 py-3 text-xs font-semibold text-white">↓ Download proposal</button></div>
+    </div></ModalShell>;
+}
+
 export default function PortalPage() {
+  const [createOpen, setCreateOpen] = useState(false);
+  const [selectedCampaign, setSelectedCampaign] = useState<(typeof initialCampaigns)[number] | null>(null);
+  const [campaignList, setCampaignList] = useState(initialCampaigns);
+  const [toast, setToast] = useState("");
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("All");
+  const [invited, setInvited] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setLoading(false), 650);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  function notify(message: string) {
+    setToast(message);
+    window.setTimeout(() => setToast(""), 2600);
+  }
+
+  const visibleDiscovery = discoveryPartners.filter(partner =>
+    (category === "All" || partner.category === category) &&
+    partner.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <main className="min-h-screen bg-[#F7F6FA] text-[#19152A]">
+      {loading && <div className="fixed inset-0 z-[100] bg-[#F7F6FA] p-8"><div className="mx-auto max-w-[1100px] animate-pulse"><div className="h-8 w-48 rounded-lg bg-[#EAE6EF]" /><div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-6">{[1,2,3,4,5,6].map(i => <div key={i} className="h-32 rounded-2xl bg-white" />)}</div><div className="mt-6 grid gap-4 lg:grid-cols-3"><div className="h-80 rounded-2xl bg-white lg:col-span-2" /><div className="h-80 rounded-2xl bg-white" /></div></div></div>}
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[248px] flex-col border-r border-[#EAE6EF] bg-white px-4 py-6 lg:flex">
         <div className="px-2"><Logo /></div>
         <div className="mt-9 px-2 text-[9px] font-bold uppercase tracking-[.18em] text-[#AAA4B1]">Workspace</div>
@@ -142,13 +250,13 @@ export default function PortalPage() {
           <section id="dashboard" className="scroll-mt-32">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div><p className="text-sm text-[#827C8A]">Sunday, 5 July 2026</p><h1 className="mt-1 text-3xl font-semibold tracking-[-.045em] sm:text-[34px]">Good morning, Olivia.</h1><p className="mt-2 text-sm text-[#8C8693]">Here&apos;s how your partnership network is performing.</p></div>
-              <div className="flex gap-2"><button className="flex items-center gap-2 rounded-xl border border-[#E4DFE9] bg-white px-4 py-3 text-xs font-semibold text-[#655E6E]"><Icon name="calendar" className="h-4 w-4" />Last 30 days</button><button className="flex items-center gap-2 rounded-xl bg-[#5E3BEE] px-4 py-3 text-xs font-semibold text-white shadow-[0_10px_25px_rgba(94,59,238,.2)] transition hover:-translate-y-0.5"><Icon name="plus" className="h-4 w-4" />New campaign</button></div>
+              <div className="flex gap-2"><button onClick={() => notify("Date range updated to the last 30 days")} className="flex items-center gap-2 rounded-xl border border-[#E4DFE9] bg-white px-4 py-3 text-xs font-semibold text-[#655E6E]"><Icon name="calendar" className="h-4 w-4" />Last 30 days</button><button onClick={() => setCreateOpen(true)} className="flex items-center gap-2 rounded-xl bg-[#5E3BEE] px-4 py-3 text-xs font-semibold text-white shadow-[0_10px_25px_rgba(94,59,238,.2)] transition hover:-translate-y-0.5"><Icon name="plus" className="h-4 w-4" />Create Campaign</button></div>
             </div>
 
             <div className="mt-7 grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
               {metrics.map((metric) => <article key={metric.label} className="group rounded-2xl border border-[#EAE6EE] bg-white p-4 shadow-[0_4px_18px_rgba(37,28,60,.025)] transition hover:-translate-y-1 hover:border-[#D8CEF8] hover:shadow-[0_14px_35px_rgba(55,37,100,.07)]">
                 <div className="flex items-start justify-between"><span className={`portal-icon ${metric.tone}`}><Icon name={metric.icon} className="h-[17px] w-[17px]" /></span><span className="rounded-full bg-[#EAF9F2] px-2 py-1 text-[9px] font-bold text-[#149566]">{metric.change}</span></div>
-                <p className="mt-5 text-[10px] font-medium text-[#8A8491]">{metric.label}</p><p className="mt-1.5 text-xl font-bold tracking-[-.025em]">{metric.value}</p><p className="mt-1 text-[9px] text-[#AAA4AF]">{metric.detail}</p>
+                <p className="mt-5 text-[10px] font-medium text-[#8A8491]">{metric.label}</p><p className="mt-1.5 text-xl font-bold tracking-[-.025em]"><MetricValue label={metric.label} /></p><p className="mt-1 text-[9px] text-[#AAA4AF]">{metric.detail}</p>
               </article>)}
             </div>
           </section>
@@ -176,6 +284,14 @@ export default function PortalPage() {
                 <div className="mt-7 space-y-3">{[["Hospitality","32%","#5E3BEE"],["Dining","23%","#D6A84F"],["Wellness","18%","#4AAE90"],["Mobility","15%","#7295E8"],["Lifestyle","12%","#E695B5"]].map(([name,value,color]) => <div key={name} className="flex items-center text-[10px]"><i className="mr-2 h-2 w-2 rounded-full" style={{background:color}} /><span className="text-[#77717E]">{name}</span><span className="ml-auto font-semibold">{value}</span></div>)}</div>
               </article>
             </div>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              {[
+                ["Customer Growth","+21.4%","8,640 customers",[34,42,39,55,62,71,82]],
+                ["Referral Network","2,841","426 this week",[45,58,50,68,64,79,88]],
+                ["Business Performance","91.2","Network score",[62,68,73,70,82,86,91]],
+                ["Campaign ROI","3.8×","+0.7× this quarter",[38,45,52,49,67,76,89]],
+              ].map(([title,value,detail,bars]) => <article key={title as string} className="rounded-[20px] border border-[#E9E5ED] bg-white p-4 transition hover:-translate-y-1 hover:border-[#D7CCF8] hover:shadow-[0_12px_30px_rgba(52,35,95,.06)]"><div className="flex items-start justify-between"><div><p className="text-[9px] font-semibold text-[#77717E]">{title as string}</p><p className="mt-2 text-lg font-bold">{value as string}</p><p className="mt-1 text-[7px] text-[#159166]">{detail as string}</p></div><span className="rounded-lg bg-[#F0ECFF] p-2 text-[#5E3BEE]"><Icon name="analytics" className="h-4 w-4" /></span></div><div className="mt-5 flex h-12 items-end gap-1.5">{(bars as number[]).map((height,i) => <i key={i} className="flex-1 rounded-t bg-gradient-to-t from-[#6542E7] to-[#B5A1F5] chart-bar" style={{height:`${height}%`,animationDelay:`${i*70}ms`}} />)}</div></article>)}
+            </div>
           </section>
 
           <section id="partners" className="scroll-mt-32 pt-12">
@@ -188,15 +304,20 @@ export default function PortalPage() {
                 <div className="mt-4 grid grid-cols-2 border-t border-[#F0EDF3] pt-3"><div><p className="text-[8px] text-[#AAA4AF]">Referrals</p><p className="mt-1 text-xs font-bold">{partner.referrals}</p></div><div className="border-l border-[#F0EDF3] pl-3"><p className="text-[8px] text-[#AAA4AF]">Performance</p><div className="mt-1 flex items-center gap-2"><p className="text-xs font-bold">{partner.performance}%</p><div className="h-1 flex-1 overflow-hidden rounded-full bg-[#EEEAF4]"><div className="h-full rounded-full bg-[#5E3BEE]" style={{width:`${partner.performance}%`}} /></div></div></div></div>
               </article>)}
             </div>
+            <div className="mt-10 rounded-[24px] border border-[#E7E2EC] bg-white p-5 sm:p-6">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between"><div><p className="text-[9px] font-bold uppercase tracking-[.15em] text-[#7358DD]">Partner Discovery</p><h3 className="mt-1.5 text-xl font-semibold tracking-[-.03em]">Find your next growth partner</h3><p className="mt-1 text-[10px] text-[#918A98]">Ranked by commercial fit, audience overlap and referral potential.</p></div><label className="relative block w-full lg:w-72"><Icon name="search" className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A19AA7]" /><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search partner marketplace..." className="h-11 w-full rounded-xl border border-[#E5E0E9] bg-[#FAF9FB] pl-10 pr-3 text-[10px] outline-none focus:border-[#BDAEF5]" /></label></div>
+              <div className="no-scrollbar mt-5 flex gap-2 overflow-x-auto">{["All","Hotels","Restaurants","Luxury Retail","Car Rental","Real Estate","Fitness","Spa","Medical","Events"].map(item => <button key={item} onClick={() => setCategory(item)} className={`shrink-0 rounded-full px-3 py-2 text-[8px] font-semibold transition ${category === item ? "bg-[#5E3BEE] text-white" : "border border-[#E8E3EC] text-[#756E7D] hover:border-[#CDBFF7]"}`}>{item}</button>)}</div>
+              {visibleDiscovery.length ? <div className="mt-5 grid gap-3 lg:grid-cols-3">{visibleDiscovery.map((partner,i) => <article key={partner.name} className="rounded-2xl border border-[#EAE6EE] p-4 transition hover:-translate-y-1 hover:border-[#D4C8F8] hover:shadow-[0_12px_30px_rgba(52,35,95,.07)]"><div className="flex items-start gap-3"><span className={`grid h-10 w-10 place-items-center rounded-xl text-[9px] font-bold text-white ${["bg-[#5E3BEE]","bg-[#B98B38]","bg-[#468E83]"][i%3]}`}>{partner.initials}</span><div className="min-w-0 flex-1"><div className="flex items-center gap-1"><h4 className="truncate text-[11px] font-semibold">{partner.name}</h4><span title="Verified Partner" className="grid h-3.5 w-3.5 shrink-0 place-items-center rounded-full bg-[#5E3BEE] text-[7px] text-white">✓</span></div><p className="mt-1 text-[8px] text-[#96909D]">{partner.category} · {partner.location}</p></div><span className="rounded-full bg-[#EAF9F2] px-2 py-1 text-[8px] font-bold text-[#158F66]">{partner.score}% fit</span></div><div className="mt-4 grid grid-cols-2 border-y border-[#F0EDF3] py-3"><div><p className="text-[7px] text-[#A19BA6]">Revenue potential</p><p className="mt-1 text-[10px] font-bold">{partner.potential}<span className="font-normal text-[#9A94A0]">/mo</span></p></div><div className="border-l border-[#F0EDF3] pl-3"><p className="text-[7px] text-[#A19BA6]">Monthly referrals</p><p className="mt-1 text-[10px] font-bold">{partner.referrals}</p></div></div><button onClick={() => { setInvited(items => [...items, partner.name]); notify(`Invitation sent to ${partner.name}`); }} disabled={invited.includes(partner.name)} className={`mt-3 w-full rounded-xl py-2.5 text-[9px] font-semibold transition ${invited.includes(partner.name) ? "bg-[#EAF9F2] text-[#158F66]" : "bg-[#F0ECFF] text-[#5E3BEE] hover:bg-[#5E3BEE] hover:text-white"}`}>{invited.includes(partner.name) ? "✓ Invitation sent" : "Invite to partner"}</button></article>)}</div> : <div className="py-12 text-center"><span className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-[#F1EDFF] text-[#5E3BEE]"><Icon name="search" /></span><p className="mt-3 text-xs font-semibold">No matching partners</p><p className="mt-1 text-[9px] text-[#99939F]">Try another category or search term.</p><button onClick={() => {setSearch("");setCategory("All");}} className="mt-3 text-[9px] font-semibold text-[#5E3BEE]">Clear filters</button></div>}
+            </div>
           </section>
 
           <section id="campaigns" className="scroll-mt-32 pt-12">
-            <SectionTitle eyebrow="Joint growth" title="Campaign performance" detail="Live and scheduled campaigns across your partner network." action="Manage campaigns" />
+            <SectionTitle eyebrow="Joint growth" title="Campaign performance" detail="Live and scheduled campaigns across your partner network." action="Create Campaign" onAction={() => setCreateOpen(true)} />
             <div className="overflow-hidden rounded-[22px] border border-[#E8E4EC] bg-white">
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[760px] text-left">
                   <thead className="border-b border-[#EEEAF2] bg-[#FAF9FB] text-[9px] font-bold uppercase tracking-[.08em] text-[#9A94A0]"><tr><th className="px-5 py-4">Campaign</th><th className="px-5 py-4">Partners</th><th className="px-5 py-4">Revenue generated</th><th className="px-5 py-4">Customers reached</th><th className="px-5 py-4">Conversion</th><th className="px-5 py-4">Status</th></tr></thead>
-                  <tbody className="divide-y divide-[#F0EDF3]">{campaigns.map((campaign) => <tr key={campaign.name} className="transition hover:bg-[#FCFBFE]"><td className="px-5 py-4 text-xs font-semibold">{campaign.name}</td><td className="px-5 py-4"><div className="flex -space-x-2">{campaign.businesses.map((b,i) => <span key={b} className={`grid h-7 w-7 place-items-center rounded-full border-2 border-white text-[7px] font-bold text-white ${i ? "bg-[#C0994F]" : "bg-[#6342E7]"}`}>{b}</span>)}</div></td><td className="px-5 py-4 text-xs font-semibold">{campaign.revenue}</td><td className="px-5 py-4 text-xs text-[#726B7B]">{campaign.reach}</td><td className="px-5 py-4"><span className="rounded-full bg-[#EAF9F2] px-2 py-1 text-[9px] font-bold text-[#159166]">{campaign.conversion}</span></td><td className="px-5 py-4"><span className={`rounded-full px-2.5 py-1.5 text-[9px] font-bold ${campaign.status === "Live" ? "bg-[#EEE9FF] text-[#5E3BEE]" : "bg-[#FFF4DE] text-[#A7751C]"}`}>● {campaign.status}</span></td></tr>)}</tbody>
+                  <tbody className="divide-y divide-[#F0EDF3]">{campaignList.map((campaign) => <tr key={campaign.name} onClick={() => setSelectedCampaign(campaign)} className="cursor-pointer transition hover:bg-[#F8F5FF]"><td className="px-5 py-4 text-xs font-semibold">{campaign.name}<span className="ml-2 text-[8px] font-normal text-[#8A73E5]">View →</span></td><td className="px-5 py-4"><div className="flex -space-x-2">{campaign.businesses.map((b,i) => <span key={b} className={`grid h-7 w-7 place-items-center rounded-full border-2 border-white text-[7px] font-bold text-white ${i ? "bg-[#C0994F]" : "bg-[#6342E7]"}`}>{b}</span>)}</div></td><td className="px-5 py-4 text-xs font-semibold">{campaign.revenue}</td><td className="px-5 py-4 text-xs text-[#726B7B]">{campaign.reach}</td><td className="px-5 py-4"><span className="rounded-full bg-[#EAF9F2] px-2 py-1 text-[9px] font-bold text-[#159166]">{campaign.conversion}</span></td><td className="px-5 py-4"><span className={`rounded-full px-2.5 py-1.5 text-[9px] font-bold ${campaign.status === "Live" ? "bg-[#EEE9FF] text-[#5E3BEE]" : "bg-[#FFF4DE] text-[#A7751C]"}`}>● {campaign.status}</span></td></tr>)}</tbody>
                 </table>
               </div>
             </div>
@@ -224,7 +345,7 @@ export default function PortalPage() {
           </section>
 
           <section id="rewards" className="scroll-mt-32 pt-12">
-            <SectionTitle eyebrow="Coming to the ecosystem" title="Rewards & membership benefits" detail="Recognize the customers and partners who create the most value." action="View rewards roadmap" />
+            <SectionTitle eyebrow="Coming to the ecosystem" title="Rewards & membership benefits" detail="Recognize the customers and partners who create the most value." action="View rewards roadmap" onAction={() => notify("Rewards roadmap opened")} />
             <div className="grid gap-4 lg:grid-cols-[1.2fr_.8fr]">
               <article className="relative overflow-hidden rounded-[24px] border border-[#E4D9B8] bg-gradient-to-br from-[#FFFCF4] to-[#F8F2E3] p-6 sm:p-8">
                 <div className="absolute -right-16 -top-20 h-64 w-64 rounded-full bg-[#E7C46D]/20 blur-2xl" />
@@ -233,7 +354,7 @@ export default function PortalPage() {
               </article>
               <article className="rounded-[24px] border border-[#E8E3ED] bg-white p-6">
                 <p className="text-sm font-semibold">Your future benefit tiers</p><p className="mt-1 text-[10px] text-[#99939F]">Based on annual network engagement</p>
-                <div className="mt-6 space-y-3">{[["Essential","Member-only offers","bg-[#EEEAF4] text-[#77707E]"],["Preferred","Priority access + upgrades","bg-[#EEE9FF] text-[#5E3BEE]"],["Signature","Bespoke network experiences","bg-[#FFF4D9] text-[#936B1D]"]].map(([tier,desc,tone],i) => <div key={tier} className="flex items-center gap-3 rounded-xl border border-[#EFECEF] p-3"><span className={`grid h-9 w-9 place-items-center rounded-xl text-xs font-bold ${tone}`}>{i+1}</span><div><p className="text-[11px] font-semibold">{tier}</p><p className="mt-0.5 text-[9px] text-[#99939F]">{desc}</p></div>{i === 1 && <span className="ml-auto rounded-full bg-[#E9F8F1] px-2 py-1 text-[8px] font-bold text-[#168F65]">Projected</span>}</div>)}</div>
+                <div className="mt-6 space-y-3">{[["Gold","Member offers + priority access","bg-[#FFF4D9] text-[#936B1D]"],["Platinum","Upgrades + concierge benefits","bg-[#EEEAF4] text-[#655D6B]"],["Diamond","Bespoke network experiences","bg-[#EEE9FF] text-[#5E3BEE]"]].map(([tier,desc,tone],i) => <div key={tier} className="flex items-center gap-3 rounded-xl border border-[#EFECEF] p-3"><span className={`grid h-9 w-9 place-items-center rounded-xl text-xs font-bold ${tone}`}>{i+1}</span><div><p className="text-[11px] font-semibold">{tier}</p><p className="mt-0.5 text-[9px] text-[#99939F]">{desc}</p></div>{i === 0 && <span className="ml-auto rounded-full bg-[#E9F8F1] px-2 py-1 text-[8px] font-bold text-[#168F65]">Current</span>}</div>)}</div>
               </article>
             </div>
           </section>
@@ -241,11 +362,15 @@ export default function PortalPage() {
           <section id="settings" className="scroll-mt-32 py-12">
             <div className="flex flex-col gap-5 rounded-[22px] border border-[#E9E5ED] bg-white p-6 sm:flex-row sm:items-center sm:justify-between">
               <div><p className="text-[10px] font-bold uppercase tracking-[.14em] text-[#8B73E8]">Workspace settings</p><h2 className="mt-1.5 text-lg font-semibold">Celeste Hospitality Group</h2><p className="mt-1 text-xs text-[#938D99]">Manage your profile, team access, notifications, and partnership preferences.</p></div>
-              <button className="w-fit rounded-xl border border-[#E4DFE9] px-4 py-2.5 text-xs font-semibold text-[#5F5869] transition hover:border-[#CDBFF9] hover:text-[#5E3BEE]">Open settings</button>
+              <button onClick={() => notify("Workspace settings opened")} className="w-fit rounded-xl border border-[#E4DFE9] px-4 py-2.5 text-xs font-semibold text-[#5F5869] transition hover:border-[#CDBFF9] hover:text-[#5E3BEE]">Open settings</button>
             </div>
           </section>
         </div>
       </div>
+      <PrototypeAssistant />
+      {createOpen && <CreateCampaignModal onClose={() => setCreateOpen(false)} onGenerated={campaign => { setCampaignList(items => [campaign, ...items]); setCreateOpen(false); notify("Coast to Calm added to campaigns"); }} />}
+      {selectedCampaign && <CampaignDetailModal campaign={selectedCampaign} onClose={() => setSelectedCampaign(null)} onToast={notify} />}
+      {toast && <div className="prototype-toast fixed bottom-6 left-1/2 z-[110] flex -translate-x-1/2 items-center gap-2 rounded-xl border border-white/60 bg-[#211A32]/95 px-4 py-3 text-[10px] font-semibold text-white shadow-2xl backdrop-blur"><span className="grid h-5 w-5 place-items-center rounded-full bg-[#31A477] text-[10px]">✓</span>{toast}</div>}
     </main>
   );
 }

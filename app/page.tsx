@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PrototypeAssistant from "./components/prototype-assistant";
 
 type IconName =
   | "arrow"
@@ -249,6 +250,7 @@ export default function Home() {
         </div>
         <div className="page-shell flex flex-col gap-3 border-t border-[#EEEAF4] py-6 text-xs text-[#8B8594] sm:flex-row sm:items-center sm:justify-between"><p>© 2026 NEFE, Inc. All rights reserved.</p><p>Built for businesses that believe in better together.</p></div>
       </footer>
+      <PrototypeAssistant />
     </main>
   );
 }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import PrototypeAssistant from "../components/prototype-assistant";
 
 type Tab = "Discover" | "Offers" | "Rewards" | "Wallet" | "Profile";
 type IconName = "discover" | "offers" | "rewards" | "wallet" | "profile" | "search" | "bell" | "heart" | "pin" | "star" | "arrow" | "spark" | "ticket" | "chevron" | "bookmark" | "calendar" | "check" | "plane" | "gift";
@@ -70,13 +71,25 @@ function DiscoverScreen({ goOffers }: { goOffers: () => void }) {
   </div>;
 }
 
-function OffersScreen() {
+type Offer = (typeof offers)[number];
+
+function OffersScreen({ onOffer, saved, onSave }: { onOffer: (offer: Offer) => void; saved: string[]; onSave: (offer: Offer) => void }) {
   return <div className="pb-5"><AppHeader subtitle="Made better together" title="Curated Offers" />
     <div className="no-scrollbar flex gap-2 overflow-x-auto px-5">{["All offers","Experiences","Stays","Wellness"].map((item,i) => <button key={item} className={`shrink-0 rounded-full px-3 py-2 text-[8px] font-semibold ${i === 0 ? "bg-[#5E3BEE] text-white shadow-[0_6px_15px_rgba(94,59,238,.2)]" : "border border-[#E8E3EC] bg-white text-[#7C7583]"}`}>{item}</button>)}</div>
-    <div className="mt-5 space-y-3 px-5">{offers.map((offer,i) => <article key={offer.title} className="overflow-hidden rounded-[19px] border border-[#E9E4ED] bg-white shadow-[0_7px_22px_rgba(45,31,70,.045)]">
-      <div className="flex h-[100px]"><div className={`consumer-offer-art ${offer.art}`}><span>{i === 0 ? "✦" : i === 1 ? "◇" : i === 2 ? "☼" : "◆"}</span></div><div className="flex flex-1 flex-col justify-center p-3"><div className="flex items-start justify-between gap-2"><span className="rounded-full bg-[#F2EEFF] px-2 py-1 text-[6px] font-bold uppercase tracking-wider text-[#5E3BEE]">{offer.badge}</span><Icon name="bookmark" className="h-3.5 w-3.5 text-[#928B98]" /></div><h3 className="mt-2 text-[11px] font-semibold">{offer.title}</h3><p className="mt-1 text-[7px] text-[#9B95A1]">{offer.partners}</p><p className="mt-2 text-[9px] font-bold text-[#5E3BEE]">{offer.price}</p></div></div>
+    <div className="mt-5 space-y-3 px-5">{offers.map((offer,i) => <article key={offer.title} onClick={() => onOffer(offer)} className="cursor-pointer overflow-hidden rounded-[19px] border border-[#E9E4ED] bg-white shadow-[0_7px_22px_rgba(45,31,70,.045)] transition hover:-translate-y-0.5 hover:border-[#D2C5FA]">
+      <div className="flex h-[100px]"><div className={`consumer-offer-art ${offer.art}`}><span>{i === 0 ? "✦" : i === 1 ? "◇" : i === 2 ? "☼" : "◆"}</span></div><div className="flex flex-1 flex-col justify-center p-3"><div className="flex items-start justify-between gap-2"><span className="rounded-full bg-[#F2EEFF] px-2 py-1 text-[6px] font-bold uppercase tracking-wider text-[#5E3BEE]">{offer.badge}</span><button onClick={event => { event.stopPropagation(); onSave(offer); }}><Icon name="bookmark" className={`h-3.5 w-3.5 ${saved.includes(offer.title) ? "fill-[#5E3BEE] text-[#5E3BEE]" : "text-[#928B98]"}`} /></button></div><h3 className="mt-2 text-[11px] font-semibold">{offer.title}</h3><p className="mt-1 text-[7px] text-[#9B95A1]">{offer.partners}</p><p className="mt-2 text-[9px] font-bold text-[#5E3BEE]">{offer.price}</p></div></div>
     </article>)}</div>
   </div>;
+}
+
+function OfferModal({ offer, saved, onClose, onSave, onAction }: { offer: Offer; saved: boolean; onClose: () => void; onSave: () => void; onAction: (action: string) => void }) {
+  const [stage, setStage] = useState<"view" | "booking" | "confirmed" | "redeemed">("view");
+  return <div className="absolute inset-0 z-[70] flex items-end bg-[#151020]/45 backdrop-blur-[2px]" onClick={onClose}><div onClick={event => event.stopPropagation()} className="consumer-sheet max-h-[92%] w-full overflow-y-auto rounded-t-[28px] bg-white">
+    <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-[#DDD7E1]" />
+    {stage === "view" && <><div className={`consumer-offer-art ${offer.art} mx-4 mt-3 !h-44 !w-[calc(100%-2rem)] rounded-[20px]`}><span className="!text-5xl">✦</span><button onClick={onClose} className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-white/85 text-sm">×</button></div><div className="p-5"><div className="flex items-center justify-between"><span className="rounded-full bg-[#F1EDFF] px-2.5 py-1.5 text-[7px] font-bold uppercase text-[#5E3BEE]">{offer.badge}</span><div className="flex gap-2"><button onClick={() => onAction("Offer link copied — ready to share")} className="grid h-8 w-8 place-items-center rounded-full border border-[#E8E3EC] text-[10px]">↗</button><button onClick={onSave} className="grid h-8 w-8 place-items-center rounded-full border border-[#E8E3EC]"><Icon name="bookmark" className={`h-4 w-4 ${saved ? "fill-[#5E3BEE] text-[#5E3BEE]" : "text-[#7C7481]"}`} /></button></div></div><h2 className="mt-4 text-[20px] font-semibold tracking-[-.04em]">{offer.title}</h2><p className="mt-1 text-[9px] text-[#918A98]">{offer.partners}</p><p className="mt-4 text-[9px] leading-5 text-[#6F6877]">A seamless premium experience curated by two exceptional NEFE partners. Every detail is coordinated for you, with member recognition throughout.</p><div className="mt-4 grid grid-cols-3 rounded-[14px] bg-[#F8F6FA] py-3 text-center">{[["4.9","Rating"],["2×","Points"],["Flexible","Booking"]].map(([v,l]) => <div key={l}><p className="text-[10px] font-bold">{v}</p><p className="mt-1 text-[6px] text-[#9A94A0]">{l}</p></div>)}</div><button onClick={() => setStage("booking")} className="mt-5 w-full rounded-[14px] bg-[#5E3BEE] py-3.5 text-[10px] font-semibold text-white shadow-[0_10px_25px_rgba(94,59,238,.23)]">Book experience · {offer.price.replace("From ","")}</button><button onClick={() => setStage("redeemed")} className="mt-2 w-full rounded-[14px] border border-[#E5DFEA] py-3 text-[9px] font-semibold text-[#5E3BEE]">Redeem with points</button></div></>}
+    {stage === "booking" && <div className="p-5"><button onClick={() => setStage("view")} className="text-[9px] text-[#746D7B]">← Back</button><h2 className="mt-5 text-[20px] font-semibold">Book your experience</h2><p className="mt-1 text-[8px] text-[#98919D]">{offer.title}</p><div className="mt-5 space-y-3"><label className="block rounded-[14px] border border-[#E8E3EC] p-3"><span className="text-[6px] uppercase text-[#9A94A0]">Preferred date</span><p className="mt-1 text-[10px] font-semibold">Saturday, 18 July 2026</p></label><label className="block rounded-[14px] border border-[#E8E3EC] p-3"><span className="text-[6px] uppercase text-[#9A94A0]">Guests</span><p className="mt-1 text-[10px] font-semibold">2 guests</p></label><label className="block rounded-[14px] border border-[#E8E3EC] p-3"><span className="text-[6px] uppercase text-[#9A94A0]">Member benefit</span><p className="mt-1 text-[10px] font-semibold text-[#5E3BEE]">Preferred upgrade applied ✓</p></label></div><button onClick={() => setStage("confirmed")} className="mt-5 w-full rounded-[14px] bg-[#5E3BEE] py-3.5 text-[10px] font-semibold text-white">Confirm booking</button></div>}
+    {(stage === "confirmed" || stage === "redeemed") && <div className="p-7 text-center"><span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-[#E8F8F1] text-[#159268]"><Icon name="check" className="h-7 w-7" /></span><h2 className="mt-5 text-xl font-semibold">{stage === "confirmed" ? "You're booked." : "Offer redeemed."}</h2><p className="mx-auto mt-2 max-w-[260px] text-[9px] leading-5 text-[#8E8794]">{stage === "confirmed" ? "Your experience is confirmed for Saturday, 18 July. We added it to your NEFE Wallet." : "Your digital benefit is ready in Wallet. Present it when you arrive."}</p><div className="mt-5 rounded-[16px] bg-[#F6F3FC] p-4 text-left"><p className="text-[7px] font-bold uppercase tracking-wider text-[#7960DC]">Confirmation</p><p className="mt-2 text-[11px] font-semibold">{offer.title}</p><p className="mt-1 text-[7px] text-[#98919D]">NEFE-{stage === "confirmed" ? "260718" : "RWD8241"}</p></div><button onClick={() => { onAction(stage === "confirmed" ? "Booking added to your Wallet" : "Reward pass added to your Wallet"); onClose(); }} className="mt-5 w-full rounded-[14px] bg-[#211832] py-3.5 text-[10px] font-semibold text-white">View in Wallet</button></div>}
+  </div></div>;
 }
 
 function RewardsScreen({ goWallet }: { goWallet: () => void }) {
@@ -87,8 +100,8 @@ function RewardsScreen({ goWallet }: { goWallet: () => void }) {
       <button onClick={goWallet} className="mt-5 flex items-center gap-1 text-[8px] font-semibold text-white">View rewards wallet <Icon name="arrow" className="h-3 w-3" /></button>
     </div>
     <div className="mt-6 px-5"><div className="flex items-center justify-between"><h2 className="text-[14px] font-semibold">Preferred benefits</h2><span className="rounded-full bg-[#FFF3D8] px-2 py-1 text-[7px] font-bold text-[#956E20]">GOLD TIER</span></div>
-      <div className="mt-3 grid grid-cols-2 gap-3">{[
-        ["Exclusive access","Priority tables & events","ticket"],["Partner upgrades","Thoughtful extras, included","gift"],["Earn 2× faster","Across featured partners","spark"],["Travel privileges","Transfers and late checkout","plane"],
+      <div className="mt-3 grid grid-cols-3 gap-2">{[
+        ["Gold","Priority offers + 2× points","ticket"],["Platinum","Upgrades + concierge","gift"],["Diamond","Bespoke access","spark"],
       ].map(([a,b,icon]) => <article key={a} className="rounded-[16px] border border-[#EAE5EE] bg-white p-3.5"><span className="grid h-8 w-8 place-items-center rounded-[10px] bg-[#F1EDFF] text-[#5E3BEE]"><Icon name={icon as IconName} className="h-4 w-4" /></span><h3 className="mt-3 text-[9px] font-semibold">{a}</h3><p className="mt-1 text-[7px] leading-3 text-[#99939F]">{b}</p></article>)}</div>
     </div>
     <div className="mx-5 mt-5 rounded-[16px] border border-[#E9DFC5] bg-[#FFFBF1] p-4"><div className="flex items-center gap-3"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#F2E4BC] text-[#9A7328]"><Icon name="gift" className="h-4 w-4" /></span><div><p className="text-[9px] font-semibold">A new benefit is waiting</p><p className="mt-1 text-[7px] text-[#91846A]">Complimentary welcome ritual at Serein Wellness</p></div><Icon name="chevron" className="ml-auto h-3.5 w-3.5 text-[#A89A7B]" /></div></div>
@@ -132,9 +145,20 @@ function Logo() {
 
 export default function ConsumerApp() {
   const [activeTab, setActiveTab] = useState<Tab>("Discover");
+  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
+  const [saved, setSaved] = useState<string[]>([]);
+  const [toast, setToast] = useState("");
+  const notify = (message: string) => {
+    setToast(message);
+    window.setTimeout(() => setToast(""), 2400);
+  };
+  const toggleSave = (offer: Offer) => {
+    setSaved(items => items.includes(offer.title) ? items.filter(item => item !== offer.title) : [...items, offer.title]);
+    notify(saved.includes(offer.title) ? "Removed from saved offers" : "Offer saved to your profile");
+  };
   const screens: Record<Tab, React.ReactNode> = {
     Discover: <DiscoverScreen goOffers={() => setActiveTab("Offers")} />,
-    Offers: <OffersScreen />,
+    Offers: <OffersScreen onOffer={setActiveOffer} saved={saved} onSave={toggleSave} />,
     Rewards: <RewardsScreen goWallet={() => setActiveTab("Wallet")} />,
     Wallet: <WalletScreen />,
     Profile: <ProfileScreen />,
@@ -163,10 +187,13 @@ export default function ConsumerApp() {
               {(["Discover","Offers","Rewards","Wallet","Profile"] as Tab[]).map(tab => <button key={tab} onClick={() => setActiveTab(tab)} className={`group flex flex-col items-center justify-center gap-1 transition ${activeTab === tab ? "text-[#5E3BEE]" : "text-[#9C96A2]"}`}><span className={`relative grid h-6 w-8 place-items-center rounded-lg transition ${activeTab === tab ? "bg-[#F0ECFF]" : ""}`}><Icon name={tabIcons[tab]} className="h-[17px] w-[17px]" />{tab === "Offers" && <i className="absolute right-0 top-0 h-1.5 w-1.5 rounded-full bg-[#D1A344] ring-1 ring-white" />}</span><span className="text-[7px] font-semibold">{tab}</span></button>)}
             </nav>
             <div className="absolute bottom-1 left-1/2 z-50 h-1 w-28 -translate-x-1/2 rounded-full bg-[#17131D]" />
+            {activeOffer && <OfferModal offer={activeOffer} saved={saved.includes(activeOffer.title)} onClose={() => setActiveOffer(null)} onSave={() => toggleSave(activeOffer)} onAction={notify} />}
+            {toast && <div className="prototype-toast absolute bottom-20 left-1/2 z-[90] flex w-max max-w-[90%] -translate-x-1/2 items-center gap-2 rounded-xl bg-[#211A31]/95 px-3 py-2.5 text-[8px] font-semibold text-white shadow-xl"><span className="grid h-4 w-4 place-items-center rounded-full bg-[#35A77D] text-[8px]">✓</span>{toast}</div>}
           </div>
         </div>
         <p className="mt-5 text-center text-[10px] text-[#8B8493] lg:hidden">Tap the navigation inside the phone to explore</p>
       </section>
     </div>
+    <PrototypeAssistant compact />
   </main>;
 }
