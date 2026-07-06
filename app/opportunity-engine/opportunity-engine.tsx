@@ -36,6 +36,8 @@ export default function OpportunityEngine() {
   const [positions, setPositions] = useState<Record<string, Position>>({});
   const [presenting, setPresenting] = useState(false);
   const [slide, setSlide] = useState(0);
+  const [executiveModal, setExecutiveModal] = useState<"report" | "pilot" | null>(null);
+  const [simulationState, setSimulationState] = useState<"idle" | "running" | "complete">("idle");
   const [inputs, setInputs] = useState<RevenueInputs>({ businesses: 12, visitors: 8400, conversion: 24, participation: 38, spend: 620, retention: 31 });
   const graphRef = useRef<HTMLDivElement>(null);
 
@@ -85,7 +87,10 @@ export default function OpportunityEngine() {
     document.body.style.overflow = presenting ? "hidden" : "";
     const onKey = (event: KeyboardEvent) => {
       if (!presenting) return;
-      if (event.key === "Escape") setPresenting(false);
+      if (event.key === "Escape") {
+        setExecutiveModal(null);
+        setPresenting(false);
+      }
       if (event.key === "ArrowRight" || event.key === "ArrowDown") setSlide(current => Math.min(slideCount - 1, current + 1));
       if (event.key === "ArrowLeft" || event.key === "ArrowUp") setSlide(current => Math.max(0, current - 1));
     };
@@ -98,8 +103,29 @@ export default function OpportunityEngine() {
   }, [presenting]);
 
   const notify = (message: string) => {
+    if (message === "Executive commercial report prepared") {
+      setExecutiveModal("report");
+      return;
+    }
+    if (message === "Pilot simulation launched") {
+      setSimulationState("idle");
+      setExecutiveModal("pilot");
+      return;
+    }
     setToast(message);
     window.setTimeout(() => setToast(""), 2200);
+  };
+  const closeExecutiveModal = () => {
+    setExecutiveModal(null);
+    setSimulationState("idle");
+  };
+  const startSimulation = () => {
+    setSimulationState("running");
+    window.setTimeout(() => {
+      setSimulationState("complete");
+      setToast("Pilot simulation activated.");
+      window.setTimeout(() => setToast(""), 2400);
+    }, 1800);
   };
   const toggleMerchant = (merchant: Merchant) => setSelectedNames(current => current.includes(merchant.name) ? current.filter(name => name !== merchant.name) : [...current, merchant.name]);
   const enterPresentation = () => {
@@ -158,6 +184,26 @@ export default function OpportunityEngine() {
     </section>
 
     {presenting&&<div className="fixed inset-x-0 bottom-0 z-[200] flex items-center justify-between border-t border-white/10 bg-[#171120]/94 px-4 py-3 text-white backdrop-blur-xl sm:px-6"><button type="button" onClick={previousSlide} disabled={slide===0} className="min-w-28 touch-manipulation rounded-xl border border-white/10 bg-white/[.07] px-4 py-3 text-[8px] font-semibold transition enabled:hover:bg-white/12 disabled:cursor-not-allowed disabled:opacity-30">← Previous</button><div className="flex gap-1.5">{Array.from({length:slideCount},(_,index)=><button type="button" key={index} onClick={()=>setSlide(index)} aria-label={`Go to slide ${index+1}`} className={`h-1.5 rounded-full transition-all ${slide===index?"w-6 bg-[#CBA04B]":"w-1.5 bg-white/25 hover:bg-white/50"}`}/>)}</div><button type="button" onClick={nextSlide} disabled={slide===slideCount-1} className="min-w-28 touch-manipulation rounded-xl bg-[#6542D9] px-4 py-3 text-[8px] font-semibold transition enabled:hover:bg-[#7654E7] disabled:cursor-not-allowed disabled:opacity-30">Next →</button></div>}
+
+    <AnimatePresence>
+      {executiveModal&&<motion.div className="fixed inset-0 z-[300] grid place-items-center overflow-y-auto bg-[#0C0712]/72 p-4 backdrop-blur-md" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onMouseDown={event=>{if(event.target===event.currentTarget)closeExecutiveModal()}}>
+        <motion.div role="dialog" aria-modal="true" aria-labelledby="executive-modal-title" initial={{opacity:0,y:24,scale:.98}} animate={{opacity:1,y:0,scale:1}} exit={{opacity:0,y:15,scale:.98}} transition={{type:"spring",stiffness:280,damping:26}} className="w-full max-w-[760px] overflow-hidden rounded-[28px] border border-white/10 bg-[#F8F6FA] shadow-[0_35px_100px_rgba(9,5,17,.45)]">
+          <div className="relative overflow-hidden bg-gradient-to-br from-[#1B1228] via-[#31205D] to-[#5E3BEE] p-6 text-white sm:p-8"><div className="engine-grid absolute inset-0 opacity-20"/><div className="relative flex items-start justify-between gap-5"><div><p className="text-[7px] font-bold uppercase tracking-[.16em] text-[#D1C2FA]">{executiveModal==="report"?"Investor-ready intelligence":"Controlled commercial rollout"}</p><h2 id="executive-modal-title" className="mt-3 text-2xl font-semibold tracking-[-.04em] sm:text-3xl">{executiveModal==="report"?"Executive Commercial Report":"90-Day Pilot Simulation"}</h2><p className="mt-2 text-[9px] text-white/45">Generated from the current Opportunity Engine scenario.</p></div><button type="button" onClick={closeExecutiveModal} aria-label="Close modal" className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/10 text-lg text-white/70 transition hover:bg-white/15">×</button></div></div>
+
+          {executiveModal==="report"?<div className="p-6 sm:p-8">
+            <div><p className="engine-eyebrow">Selected businesses</p><div className="mt-3 flex flex-wrap gap-2">{selected.map(merchant=><span key={merchant.name} className={`rounded-full border px-3 py-2 text-[7px] font-semibold ${merchant.ceo?"border-[#D5AE51]/40 bg-[#FFF4D9] text-[#916719]":"border-[#DDD5F5] bg-[#F1EDFF] text-[#5E3BEE]"}`}>{merchant.ceo?"★ ":""}{merchant.name}</span>)}</div></div>
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">{[["Commercial score",`${commercialScore}/100`],["Network strength",`${networkStrength}%`],["Monthly value",`AED ${(valueTotal/1000).toFixed(0)}K`],["Bundle readiness",`${bundleReadiness}%`]].map(([label,value])=><div key={label} className="rounded-[16px] border border-[#E5DFE9] bg-white p-4"><p className="text-[6px] text-[#958E9A]">{label}</p><p className="mt-2 text-lg font-semibold tracking-[-.03em]">{value}</p></div>)}</div>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2"><div className="rounded-[17px] bg-[#F1EDFF] p-5"><p className="text-[7px] font-bold uppercase text-[#7257D2]">Recommended next step</p><p className="mt-2 text-[9px] leading-5 text-[#51456D]">Approve a 90-day commercial pilot with executive sponsorship, shared campaign ownership and weekly KPI review.</p></div><div className="rounded-[17px] bg-[#FFF7E5] p-5"><p className="text-[7px] font-bold uppercase text-[#9B7428]">Pilot recommendation</p><p className="mt-2 text-[9px] leading-5 text-[#64543A]">{ceoPilot?"Launch the Ras Al Khaimah CEO Network cluster as the first controlled regional pilot.":"Begin with the highest-fit hospitality, mobility and experience partners in one city."}</p></div></div>
+            <div className="mt-7 flex justify-end gap-2"><button type="button" onClick={closeExecutiveModal} className="rounded-xl border border-[#DDD7E3] px-5 py-3 text-[8px] font-bold text-[#625B68]">Close</button><button type="button" onClick={()=>{setToast("PDF preview downloaded successfully.");window.setTimeout(()=>setToast(""),2400)}} className="rounded-xl bg-[#5E3BEE] px-5 py-3 text-[8px] font-bold text-white shadow-[0_10px_25px_rgba(94,59,238,.22)]">Download PDF Preview</button></div>
+          </div>:<div className="p-6 sm:p-8">
+            <div className="rounded-[18px] border border-[#E1C471] bg-gradient-to-r from-[#FFF8E5] to-[#F5F0FF] p-5"><div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-[7px] font-bold uppercase text-[#967022]">Pilot cluster</p><p className="mt-2 text-[11px] font-semibold">{ceoPilot?"RAK Resort Development + F10 Car Rental + RAK Hotel Partner":"Premium UAE Commercial Cluster"}</p></div><span className="rounded-full bg-[#AE8129] px-3 py-2 text-[7px] font-bold text-white">90 days</span></div></div>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2"><div className="rounded-[17px] border border-[#E6E1EA] bg-white p-5"><p className="engine-eyebrow">Launch sequence</p><div className="mt-4 space-y-3">{[["Week 1","Executive alignment and commercial ownership"],["Week 2","Merchant onboarding and data setup"],["Week 3","Bundle design and campaign approvals"],["Week 4","Staff readiness and controlled customer launch"],["Month 2","Campaign testing, referral optimization and rewards"],["Month 3","Performance review and expansion decision"]].map(([period,task],index)=><div key={period} className="flex gap-3"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#F0ECFF] text-[6px] font-bold text-[#5E3BEE]">0{index+1}</span><div><p className="text-[7px] font-bold">{period}</p><p className="mt-1 text-[6px] leading-3 text-[#8D8692]">{task}</p></div></div>)}</div></div><div className="space-y-3"><div className="rounded-[17px] border border-[#E6E1EA] bg-white p-5"><p className="engine-eyebrow">Expected KPIs</p><div className="mt-4 grid grid-cols-2 gap-2">{[["Revenue","AED 2.86M"],["Referrals","2,840"],["Conversion","27%"],["Repeat rate","34%"]].map(([label,value])=><div key={label} className="rounded-xl bg-[#F8F6FA] p-3"><p className="text-[6px] text-[#99929E]">{label}</p><p className="mt-1 text-[10px] font-semibold">{value}</p></div>)}</div></div><div className="rounded-[17px] border border-[#E6E1EA] bg-white p-5"><p className="text-[7px] font-bold uppercase text-[#8C8491]">Recommended pilot owner</p><p className="mt-2 text-[10px] font-semibold">NEFE Commercial Director</p><p className="mt-1 text-[7px] text-[#99929E]">Supported by merchant GMs and partner experience leads.</p></div></div></div>
+            {simulationState!=="idle"&&<div className="mt-5 rounded-[16px] bg-[#171120] p-4 text-white"><div className="flex items-center justify-between"><p className="text-[8px] font-semibold">{simulationState==="running"?"Activating pilot simulation…":"Pilot simulation activated."}</p><span className={`text-[8px] font-bold ${simulationState==="complete"?"text-[#65D3A7]":"text-[#D9BD70]"}`}>{simulationState==="complete"?"100%":"Processing"}</span></div><div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10"><motion.i className="block h-full rounded-full bg-gradient-to-r from-[#7250DF] to-[#D6AF55]" initial={{width:"5%"}} animate={{width:simulationState==="complete"?"100%":"88%"}} transition={{duration:simulationState==="complete"?.35:1.7,ease:"easeInOut"}}/></div></div>}
+            <div className="mt-7 flex justify-end gap-2"><button type="button" onClick={closeExecutiveModal} className="rounded-xl border border-[#DDD7E3] px-5 py-3 text-[8px] font-bold text-[#625B68]">Close</button><button type="button" disabled={simulationState==="running"||simulationState==="complete"} onClick={startSimulation} className="min-w-36 rounded-xl bg-[#5E3BEE] px-5 py-3 text-[8px] font-bold text-white shadow-[0_10px_25px_rgba(94,59,238,.22)] disabled:opacity-55">{simulationState==="running"?"Starting…":simulationState==="complete"?"Simulation Active":"Start Simulation"}</button></div>
+          </div>}
+        </motion.div>
+      </motion.div>}
+    </AnimatePresence>
 
     {!presenting&&<div className="pointer-events-none fixed bottom-5 left-5 z-40 hidden max-w-[280px] space-y-2 xl:block">{recommendations.slice(0,2).map((item,index)=><motion.div initial={{opacity:0,x:-15}} animate={{opacity:1,x:0}} transition={{delay:.8+index*.15}} key={item} className="rounded-[14px] border border-[#DFD7EA] bg-white/92 p-3 shadow-[0_12px_35px_rgba(43,30,66,.12)] backdrop-blur"><div className="flex gap-2"><span className="text-[#C3973D]">✦</span><div><p className="text-[7px] font-semibold">{item}</p><p className="mt-1 text-[5px] text-[#9C95A1]">NEFE AI recommendation</p></div></div></motion.div>)}</div>}
     {toast&&<div className="prototype-toast fixed bottom-6 left-1/2 z-[250] -translate-x-1/2 rounded-xl bg-[#211A32]/95 px-5 py-3 text-[8px] font-semibold text-white shadow-2xl">✓ {toast}</div>}
