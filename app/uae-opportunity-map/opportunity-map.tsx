@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
+import { merchantSlug } from "../merchants/merchant-data";
 
 type Priority="Very High"|"High"|"Medium";
 export type Business={name:string;category:string;city:string;location:string;fit:number;nearby:number;bundle:string;referrals:number;priority:Priority;opportunity:string;value:number;x:number;y:number;lat:number;lng:number;initials:string;outreach:string;meeting:string;ceo:boolean};
@@ -82,6 +84,7 @@ export default function OpportunityMap(){
       <div className="mt-4"><p className="text-[7px] font-bold uppercase tracking-wider text-white/30">Nearby Partner Matches</p><div className="mt-2 space-y-2">{matches.map(m=><button key={m.name} onClick={()=>setSelected(m)} className="flex w-full items-center gap-2 rounded-xl border border-white/[.07] bg-white/[.035] p-2.5 text-left"><span className="grid h-7 w-7 place-items-center rounded-lg bg-[#6745D8]/20 text-[6px] text-[#B7A3F2]">{m.initials}</span><span className="min-w-0 flex-1 truncate text-[7px]">{m.name}</span><b className="text-[7px] text-[#59C99D]">{m.fit}%</b></button>)}</div></div>
       <div className="mt-4 space-y-3 border-t border-white/[.08] pt-4">{selected.ceo&&<div className="rounded-xl border border-[#C99A3F]/20 bg-[#C99A3F]/10 p-3"><p className="text-[6px] uppercase text-[#D7B35D]">Suggested pilot use</p><p className="mt-1 text-[7px] leading-4 text-white/65">Anchor NEFE’s first Ras Al Khaimah regional pilot with a connected resort, hotel and mobility journey.</p><p className="mt-2 text-[6px] uppercase text-[#D7B35D]">Recommended next action</p><p className="mt-1 text-[7px] font-semibold">Schedule a CEO-sponsored pilot design workshop.</p></div>}<div><p className="text-[6px] uppercase text-white/25">Suggested outreach strategy</p><p className="mt-1 text-[7px] leading-4 text-white/55">{selected.outreach}</p></div><div><p className="text-[6px] uppercase text-white/25">Recommended first meeting</p><p className="mt-1 text-[8px] font-semibold text-[#D5B45F]">{selected.meeting}</p></div></div>
       <div className="mt-5 grid grid-cols-2 gap-2">{["Generate Outreach Plan","Create Partnership Bundle","Compare Nearby Businesses","View Commercial Analysis"].map(action=><button key={action} onClick={()=>notify(`${action} prepared for ${selected.name}`)} className="rounded-xl border border-white/10 bg-white/[.045] px-2 py-3 text-[7px] font-semibold text-white/65 transition hover:border-[#7658D1] hover:text-white">{action}</button>)}</div><button onClick={()=>addLead(selected)} className="mt-2 w-full rounded-xl bg-gradient-to-r from-[#6542DA] to-[#8562E8] py-3 text-[8px] font-semibold">Add to Partner Pipeline · {pipeline.length} leads</button>
+      <Link href={`/merchants/${merchantSlug(selected.name)}`} className="mt-2 flex w-full items-center justify-center rounded-xl border border-[#D7B45D]/30 bg-[#D7B45D]/10 py-3 text-[8px] font-semibold text-[#E0BF6B] transition hover:bg-[#D7B45D]/20">View Full Profile →</Link>
     </aside></div></div>
     {toast&&<div className="prototype-toast fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 rounded-xl bg-[#211A32]/95 px-4 py-3 text-[8px] font-semibold text-white shadow-2xl">✓ {toast}</div>}
   </main>;
