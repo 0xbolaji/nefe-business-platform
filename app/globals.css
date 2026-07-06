@@ -97,3 +97,35 @@ html[data-theme="dark"] .prototype-modal>div,html[data-theme="dark"] [role="dial
 html[data-theme="dark"] .financial-model .world-map{border-color:rgba(255,255,255,.1)}
 html[data-theme="dark"] ::selection{background:#7654df;color:white}
 @media(prefers-reduced-motion:no-preference){html[data-theme="dark"] body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 20% 20%,rgba(104,65,222,.08),transparent 22%),radial-gradient(circle at 85% 75%,rgba(201,157,65,.055),transparent 23%);animation:theme-ambient 14s ease-in-out infinite alternate}@keyframes theme-ambient{to{transform:scale(1.08) translate3d(1%,-1%,0);opacity:.75}}}
+
+/* Premium contrast refinement */
+html[data-theme="light"] body{background-color:#fbfaf8;background-image:linear-gradient(115deg,rgba(255,255,255,.96),rgba(250,247,241,.72) 54%,rgba(255,255,255,.94)),linear-gradient(rgba(112,88,51,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(112,88,51,.018) 1px,transparent 1px);background-size:auto,72px 72px,72px 72px}
+html[data-theme="dark"] body{background-image:linear-gradient(135deg,rgba(7,6,12,.98),rgba(12,9,18,.97) 58%,rgba(10,8,14,.99)),radial-gradient(circle at 84% 8%,rgba(199,154,63,.055),transparent 19%),radial-gradient(circle at 12% 18%,rgba(103,64,220,.10),transparent 22%),linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);background-size:auto,auto,auto,72px 72px,72px 72px}
+html[data-theme="light"] .hero-bg{background:radial-gradient(circle at 83% 25%,rgba(94,59,238,.075),transparent 24%),radial-gradient(circle at 62% 3%,rgba(203,158,70,.07),transparent 17%),linear-gradient(145deg,#fff 22%,#fcfbf9 62%,#faf6ee)!important}
+html[data-theme="light"] .hero-bg::after{inset:72px 0 0;opacity:.09;background-size:64px 64px;mask-image:linear-gradient(to right,transparent 5%,black 62%,transparent 96%)}
+html[data-theme="dark"] .hero-bg,html[data-theme="dark"] .founder-hero,html[data-theme="dark"] .botchain-hero,html[data-theme="dark"] .ceo-demo-hero,html[data-theme="dark"] .pilot-hero,html[data-theme="dark"] .financial-hero,html[data-theme="dark"] .roi-page,html[data-theme="dark"] .onboarding-page{background:radial-gradient(circle at 78% 20%,rgba(108,69,230,.12),transparent 24%),radial-gradient(circle at 18% 72%,rgba(202,157,64,.055),transparent 20%),linear-gradient(145deg,#0a0810,#100c17 58%,#09070e)!important}
+html[data-theme="light"] .hero-bg h1{color:#15111f!important;text-shadow:0 1px 0 rgba(255,255,255,.8)}
+html[data-theme="light"] .hero-bg>.page-shell>div:first-child>p{color:#514b5c!important}
+html[data-theme="light"] .section-heading h2{color:#191522}.section-heading p{color:#625c6c;line-height:1.82}
+html[data-theme="light"] .feature-card p,html[data-theme="light"] .step-card p{color:#645e6e}
+.hero-dashboard{isolation:isolate;filter:none}
+html[data-theme="light"] .hero-dashboard>div:last-child{border-color:rgba(78,59,104,.14)!important;background:rgba(255,255,255,.97)!important;box-shadow:0 30px 75px rgba(48,34,78,.17),0 8px 22px rgba(48,34,78,.08),inset 0 0 0 1px rgba(203,158,70,.08)!important;backdrop-filter:blur(3px)!important}
+html[data-theme="light"] .hero-dashboard>div:last-child>div{border-color:#e8e2eb!important;background:#fcfbfd!important}
+html[data-theme="light"] .hero-dashboard [class*="bg-white"]{background-color:#fff!important}
+html[data-theme="light"] .hero-dashboard [class*="backdrop-blur"]{backdrop-filter:blur(3px)!important}
+html[data-theme="dark"] .hero-dashboard>div:last-child{border-color:rgba(213,181,95,.16)!important;background:rgba(22,17,31,.97)!important;box-shadow:0 34px 80px rgba(0,0,0,.42),0 8px 24px rgba(0,0,0,.24),inset 0 0 0 1px rgba(213,181,95,.08)!important;backdrop-filter:blur(4px)!important}
+html[data-theme="dark"] .hero-dashboard [class*="backdrop-blur"]{backdrop-filter:blur(4px)!important}
+.category-card,.feature-card,.finance-card,.engine-card,.engine-kpi,.metric-card{background-color:#fff;box-shadow:0 10px 28px rgba(34,27,48,.065),0 2px 7px rgba(34,27,48,.035);border-color:#e6e0e9}
+.category-card:hover,.feature-card:hover,.finance-card:hover,.engine-card:hover,.engine-kpi:hover{box-shadow:0 20px 46px rgba(42,31,66,.12),0 4px 12px rgba(42,31,66,.05)}
+html[data-theme="dark"] .category-card,html[data-theme="dark"] .feature-card,html[data-theme="dark"] .finance-card,html[data-theme="dark"] .engine-card,html[data-theme="dark"] .engine-kpi,html[data-theme="dark"] .metric-card{background:linear-gradient(145deg,#1a1524,#12101a)!important;border-color:rgba(255,255,255,.105)!important;box-shadow:0 16px 42px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.035)}
+.dashboard-glow{inset:20%;filter:blur(58px);opacity:.12}
+.dashboard-section::before{background:radial-gradient(circle at 72% 45%,rgba(111,72,255,.14),transparent 29%),radial-gradient(circle at 10% 10%,rgba(205,164,83,.055),transparent 20%)}
+.dashboard-section [class*="backdrop-blur"]{backdrop-filter:blur(5px)!important}
+.dashboard-section .relative.rounded-\[26px\]{box-shadow:0 30px 75px rgba(0,0,0,.34),inset 0 0 0 1px rgba(217,183,94,.06)!important}
+.button-primary,.button-secondary{border-top-color:rgba(215,177,86,.25);box-shadow:0 11px 25px rgba(42,31,65,.08),inset 0 1px 0 rgba(255,232,173,.18);transition:transform .22s ease,box-shadow .22s ease,background-color .22s ease,border-color .22s ease}
+.button-primary{box-shadow:0 13px 30px rgba(94,59,238,.27),inset 0 1px 0 rgba(255,230,166,.2)}
+.button-primary:hover{transform:translateY(-3px);box-shadow:0 19px 38px rgba(94,59,238,.31),0 2px 0 rgba(199,154,63,.14),inset 0 1px 0 rgba(255,235,184,.24)}
+.button-secondary:hover{transform:translateY(-3px);border-color:rgba(190,151,67,.28);box-shadow:0 15px 34px rgba(37,28,65,.11),0 2px 0 rgba(199,154,63,.08)}
+html[data-theme="light"] body>header{background:rgba(255,255,255,.94)!important;box-shadow:0 6px 24px rgba(39,29,57,.045)}
+html[data-theme="light"] body>footer{background:#fdfcfb!important}
+@media(prefers-reduced-motion:no-preference){html[data-theme="dark"] body::before{animation:none;background:linear-gradient(rgba(255,255,255,.009) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.009) 1px,transparent 1px);background-size:78px 78px;opacity:.8;transform:none}}
