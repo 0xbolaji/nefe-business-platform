@@ -113,12 +113,12 @@ export default function Home() {
   return (
     <main className="overflow-hidden bg-white text-[#17132A]">
       <section className="hero-bg relative">
-        <div className="page-shell grid min-h-[710px] items-center gap-14 pb-24 pt-16 lg:grid-cols-[.9fr_1.1fr] lg:pb-32 lg:pt-20">
-          <div className="relative z-10">
+        <div className="landing-hero-shell grid min-h-[710px] items-center gap-14 pb-24 pt-16 lg:grid-cols-[minmax(0,.95fr)_minmax(460px,1.05fr)] lg:gap-10 lg:pb-32 lg:pt-20 xl:gap-16">
+          <div className="relative z-10 min-w-0">
             <div className="eyebrow"><Icon name="spark" className="h-4 w-4" /> Built for ambitious businesses</div>
             <h1 className="mt-7 max-w-[650px] text-[44px] font-semibold leading-[1.08] tracking-[-.055em] text-[#181329] sm:text-[58px] lg:text-[67px]">Grow Your Business Through <span className="gradient-text">Strategic Partnerships.</span></h1>
             <p className="mt-7 max-w-[590px] text-base leading-7 text-[#686276] sm:text-lg sm:leading-8">Connect with trusted businesses, launch joint campaigns, exchange referrals, create bundled experiences and unlock new revenue opportunities.</p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div className="hero-actions mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link id="access" href="/onboarding" className="button-primary">Request Early Access <Icon name="arrow" /></Link>
               <Link href="/platform" className="button-secondary">Explore Platform <Icon name="arrow" className="h-4 w-4" /></Link>
               <Link href="/business-portal" className="button-secondary">View Business Portal <Icon name="arrow" className="h-4 w-4" /></Link>
