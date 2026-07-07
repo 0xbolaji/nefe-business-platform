@@ -43,16 +43,17 @@ const opportunitySectors = [
 const tourCards = [
   { title: "Platform", href: "/platform", number: "01", detail: "Merchant workspace for partner discovery, referrals and campaign execution.", tone: "purple" },
   { title: "Commerce Graph", href: "/commerce-graph", number: "02", detail: "Executive visual for how customers, rewards and revenue move through the network.", tone: "dark" },
-  { title: "Experience Builder", href: "/experience-builder", number: "03", detail: "Proof that businesses can package services into higher-value customer journeys.", tone: "gold" },
-  { title: "ROI Calculator", href: "/roi-calculator", number: "04", detail: "Merchant-facing value model for estimating the upside of joining NEFE.", tone: "mint" },
-  { title: "Executive Insights", href: "/executive-insights", number: "05", detail: "Board-level dashboard for ecosystem growth, partner activity and revenue impact.", tone: "blue" },
-  { title: "Opportunity Engine", href: "/opportunity-engine", number: "06", detail: "Investor-ready scenario builder for selecting partners and simulating pilot outcomes.", tone: "purple" },
-  { title: "UAE Opportunity Map", href: "/uae-opportunity-map", number: "07", detail: "Commercial intelligence layer for identifying which UAE businesses to connect first.", tone: "blue" },
-  { title: "Business Model", href: "/business-model", number: "08", detail: "Strategic explanation of how NEFE earns from subscriptions, referrals and enterprise services.", tone: "gold" },
-  { title: "Pricing", href: "/pricing", number: "09", detail: "Simple merchant entry points for pilot adoption and future commercial scale.", tone: "mint" },
-  { title: "Financial Model", href: "/financial-model", number: "10", detail: "Leadership view of assumptions, scenarios, margin profile and expansion economics.", tone: "blue" },
-  { title: "Token Utility", href: "/token-utility-economics", number: "11", detail: "Clear role for utility through rewards, access, incentives and future payment readiness.", tone: "gold" },
-  { title: "Why Botchain", href: "/why-botchain", number: "12", detail: "Strategic bridge between real merchant activity and future infrastructure usage.", tone: "rose" },
+  { title: "Commercial Ecosystems", href: "/commercial-ecosystems", number: "03", detail: "Clarifies why businesses participate: they are not giving customers away, they are increasing customer value together.", tone: "gold" },
+  { title: "Experience Builder", href: "/experience-builder", number: "04", detail: "Proof that businesses can package services into higher-value customer journeys.", tone: "gold" },
+  { title: "ROI Calculator", href: "/roi-calculator", number: "05", detail: "Merchant-facing value model for estimating the upside of joining NEFE.", tone: "mint" },
+  { title: "Executive Insights", href: "/executive-insights", number: "06", detail: "Board-level dashboard for ecosystem growth, partner activity and revenue impact.", tone: "blue" },
+  { title: "Opportunity Engine", href: "/opportunity-engine", number: "07", detail: "Investor-ready scenario builder for selecting partners and simulating pilot outcomes.", tone: "purple" },
+  { title: "UAE Opportunity Map", href: "/uae-opportunity-map", number: "08", detail: "Commercial intelligence layer for identifying which UAE businesses to connect first.", tone: "blue" },
+  { title: "Business Model", href: "/business-model", number: "09", detail: "Strategic explanation of how NEFE earns from subscriptions, referrals and enterprise services.", tone: "gold" },
+  { title: "Pricing", href: "/pricing", number: "10", detail: "Simple merchant entry points for pilot adoption and future commercial scale.", tone: "mint" },
+  { title: "Financial Model", href: "/financial-model", number: "11", detail: "Leadership view of assumptions, scenarios, margin profile and expansion economics.", tone: "blue" },
+  { title: "Token Utility", href: "/token-utility-economics", number: "12", detail: "Clear role for utility through rewards, access, incentives and future payment readiness.", tone: "gold" },
+  { title: "Why Botchain", href: "/why-botchain", number: "13", detail: "Strategic bridge between real merchant activity and future infrastructure usage.", tone: "rose" },
 ];
 
 const flywheel = [

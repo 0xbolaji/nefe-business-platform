@@ -134,6 +134,7 @@ export default function Home() {
               <Link href="/consumer" className="button-secondary">View Consumer App <Icon name="arrow" className="h-4 w-4" /></Link>
               <Link href="/opportunity-engine" className="button-secondary">Open Opportunity Engine <Icon name="arrow" className="h-4 w-4" /></Link>
               <Link href="/business-model" className="button-secondary">View Business Model <Icon name="arrow" className="h-4 w-4" /></Link>
+              <Link href="/commercial-ecosystems" className="button-secondary">View Ecosystems <Icon name="arrow" className="h-4 w-4" /></Link>
             </div>
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium text-[#746E80]">
               {["No credit card required", "Built for business", "Secure by design"].map((text) => <span key={text} className="flex items-center gap-1.5"><span className="grid h-4 w-4 place-items-center rounded-full bg-[#E9FFF5] text-[#16A36A]"><Icon name="check" className="h-3 w-3" /></span>{text}</span>)}
@@ -179,6 +180,32 @@ export default function Home() {
             ["02", "Partner", "Discover complementary businesses and launch opportunities that work for both sides.", "referral"],
             ["03", "Grow", "Track every campaign, referral, and dollar of shared growth in real time.", "chart"],
           ].map(([num,title,text,icon]) => <article key={title} className="step-card"><div className="step-icon"><Icon name={icon as IconName} /><span>{num}</span></div><h3>{title}</h3><p>{text}</p></article>)}
+        </div>
+      </section>
+
+      <section className="page-shell py-20 sm:py-28">
+        <div className="grid overflow-hidden rounded-[32px] border border-[#E5DFE9] bg-white shadow-[0_18px_55px_rgba(42,28,72,.07)] lg:grid-cols-[.9fr_1.1fr]">
+          <div className="p-8 sm:p-10 lg:p-12">
+            <div className="eyebrow">Curated ecosystems</div>
+            <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-[-.05em] sm:text-5xl">
+              Complementary businesses, not random competitors.
+            </h2>
+            <p className="mt-5 max-w-xl text-[12px] leading-6 text-[#675F6E]">
+              NEFE helps businesses collaborate when they serve the same customer before, during or after a purchase without competing for the same core transaction.
+            </p>
+            <Link href="/commercial-ecosystems" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#5E3BEE] px-5 py-3 text-[10px] font-semibold text-white shadow-[0_12px_28px_rgba(94,59,238,.18)] transition hover:-translate-y-1">
+              Explore Commercial Ecosystems <Icon name="arrow" className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="grid gap-3 bg-gradient-to-br from-[#171122] to-[#3B2578] p-6 text-white sm:grid-cols-2 sm:p-8 lg:p-10">
+            {["Luxury travel", "Wellness", "Family weekend", "Business traveler"].map((item, index) => (
+              <div key={item} className="rounded-[20px] border border-white/10 bg-white/[.07] p-5 backdrop-blur">
+                <span className="text-[8px] font-bold text-[#D9BB64]">0{index + 1}</span>
+                <p className="mt-8 text-[15px] font-semibold">{item}</p>
+                <p className="mt-2 text-[9px] leading-5 text-white/68">Built around shared customers and complementary moments.</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

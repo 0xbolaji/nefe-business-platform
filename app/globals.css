@@ -345,3 +345,10 @@ html[data-theme="dark"] .site-footer a:hover{color:#b9a5ff!important}
 
 section[style*="opacity: 0"]{opacity:1!important}
 @media(prefers-reduced-motion:reduce){.contrast-audit-page [style*="opacity"]{opacity:1!important;transform:none!important}}
+
+/* Commercial ecosystems page */
+html[data-theme="dark"] .commercial-ecosystems-page{background:#0b0911!important;color:#f7f3fb!important}
+html[data-theme="dark"] .commercial-ecosystems-page [class*="bg-[#FAF9FB]"],html[data-theme="dark"] .commercial-ecosystems-page [class*="bg-[#F4F1F6]"]{background:#0b0911!important}
+html[data-theme="dark"] .commercial-ecosystems-page [class*="bg-[#F7F4FA]"],html[data-theme="dark"] .commercial-ecosystems-page [class*="bg-[#F8F6FA]"],html[data-theme="dark"] .commercial-ecosystems-page [class*="bg-[#FAF8FC]"],html[data-theme="dark"] .commercial-ecosystems-page [class*="bg-[#FFF8E8]"],html[data-theme="dark"] .commercial-ecosystems-page [class*="bg-[#F0ECFF]"],html[data-theme="dark"] .commercial-ecosystems-page [class*="bg-[#FFF7E5]"]{border-color:rgba(255,255,255,.1)!important;background:rgba(255,255,255,.065)!important;color:#f5f1f8!important}
+html[data-theme="dark"] .commercial-ecosystems-page [class*="text-[#625"],html[data-theme="dark"] .commercial-ecosystems-page [class*="text-[#675"],html[data-theme="dark"] .commercial-ecosystems-page [class*="text-[#6D"],html[data-theme="dark"] .commercial-ecosystems-page [class*="text-[#5E5"],html[data-theme="dark"] .commercial-ecosystems-page [class*="text-[#746"],html[data-theme="dark"] .commercial-ecosystems-page [class*="text-[#6B"]{color:#c9c1cf!important}
+html[data-theme="dark"] .commercial-ecosystems-page [class*="text-[#8C"],html[data-theme="dark"] .commercial-ecosystems-page [class*="text-[#8F"],html[data-theme="dark"] .commercial-ecosystems-page [class*="text-[#918"]{color:#b8afc0!important}

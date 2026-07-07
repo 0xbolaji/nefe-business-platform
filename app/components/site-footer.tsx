@@ -10,7 +10,7 @@ const columns = [
   },
   {
     title: "Platform",
-    links: [["Platform","/platform"],["Business Portal","/business-portal"],["Consumer App","/consumer"],["Commerce Graph","/commerce-graph"],["Experience Builder","/experience-builder"],["Opportunity Engine","/opportunity-engine"],["UAE Opportunity Map","/uae-opportunity-map"]],
+    links: [["Platform","/platform"],["Commercial Ecosystems","/commercial-ecosystems"],["Business Portal","/business-portal"],["Consumer App","/consumer"],["Commerce Graph","/commerce-graph"],["Experience Builder","/experience-builder"],["Opportunity Engine","/opportunity-engine"],["UAE Opportunity Map","/uae-opportunity-map"]],
     pending: [],
   },
   {
