@@ -5,9 +5,9 @@ import SiteNavbar from "./components/site-navbar";
 import MotionSystem from "./components/motion-system";
 
 export const metadata: Metadata = {
-  title: "NEFE — Grow Through Strategic Partnerships",
+  title: "NEFE — Business Network",
   description:
-    "Connect with trusted businesses, launch joint campaigns, exchange referrals, and unlock new revenue opportunities.",
+    "A commercial intelligence platform for complementary businesses to build shared customer value, referrals, rewards, and measurable growth.",
   icons: {
     icon: "/nefe-logo-purple.png",
     apple: "/nefe-logo-purple.png",

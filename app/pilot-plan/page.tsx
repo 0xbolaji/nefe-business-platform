@@ -43,7 +43,7 @@ const outputs = [
   ["Merchant feedback", "Evidence on onboarding, workflows, incentives and value."],
   ["Revenue data", "Attributed campaign, referral and bundle performance."],
   ["Customer behavior data", "Discovery, purchase, repeat and redemption signals."],
-  ["Botchain incubation case", "Infrastructure utility based on real commercial events."],
+  ["Platform architecture case", "Infrastructure utility based on real commercial events."],
   ["Scale-up plan", "A city-by-city model for UAE and GCC expansion."],
 ];
 

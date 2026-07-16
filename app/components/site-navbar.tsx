@@ -12,7 +12,7 @@ const links = [
   ["Commerce Graph", "/commerce-graph"],
   ["ROI Calculator", "/roi-calculator"],
   ["Founder Room", "/founder-room"],
-  ["Why Botchain", "/why-botchain"],
+  ["Technology", "/technology"],
   ["Business Portal", "/business-portal"],
   ["Consumer App", "/consumer"],
 ];

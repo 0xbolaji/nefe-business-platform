@@ -18,7 +18,7 @@ const faqs=[
   ["Can I change plans?","Yes. Businesses can upgrade as partner activity, campaigns and intelligence requirements grow."],
   ["Does NEFE process customer payments?","Not in the current pilot. NEFE coordinates discovery, referrals, campaigns and commercial intelligence."],
   ["How are referral fees handled?","Referral economics are agreed transparently by participating businesses before a campaign launches."],
-  ["Is blockchain knowledge required?","No. Merchant workflows remain familiar and utility infrastructure stays invisible unless explicitly used."],
+  ["Is technical knowledge required?","No. Merchant workflows remain familiar and digital infrastructure stays invisible unless explicitly used."],
 ];
 
 function FeatureValue({value}:{value:boolean|string}){

@@ -224,7 +224,7 @@ export default function Home() {
             <div className="dashboard-glow" />
             <div className="relative rounded-[26px] border border-white/10 bg-white/[.07] p-3 shadow-2xl backdrop-blur">
               <div className="rounded-[18px] bg-[#F8F7FC] p-5 text-[#19152A] sm:p-7">
-                <div className="flex items-center justify-between"><div><p className="text-[10px] text-slate-400">PERFORMANCE</p><h3 className="mt-1 text-xl font-bold">Growth overview</h3></div><button className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-[10px] text-slate-500">Last 6 months⌄</button></div>
+                <div className="flex items-center justify-between"><div><p className="text-[10px] text-slate-400">PERFORMANCE</p><h3 className="mt-1 text-xl font-bold">Growth overview</h3></div><span className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-[10px] text-slate-500">Last 6 months</span></div>
                 <div className="mt-6 grid grid-cols-2 gap-3">
                   {[["Revenue Growth", "$84,290", "+24.8%", "lav"], ["Partner Businesses", "36", "+8", "gold"], ["Campaign Performance", "92.4%", "+12.1%", "mint"], ["Customer Referrals", "2,841", "+31.6%", "pink"]].map(([a,b,c,color]) => <div key={a} className="metric-card"><div className={`metric-dot ${color}`} /><p>{a}</p><div><strong>{b}</strong><span>{c}</span></div></div>)}
                 </div>

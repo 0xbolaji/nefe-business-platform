@@ -53,7 +53,7 @@ const tourCards = [
   { title: "Pricing", href: "/pricing", number: "10", detail: "Simple merchant entry points for pilot adoption and future commercial scale.", tone: "mint" },
   { title: "Financial Model", href: "/financial-model", number: "11", detail: "Leadership view of assumptions, scenarios, margin profile and expansion economics.", tone: "blue" },
   { title: "Token Utility", href: "/token-utility-economics", number: "12", detail: "Clear role for utility through rewards, access, incentives and future payment readiness.", tone: "gold" },
-  { title: "Why Botchain", href: "/why-botchain", number: "13", detail: "Strategic bridge between real merchant activity and future infrastructure usage.", tone: "rose" },
+  { title: "Technology Foundation", href: "/technology", number: "13", detail: "Shows how businesses use the commercial platform while blockchain infrastructure remains an implementation layer.", tone: "rose" },
 ];
 
 const flywheel = [

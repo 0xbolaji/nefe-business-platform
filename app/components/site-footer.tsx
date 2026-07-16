@@ -15,7 +15,7 @@ const columns = [
   },
   {
     title: "Business",
-    links: [["Pricing","/pricing"],["Business Model","/business-model"],["Financial Model","/financial-model"],["ROI Calculator","/roi-calculator"],["Token Utility","/token-utility-economics"],["Why Botchain","/why-botchain"]],
+    links: [["Pricing","/pricing"],["Business Model","/business-model"],["Financial Model","/financial-model"],["ROI Calculator","/roi-calculator"],["Token Utility","/token-utility-economics"],["Technology","/technology"]],
     pending: [],
   },
   {
@@ -40,7 +40,7 @@ export default function SiteFooter() {
           <div className="flex items-center gap-4" aria-label="Social media placeholders">{["LinkedIn","X","Instagram"].map(label=><span key={label} className="cursor-default font-semibold text-[#6F6876]">{label}</span>)}</div>
         </div>
       </div>
-      <div className="border-t border-[#EEEAF1]"><p className="mx-auto max-w-[1480px] px-5 py-4 text-[7px] text-[#A09AA4] sm:px-8 lg:px-10">Interactive prototype using illustrative mock data. Not a live financial or transactional service.</p></div>
+      <div className="border-t border-[#EEEAF1]"><p className="mx-auto max-w-[1480px] px-5 py-4 text-[7px] text-[#A09AA4] sm:px-8 lg:px-10">Interactive product prototype using sample commercial data. Not a live financial or transactional service.</p></div>
     </footer>
   );
 }
