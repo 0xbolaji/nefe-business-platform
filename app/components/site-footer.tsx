@@ -37,7 +37,7 @@ export default function SiteFooter() {
         </div>
         <div className="flex flex-col gap-5 pt-7 text-[8px] text-[#918A97] md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap gap-x-6 gap-y-2"><p>© 2026 NEFE Business Network</p><p className="inline-flex items-center gap-2"><UAEFlag className="h-3.5 w-auto" title="United Arab Emirates flag"/>Built in the United Arab Emirates.</p></div>
-          <div className="flex items-center gap-4" aria-label="Social media placeholders">{["LinkedIn","X","Instagram"].map(label=><span key={label} className="cursor-default font-semibold text-[#6F6876]">{label}</span>)}</div>
+          <div className="flex items-center gap-4" aria-label="Prototype status"><span className="font-semibold text-[#6F6876]">Private executive preview</span><span className="hidden text-[#B1AAB6] sm:inline">Sample data environment</span></div>
         </div>
       </div>
       <div className="border-t border-[#EEEAF1]"><p className="mx-auto max-w-[1480px] px-5 py-4 text-[7px] text-[#A09AA4] sm:px-8 lg:px-10">Interactive product prototype using sample commercial data. Not a live financial or transactional service.</p></div>
