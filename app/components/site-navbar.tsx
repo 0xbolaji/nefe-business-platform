@@ -7,15 +7,15 @@ import BrandLogo from "./brand-logo";
 import ThemeToggle from "./theme-toggle";
 
 const links = [
-  ["Home", "/"],
   ["Platform", "/platform"],
-  ["Commerce Graph", "/commerce-graph"],
-  ["ROI Calculator", "/roi-calculator"],
-  ["Founder Room", "/founder-room"],
-  ["Technology", "/technology"],
-  ["Business Portal", "/business-portal"],
-  ["Consumer App", "/consumer"],
+  ["Solutions", "/solutions"],
+  ["Merchants", "/merchants"],
+  ["Businesses", "/businesses"],
+  ["Consumers", "/consumers"],
+  ["Developers", "/developers"],
   ["Docs", "/docs"],
+  ["About", "/about"],
+  ["Contact", "/contact"],
 ];
 
 export default function SiteNavbar() {

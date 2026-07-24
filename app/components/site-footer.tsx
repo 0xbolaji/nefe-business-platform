@@ -5,22 +5,22 @@ import UAEFlag from "./uae-flag";
 const columns = [
   {
     title: "Company",
-    links: [["About","/about"],["Leadership","/leadership"],["Founder Room","/founder-room"],["CEO Demo","/ceo-demo"],["Contact","/about#contact"]],
+    links: [["About","/about"],["Leadership","/leadership"],["Contact","/contact"],["Documentation","/docs"]],
     pending: ["Careers"],
   },
   {
     title: "Platform",
-    links: [["Platform","/platform"],["Commercial Ecosystems","/commercial-ecosystems"],["Business Portal","/business-portal"],["Consumer App","/consumer"],["Commerce Graph","/commerce-graph"],["Experience Builder","/experience-builder"],["Opportunity Engine","/opportunity-engine"],["UAE Opportunity Map","/uae-opportunity-map"]],
+    links: [["Platform","/platform"],["Solutions","/solutions"],["Merchants","/merchants"],["Businesses","/businesses"],["Consumers","/consumers"],["Developers","/developers"]],
     pending: [],
   },
   {
     title: "Business",
-    links: [["Pricing","/pricing"],["Business Model","/business-model"],["Financial Model","/financial-model"],["ROI Calculator","/roi-calculator"],["Token Utility","/token-utility-economics"],["Technology","/technology"]],
+    links: [["Business Model","/business-model"],["Commerce Graph","/commerce-graph"],["Opportunity Engine","/opportunity-engine"],["Commercial Ecosystems","/commercial-ecosystems"],["Enterprise Pilots","/contact"]],
     pending: [],
   },
   {
     title: "Resources",
-    links: [["Documentation","/docs"],["Pilot Plan","/pilot-plan"],["Executive Insights","/executive-insights"],["Commercial Report","/opportunity-engine"],["FAQ","/pricing#faq"]],
+    links: [["Documentation","/docs"],["Platform Docs","/docs/platform"],["Merchant Docs","/docs/merchants"],["Developer Docs","/docs/developers"],["FAQ","/docs/reference/faq"]],
     pending: [],
   },
 ];

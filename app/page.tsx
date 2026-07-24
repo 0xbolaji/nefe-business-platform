@@ -1,6 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PrototypeAssistant from "./components/prototype-assistant";
 import BrandLogo from "./components/brand-logo";
+
+export const metadata: Metadata = {
+  title: "NEFE — The Operating Layer for Connected Commerce",
+  description: "Connect complementary businesses, coordinate customer value, launch joint campaigns, and measure shared commercial growth with NEFE.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "NEFE Business Network",
+    description: "The operating layer for connected commerce.",
+    url: "/",
+  },
+};
 
 type IconName =
   | "arrow"
@@ -130,11 +142,7 @@ export default function Home() {
             <div className="hero-actions mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link id="access" href="/onboarding" className="button-primary">Request Early Access <Icon name="arrow" /></Link>
               <Link href="/platform" className="button-secondary">Explore Platform <Icon name="arrow" className="h-4 w-4" /></Link>
-              <Link href="/business-portal" className="button-secondary">View Business Portal <Icon name="arrow" className="h-4 w-4" /></Link>
-              <Link href="/consumer" className="button-secondary">View Consumer App <Icon name="arrow" className="h-4 w-4" /></Link>
-              <Link href="/opportunity-engine" className="button-secondary">Open Opportunity Engine <Icon name="arrow" className="h-4 w-4" /></Link>
-              <Link href="/business-model" className="button-secondary">View Business Model <Icon name="arrow" className="h-4 w-4" /></Link>
-              <Link href="/commercial-ecosystems" className="button-secondary">View Ecosystems <Icon name="arrow" className="h-4 w-4" /></Link>
+              <Link href="/solutions" className="button-secondary">Explore Solutions <Icon name="arrow" className="h-4 w-4" /></Link>
             </div>
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium text-[#746E80]">
               {["No credit card required", "Built for business", "Secure by design"].map((text) => <span key={text} className="flex items-center gap-1.5"><span className="grid h-4 w-4 place-items-center rounded-full bg-[#E9FFF5] text-[#16A36A]"><Icon name="check" className="h-3 w-3" /></span>{text}</span>)}

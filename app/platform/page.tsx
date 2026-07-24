@@ -1,30 +1,54 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import {
+  FeatureSection,
+  MarketingCta,
+  MarketingHero,
+  MarketingPage,
+} from "../components/marketing-page";
 
 export const metadata: Metadata = {
-  title: "Platform | NEFE",
-  description: "The operating system for connected business growth.",
+  title: "Platform | NEFE Business Network",
+  description: "Explore the commercial intelligence platform connecting businesses, customer journeys, campaigns, and measurable outcomes.",
+  alternates: { canonical: "/platform" },
+  openGraph: { title: "NEFE Platform", description: "The operating layer for connected commerce.", url: "/platform" },
 };
 
-const capabilities = [
-  ["Partner Discovery","Find compatible businesses using industry fit, audience overlap, and commercial potential."],
-  ["Campaign Studio","Design joint campaigns and premium experiences with measurable goals."],
-  ["Referral Exchange","Route high-intent customers between trusted businesses and attribute every outcome."],
-  ["Business Intelligence","Understand revenue, customers, campaigns, and network performance in one place."],
-  ["Connected Rewards","Recognize valuable customer behavior across multiple partner businesses."],
-  ["Experience Builder","Turn complementary products and services into one coherent customer journey."],
+const features = [
+  { title: "Commerce Graph", description: "Understand participating businesses, commercial relationships, customer journeys, and permitted network signals in one governed model.", href: "/docs/platform/commerce-graph" },
+  { title: "Opportunity Engine", description: "Surface explainable partnership and campaign opportunities for accountable teams to review, refine, and activate.", href: "/docs/platform/opportunity-engine" },
+  { title: "Merchant Network", description: "Bring verified businesses into a shared operating environment with clear roles, profiles, and participation controls.", href: "/docs/merchants/onboarding" },
+  { title: "Consumer Experience", description: "Create connected discovery and offer journeys that remain transparent, relevant, and governed by clear customer terms.", href: "/docs/consumers/app-guide" },
+  { title: "Campaign System", description: "Plan joint commercial activity around an objective, audience, offer, approval process, and measurement plan.", href: "/docs/merchants/campaign-builder" },
+  { title: "Analytics", description: "Evaluate reach, engagement, referrals, conversion, attributable value, and operational exceptions against a baseline.", href: "/docs/platform/analytics" },
+  { title: "Business Intelligence", description: "Turn approved network context into practical commercial insight without replacing human judgment or accountability.", href: "/docs/platform/ai-layer" },
 ];
 
 export default function PlatformPage() {
   return (
-    <main className="overflow-hidden bg-white text-[#19152A]">
-      <section className="hero-bg relative px-5 py-24 sm:px-8 sm:py-32">
-        <div className="relative z-10 mx-auto max-w-[1180px] text-center"><div className="eyebrow mx-auto">The NEFE Platform</div><h1 className="mx-auto mt-7 max-w-4xl text-[46px] font-semibold leading-[1.06] tracking-[-.055em] sm:text-[68px]">Coordinate customer value <span className="gradient-text">across businesses.</span></h1><p className="mx-auto mt-7 max-w-2xl text-base leading-8 text-[#6F6877]">Discover partners, launch joint offers, attribute referrals and manage rewards from one commercial workspace.</p><div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap"><Link href="/onboarding" className="button-primary">Join the network →</Link><Link href="/commerce-graph" className="button-secondary">View Commerce Graph</Link><Link href="/commercial-ecosystems" className="button-secondary">View Ecosystems</Link></div></div>
-      </section>
-      <section className="mx-auto max-w-[1240px] px-5 py-24 sm:px-8 sm:py-32"><div className="grid gap-12 lg:grid-cols-[.75fr_1.25fr]"><div><div className="eyebrow">Core capabilities</div><h2 className="mt-5 text-4xl font-semibold leading-tight tracking-[-.05em] sm:text-5xl">Six tools.<br/>One operating rhythm.</h2><p className="mt-5 text-[12px] leading-6 text-[#7B7481]">Move from partner discovery to performance analysis without stitching together separate systems.</p></div><div className="grid gap-3 sm:grid-cols-2">{capabilities.map(([title,detail],i)=><article key={title} className="rounded-[22px] border border-[#E8E3EB] p-5 transition hover:-translate-y-1 hover:border-[#CEC1F6] hover:shadow-[0_14px_35px_rgba(53,36,96,.07)]"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#F0ECFF] text-[9px] font-bold text-[#5E3BEE]">0{i+1}</span><h3 className="mt-5 text-[15px] font-semibold">{title}</h3><p className="mt-2 text-[9px] leading-5 text-[#837C88]">{detail}</p></article>)}</div></div></section>
-      <section className="mx-auto max-w-[1240px] px-5 pb-24 sm:px-8 sm:pb-32"><div className="rounded-[30px] border border-[#E5DFE9] bg-white p-7 shadow-[0_18px_55px_rgba(42,28,72,.07)] sm:p-9"><div className="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><div className="eyebrow">Curated ecosystems</div><h2 className="mt-5 text-3xl font-semibold leading-tight tracking-[-.045em] sm:text-4xl">NEFE matches businesses by complementary customer moments.</h2></div><div><p className="text-[12px] leading-6 text-[#6D6572]">A hotel, chauffeur, restaurant and spa do not compete for the same core purchase. Together, they create a higher-value customer journey that each partner can measure.</p><Link href="/commercial-ecosystems" className="mt-6 inline-flex rounded-xl bg-[#F0ECFF] px-5 py-3 text-[9px] font-bold text-[#5E3BEE] transition hover:-translate-y-1">Explore curated ecosystems →</Link></div></div></div></section>
-      <section className="bg-[#171122] px-5 py-24 text-white sm:px-8 sm:py-32"><div className="mx-auto grid max-w-[1240px] gap-14 lg:grid-cols-2"><div><div className="eyebrow eyebrow-dark">Business value</div><h2 className="mt-6 text-4xl font-semibold tracking-[-.05em]">Growth without growing alone.</h2><div className="mt-8 space-y-4">{["Acquire customers through trusted partners","Create new revenue from bundled experiences","Improve retention through connected rewards","Measure partnership ROI in real time"].map(item=><div key={item} className="flex items-center gap-3 text-[11px] text-white/65"><span className="grid h-6 w-6 place-items-center rounded-full bg-[#5E3BEE]/30 text-[#C9B8FF]">✓</span>{item}</div>)}</div></div><div><div className="eyebrow eyebrow-dark">Customer value</div><h2 className="mt-6 text-4xl font-semibold tracking-[-.05em]">One connected world of experiences.</h2><div className="mt-8 space-y-4">{["Discover trusted businesses through relevance","Access premium multi-business packages","Earn recognition across the ecosystem","Move seamlessly between complementary brands"].map(item=><div key={item} className="flex items-center gap-3 text-[11px] text-white/65"><span className="grid h-6 w-6 place-items-center rounded-full bg-[#D0A348]/20 text-[#E0BF70]">✓</span>{item}</div>)}</div></div></div></section>
-      <section className="px-5 py-24 text-center sm:px-8 sm:py-32"><div className="mx-auto max-w-3xl"><div className="eyebrow mx-auto">Choose a product view</div><h2 className="mt-6 text-4xl font-semibold tracking-[-.05em] sm:text-5xl">See the workflow from both sides.</h2><p className="mx-auto mt-5 max-w-xl text-[12px] leading-6 text-[#7B7481]">Open the merchant workspace, customer application or bundle-building experience.</p><div className="mt-8 flex flex-wrap justify-center gap-3"><Link href="/business-portal" className="button-primary">View Business Portal →</Link><Link href="/consumer" className="button-secondary">View Consumer App</Link><Link href="/experience-builder" className="button-secondary">Open Experience Builder</Link></div></div></section>
-    </main>
+    <MarketingPage>
+      <MarketingHero
+        eyebrow="The NEFE platform"
+        title="The operating layer for"
+        accent="connected commerce."
+        description="NEFE gives complementary businesses a shared commercial system for discovering opportunities, coordinating customer value, and measuring outcomes."
+        primary={{ label: "Explore the platform", href: "#capabilities" }}
+        secondary={{ label: "Read platform documentation", href: "/docs/platform" }}
+        visualLabel="Network intelligence"
+      />
+      <div id="capabilities">
+        <FeatureSection
+          eyebrow="Platform capabilities"
+          title="From network context to measurable action."
+          description="Each layer is designed around a commercial decision, with governance and documentation close at hand."
+          features={features}
+        />
+      </div>
+      <MarketingCta
+        title="Start with the business outcome."
+        description="Define the commercial objective, participant group, governance model, and measurement plan before selecting the technology path."
+        primary={{ label: "Explore solutions", href: "/solutions" }}
+        secondary={{ label: "Platform overview", href: "/docs/platform/overview" }}
+      />
+    </MarketingPage>
   );
 }
