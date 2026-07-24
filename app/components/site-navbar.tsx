@@ -15,6 +15,7 @@ const links = [
   ["Technology", "/technology"],
   ["Business Portal", "/business-portal"],
   ["Consumer App", "/consumer"],
+  ["Docs", "/docs"],
 ];
 
 export default function SiteNavbar() {

@@ -20,8 +20,8 @@ const columns = [
   },
   {
     title: "Resources",
-    links: [["Pilot Plan","/pilot-plan"],["Executive Insights","/executive-insights"],["Commercial Report","/opportunity-engine"],["FAQ","/pricing#faq"]],
-    pending: ["Documentation"],
+    links: [["Documentation","/docs"],["Pilot Plan","/pilot-plan"],["Executive Insights","/executive-insights"],["Commercial Report","/opportunity-engine"],["FAQ","/pricing#faq"]],
+    pending: [],
   },
 ];
 
