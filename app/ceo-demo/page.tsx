@@ -41,19 +41,19 @@ const opportunitySectors = [
 ];
 
 const tourCards = [
-  { title: "Platform", href: "/platform", number: "01", detail: "Merchant workspace for partner discovery, referrals and campaign execution.", tone: "purple" },
-  { title: "Commerce Graph", href: "/commerce-graph", number: "02", detail: "Executive visual for how customers, rewards and revenue move through the network.", tone: "dark" },
-  { title: "Commercial Ecosystems", href: "/commercial-ecosystems", number: "03", detail: "Clarifies why businesses participate: they are not giving customers away, they are increasing customer value together.", tone: "gold" },
-  { title: "Experience Builder", href: "/experience-builder", number: "04", detail: "Proof that businesses can package services into higher-value customer journeys.", tone: "gold" },
-  { title: "ROI Calculator", href: "/roi-calculator", number: "05", detail: "Merchant-facing value model for estimating the upside of joining NEFE.", tone: "mint" },
-  { title: "Executive Insights", href: "/executive-insights", number: "06", detail: "Board-level dashboard for ecosystem growth, partner activity and revenue impact.", tone: "blue" },
-  { title: "Opportunity Engine", href: "/opportunity-engine", number: "07", detail: "Investor-ready scenario builder for selecting partners and simulating pilot outcomes.", tone: "purple" },
-  { title: "UAE Opportunity Map", href: "/uae-opportunity-map", number: "08", detail: "Commercial intelligence layer for identifying which UAE businesses to connect first.", tone: "blue" },
-  { title: "Business Model", href: "/business-model", number: "09", detail: "Strategic explanation of how NEFE earns from subscriptions, referrals and enterprise services.", tone: "gold" },
-  { title: "Pricing", href: "/pricing", number: "10", detail: "Simple merchant entry points for pilot adoption and future commercial scale.", tone: "mint" },
-  { title: "Financial Model", href: "/financial-model", number: "11", detail: "Leadership view of assumptions, scenarios, margin profile and expansion economics.", tone: "blue" },
-  { title: "Token Utility", href: "/token-utility-economics", number: "12", detail: "Clear role for utility through rewards, access, incentives and future payment readiness.", tone: "gold" },
-  { title: "Technology Foundation", href: "/technology", number: "13", detail: "Shows how businesses use the commercial platform while blockchain infrastructure remains an implementation layer.", tone: "rose" },
+  { title: "Platform", href: "/platform", detail: "Merchant workspace for partner discovery, referrals and campaign execution.", tone: "purple" },
+  { title: "Commerce Graph", href: "/commerce-graph", detail: "Executive visual for how customers, rewards and revenue move through the network.", tone: "dark" },
+  { title: "Commercial Ecosystems", href: "/commercial-ecosystems", detail: "Clarifies why businesses participate: they are not giving customers away, they are increasing customer value together.", tone: "gold" },
+  { title: "Experience Builder", href: "/experience-builder", detail: "Proof that businesses can package services into higher-value customer journeys.", tone: "gold" },
+  { title: "ROI Calculator", href: "/roi-calculator", detail: "Merchant-facing value model for estimating the upside of joining NEFE.", tone: "mint" },
+  { title: "Executive Insights", href: "/executive-insights", detail: "Board-level dashboard for ecosystem growth, partner activity and revenue impact.", tone: "blue" },
+  { title: "Opportunity Engine", href: "/opportunity-engine", detail: "Investor-ready scenario builder for selecting partners and simulating pilot outcomes.", tone: "purple" },
+  { title: "UAE Opportunity Map", href: "/uae-opportunity-map", detail: "Commercial intelligence layer for identifying which UAE businesses to connect first.", tone: "blue" },
+  { title: "Business Model", href: "/business-model", detail: "Strategic explanation of how NEFE earns from subscriptions, referrals and enterprise services.", tone: "gold" },
+  { title: "Pricing", href: "/pricing", detail: "Simple merchant entry points for pilot adoption and future commercial scale.", tone: "mint" },
+  { title: "Financial Model", href: "/financial-model", detail: "Leadership view of assumptions, scenarios, margin profile and expansion economics.", tone: "blue" },
+  { title: "Token Utility", href: "/token-utility-economics", detail: "Clear role for utility through rewards, access, incentives and future payment readiness.", tone: "gold" },
+  { title: "Technology Foundation", href: "/technology", detail: "Shows how businesses use the commercial platform while blockchain infrastructure remains an implementation layer.", tone: "rose" },
 ];
 
 const flywheel = [
@@ -274,9 +274,7 @@ export default function CeoDemoPage() {
           <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {tourCards.map((card) => (
               <Link key={card.href} href={card.href} className={`ceo-tour-card ${card.tone} group relative min-h-56 overflow-hidden rounded-[24px] border p-6 transition hover:-translate-y-2 hover:shadow-[0_22px_50px_rgba(48,32,88,.12)]`}>
-                <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-bold opacity-60">{card.number}</span>
-                  <span className="grid h-8 w-8 place-items-center rounded-full border border-current/10 bg-white/10 transition group-hover:translate-x-1">↗</span>
+                <div className="flex items-center justify-end"><span className="grid h-8 w-8 place-items-center rounded-full border border-current/10 bg-white/10 transition group-hover:translate-x-1">↗</span>
                 </div>
                 <h3 className="mt-14 text-xl font-semibold tracking-[-.03em]">{card.title}</h3>
                 <p className="mt-3 max-w-xs text-[9px] leading-5 opacity-75">{card.detail}</p>

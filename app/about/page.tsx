@@ -20,7 +20,7 @@ export default function AboutPage() {
     <MarketingHero eyebrow="About NEFE" title="Building the future of" accent="connected commerce." description="NEFE Business Network is creating a business-first commercial platform where complementary organizations can coordinate customer value, discover opportunities, and measure shared growth." primary={{label:"Explore the platform",href:"/platform"}} secondary={{label:"Read our documentation",href:"/docs"}} visualLabel="Commercial ecosystem"/>
     <FeatureSection eyebrow="Platform philosophy" title="Commercial value, supported by accountable infrastructure." description="NEFE is designed around clear ownership, governed participation, useful customer journeys, and evidence that decision-makers can evaluate." features={philosophy}/>
     <section className="marketing-process"><div className="marketing-shell"><header className="marketing-section-heading"><span>Mission and vision</span><h2>Help businesses grow together, not in isolation.</h2><p>Our vision is a trusted commercial operating layer connecting businesses across hospitality, retail, tourism, mobility, events, and services.</p></header></div></section>
-    <ProcessSection eyebrow="Future roadmap" title="Progress through evidence, not promises." steps={[
+    <ProcessSection eyebrow="Future roadmap" title="Progress through evidence, not promises." numbered={false} steps={[
       {title:"Foundation",description:"Establish the business model, governance, and participant experience."},
       {title:"Pilot",description:"Test bounded commercial journeys with measurable outcomes."},
       {title:"Learn",description:"Close operational, product, security, and integration gaps."},

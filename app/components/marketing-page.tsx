@@ -124,10 +124,12 @@ export function ProcessSection({
   eyebrow,
   title,
   steps,
+  numbered = true,
 }: {
   eyebrow: string;
   title: string;
   steps: { title: string; description: string }[];
+  numbered?: boolean;
 }) {
   return (
     <section className="marketing-process">
@@ -135,10 +137,10 @@ export function ProcessSection({
         <header className="marketing-section-heading">
           <span>{eyebrow}</span><h2>{title}</h2>
         </header>
-        <div className="marketing-process-grid">
+        <div className={`marketing-process-grid ${numbered ? "" : "marketing-process-grid-unnumbered"}`}>
           {steps.map((step, index) => (
             <article key={step.title}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
+              {numbered && <span>{String(index + 1).padStart(2, "0")}</span>}
               <h3>{step.title}</h3>
               <p>{step.description}</p>
             </article>
