@@ -95,24 +95,23 @@ export function FeatureSection({
           alternating ? (
             <article className="marketing-feature-row" key={feature.title}>
               <div>
-                <span className="marketing-index">{String(index + 1).padStart(2, "0")} · {feature.eyebrow ?? eyebrow}</span>
+                <span className="marketing-feature-label">{feature.eyebrow ?? eyebrow}</span>
                 <h3>{feature.title}</h3>
                 <p>{feature.description}</p>
                 {feature.outcome && <div className="marketing-outcome"><span>Business outcome</span>{feature.outcome}</div>}
-                <Link href={feature.href}>{feature.cta ?? "Read documentation"} →</Link>
+                <Link href={feature.href}>{feature.cta ?? `Explore ${feature.title}`} →</Link>
               </div>
               <ProductVisual variant={index} label={feature.title} />
             </article>
           ) : (
             <article className="marketing-feature-card" key={feature.title}>
-              <span className="marketing-index">{String(index + 1).padStart(2, "0")}</span>
               <div className={`marketing-mini-visual marketing-mini-visual-${index % 4}`} aria-hidden="true">
                 <i /><i /><i />
               </div>
               <h3>{feature.title}</h3>
               <p>{feature.description}</p>
               {feature.outcome && <div className="marketing-outcome"><span>Outcome</span>{feature.outcome}</div>}
-              <Link href={feature.href}>{feature.cta ?? "Read documentation"} →</Link>
+              <Link href={feature.href}>{feature.cta ?? `Explore ${feature.title}`} →</Link>
             </article>
           ),
         )}
@@ -181,4 +180,3 @@ export function MarketingCta({
 export function MarketingPage({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <main className={`marketing-page ${className}`}>{children}</main>;
 }
-

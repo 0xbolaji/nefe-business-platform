@@ -171,7 +171,7 @@ export default function Home() {
             <p>Create coordinated customer journeys, from first introduction to repeat purchase.</p>
           </div>
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature, i) => <article key={feature.title} className="feature-card"><div className="feature-number">0{i + 1}</div><div className="feature-icon"><Icon name={feature.icon} /></div><h3>{feature.title}</h3><p>{feature.text}</p><Link href="/platform">Learn more <Icon name="arrow" className="h-4 w-4" /></Link></article>)}
+            {features.map((feature) => <article key={feature.title} className="feature-card"><div className="feature-icon"><Icon name={feature.icon} /></div><h3>{feature.title}</h3><p>{feature.text}</p><Link href="/platform">{feature.title} overview <Icon name="arrow" className="h-4 w-4" /></Link></article>)}
           </div>
         </div>
       </section>
@@ -206,10 +206,9 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid gap-3 bg-gradient-to-br from-[#171122] to-[#3B2578] p-6 text-white sm:grid-cols-2 sm:p-8 lg:p-10">
-            {["Luxury travel", "Wellness", "Family weekend", "Business traveler"].map((item, index) => (
+            {["Luxury travel", "Wellness", "Family weekend", "Business traveler"].map((item) => (
               <div key={item} className="rounded-[20px] border border-white/10 bg-white/[.07] p-5 backdrop-blur">
-                <span className="text-[8px] font-bold text-[#D9BB64]">0{index + 1}</span>
-                <p className="mt-8 text-[15px] font-semibold">{item}</p>
+                <p className="text-[15px] font-semibold">{item}</p>
                 <p className="mt-2 text-[9px] leading-5 text-white/68">Built around shared customers and complementary moments.</p>
               </div>
             ))}

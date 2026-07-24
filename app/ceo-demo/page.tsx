@@ -147,10 +147,9 @@ export default function CeoDemoPage() {
               ["Customer journeys", "Fragmented after the first purchase."],
               ["Partner opportunities", "Handled manually, if at all."],
               ["Customer value", "Captured by one business at a time."],
-            ].map(([title, detail], i) => (
+            ].map(([title, detail]) => (
               <article key={title} className="rounded-[24px] border border-[#E4DEE8] bg-white p-6 shadow-[0_12px_34px_rgba(43,30,67,.06)]">
-                <span className="text-[8px] font-bold text-[#9B90A4]">0{i + 1}</span>
-                <h3 className="mt-10 text-[16px] font-semibold">{title}</h3>
+                <h3 className="mt-2 text-[16px] font-semibold">{title}</h3>
                 <p className="mt-3 text-[10px] leading-5 text-[#726A77]">{detail}</p>
               </article>
             ))}
@@ -307,8 +306,7 @@ export default function CeoDemoPage() {
               "Long-term commercial infrastructure opportunity",
             ].map((item, i) => (
               <article key={item} className={i === 4 ? "rounded-[22px] border border-[#D1AA50]/35 bg-gradient-to-br from-[#191027] to-[#4D31B7] p-5 text-white shadow-[0_18px_50px_rgba(54,32,108,.18)] sm:col-span-2" : "rounded-[22px] border border-[#E5DFE9] bg-white p-5 shadow-[0_12px_34px_rgba(43,30,67,.055)]"}>
-                <span className={i === 4 ? "text-[8px] font-bold text-[#E7C76D]" : "text-[8px] font-bold text-[#9B90A4]"}>0{i + 1}</span>
-                <h3 className="mt-8 text-[15px] font-semibold">{item}</h3>
+                <h3 className="mt-2 text-[15px] font-semibold">{item}</h3>
               </article>
             ))}
           </div>
@@ -330,8 +328,7 @@ export default function CeoDemoPage() {
             <div className="grid gap-3 sm:grid-cols-2">
               {["Rewards", "Access", "Incentives", "Memberships", "Discounts", "Campaign credits", "Future payments"].map((title, i) => (
                 <article key={title} className={i === 6 ? "rounded-[20px] border border-[#6D4BE0] bg-gradient-to-br from-[#22163D] to-[#5030B7] p-5 text-white sm:col-span-2" : "rounded-[20px] border border-[#E2DDE6] bg-white p-5"}>
-                  <span className={i === 6 ? "grid h-9 w-9 place-items-center rounded-xl bg-white/10 text-[9px] font-bold text-[#E2C26D]" : "grid h-9 w-9 place-items-center rounded-xl bg-[#F0ECFF] text-[9px] font-bold text-[#5E3BEE]"}>0{i + 1}</span>
-                  <h3 className="mt-5 text-[14px] font-semibold">{title}</h3>
+                  <h3 className="mt-1 text-[14px] font-semibold">{title}</h3>
                   <p className={i === 6 ? "mt-2 text-[9px] leading-5 text-white/70" : "mt-2 text-[9px] leading-5 text-[#746C7A]"}>
                     A quiet layer that becomes more valuable as verified commercial activity grows.
                   </p>

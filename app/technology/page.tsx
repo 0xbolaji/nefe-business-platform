@@ -61,13 +61,12 @@ export default function TechnologyPage() {
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
-            {foundations.map(([title, detail], index) => (
+            {foundations.map(([title, detail]) => (
               <article key={title} className="group rounded-[24px] border border-[#E8E3EB] bg-white p-6 shadow-[0_8px_28px_rgba(43,30,66,.04)] transition hover:-translate-y-1 hover:border-[#CEC1F6] hover:shadow-[0_20px_48px_rgba(53,36,96,.09)]">
-                <div className="flex items-center justify-between">
-                  <span className="grid h-11 w-11 place-items-center rounded-[14px] bg-[#F0ECFF] text-[9px] font-bold text-[#5E3BEE]">0{index + 1}</span>
+                <div className="flex items-center justify-end">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#C69B42]" />
                 </div>
-                <h3 className="mt-8 text-[16px] font-semibold">{title}</h3>
+                <h3 className="mt-5 text-[16px] font-semibold">{title}</h3>
                 <p className="mt-3 text-[9px] leading-5 text-[#746D7A]">{detail}</p>
                 <div className="mt-6 h-1 overflow-hidden rounded-full bg-[#F0EDF3]">
                   <div className="technology-card-line h-full rounded-full bg-gradient-to-r from-[#5E3BEE] to-[#C69B42]" />

@@ -177,12 +177,12 @@ export default function CommercialEcosystemsPage() {
           </p>
         </div>
         <div className="mt-14 grid gap-5 lg:grid-cols-2">
-          {ecosystems.map((ecosystem, index) => (
+          {ecosystems.map((ecosystem) => (
             <article key={ecosystem.name} className="group rounded-[30px] border border-[#E5DFE9] bg-white p-6 shadow-[0_14px_40px_rgba(42,28,72,.055)] transition hover:-translate-y-1 hover:border-[#CFC1F6] hover:shadow-[0_24px_60px_rgba(48,32,88,.11)] sm:p-7">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <p className="text-[8px] font-bold uppercase tracking-[.16em] text-[#8F8797]">Ecosystem 0{index + 1}</p>
-                  <h3 className="mt-3 text-2xl font-semibold tracking-[-.04em]">{ecosystem.name}</h3>
+                  <p className="text-[8px] font-bold uppercase tracking-[.16em] text-[#8F8797]">Curated ecosystem</p>
+                  <h3 className="mt-2 text-2xl font-semibold tracking-[-.04em]">{ecosystem.name}</h3>
                 </div>
                 <span className="rounded-full bg-[#F0ECFF] px-3 py-2 text-[8px] font-bold text-[#5E3BEE]">Complementary fit</span>
               </div>
