@@ -26,10 +26,28 @@ This release introduces:
 
 ## Important boundary
 
-This release documents both current concepts and future direction. Readers must observe the **Live**, **Pilot**, and **Proposed** labels on each page. It does not announce a public API, financial product, token issuance, autonomous AI capability, or universal production availability.
+This release documents both current concepts and future direction. Readers must observe the **Live**, **Pilot**, and **Proposed** labels on each page.
+
+It does not announce:
+
+- A public API.
+- A financial product.
+- Token issuance.
+- An autonomous AI capability.
+- Universal production availability.
 
 ## Feedback
 
-Report unclear terminology, broken links, or inaccurate status labels to the documentation owner. Do not include credentials, personal data, or confidential commercial information.
+Report the following to the documentation owner:
+
+- Unclear terminology.
+- Broken links.
+- Inaccurate status labels.
+
+Do not include:
+
+- Credentials.
+- Personal data.
+- Confidential commercial information.
 
 See the detailed [changelog](./changelog.md).

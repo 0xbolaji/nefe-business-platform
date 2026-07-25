@@ -27,11 +27,17 @@ Any future utility design would need to answer:
 
 ## Boundaries
 
-Token utility must not be presented as an investment, guaranteed reward, currency substitute, or promise of future value. Public descriptions require legal and regulatory review in each relevant jurisdiction.
+Token utility must not be presented as:
+
+- An investment.
+- A guaranteed reward.
+- A currency substitute.
+- A promise of future value.
+
+Public descriptions require legal and regulatory review in each relevant jurisdiction.
 
 > **Best Practice:** Keep the core commercial value proposition independent of speculative ecosystem mechanics.
 
 ## Related pages
 
 See the [business model](../business/business-model.md), [revenue architecture](../business/revenue-architecture.md), and [security overview](../security/overview.md).
-

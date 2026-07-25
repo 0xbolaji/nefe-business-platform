@@ -24,7 +24,13 @@ Individual businesses often lack the context, reach, or operating mechanism to c
 
 ## Commercial model
 
-Commercial terms can vary by deployment. Possible arrangements may include platform access, implementation services, pilot fees, enterprise licensing, or performance-linked components.
+Commercial terms can vary by deployment. Possible arrangements may include:
+
+- Platform access.
+- Implementation services.
+- Pilot fees.
+- Enterprise licensing.
+- Performance-linked components.
 
 > **Important:** Specific pricing, revenue share, token economics, or outcome guarantees are not established by this document. They require an approved commercial agreement.
 
@@ -35,4 +41,3 @@ The core business model is **Live** as a documented operating thesis. Individual
 ## Related pages
 
 See [revenue architecture](./revenue-architecture.md), [enterprise deployment](./enterprise-deployment.md), [pilot program](./pilot-program.md), and [token utility](../ecosystem/token-utility.md).
-

@@ -26,11 +26,17 @@ updated: 2026-07-24
 
 ## Trust and transparency
 
-Customers should be able to distinguish merchant communications from network-level communications. Rewards, eligibility, expiry, and redemption conditions should be clear and discoverable.
+Customers should be able to distinguish merchant communications from network-level communications. The following should be clear and discoverable:
+
+- Rewards.
+- Eligibility.
+- Expiry.
+- Redemption conditions.
 
 > **Important:** Participation must not depend on hidden data sharing or misleading consent.
 
 ## Next steps
 
-Read the [consumer app guide](./app-guide.md), [privacy and data protection](../security/privacy-data-protection.md), and [FAQ](../reference/faq.md).
-
+- Read the [consumer app guide](./app-guide.md).
+- Review [privacy and data protection](../security/privacy-data-protection.md).
+- Consult the [FAQ](../reference/faq.md).

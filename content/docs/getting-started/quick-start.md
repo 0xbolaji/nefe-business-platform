@@ -13,7 +13,12 @@ updated: 2026-07-24
 
 ## 1. Define the outcome
 
-Choose one primary business outcome, such as qualified referrals, cross-merchant conversion, customer retention, or campaign efficiency. Record the baseline, target, measurement period, and accountable owner.
+Choose one primary business outcome, such as qualified referrals, cross-merchant conversion, customer retention, or campaign efficiency. Record:
+
+- The baseline.
+- The target.
+- The measurement period.
+- The accountable owner.
 
 ## 2. Select the network
 
@@ -32,17 +37,35 @@ Review:
 
 ## 4. Design the pilot
 
-Define the offer rules, participating locations, customer eligibility, approval process, support model, and reporting cadence. Use the [pilot program](../business/pilot-program.md) as the operating guide.
+Define:
+
+- Offer rules.
+- Participating locations.
+- Customer eligibility.
+- The approval process.
+- The support model.
+- The reporting cadence.
+
+Use the [pilot program](../business/pilot-program.md) as the operating guide.
 
 ## 5. Configure and verify
 
-Complete participant verification, assign least-privilege roles, review campaign content, and test the intended journey using approved non-production data.
+- Complete participant verification.
+- Assign least-privilege roles.
+- Review campaign content.
+- Test the intended journey using approved non-production data.
 
 ## 6. Launch and learn
 
-Begin with a controlled audience. Monitor customer experience, operational exceptions, partner contribution, and commercial performance. Change one material variable at a time so results remain interpretable.
+Begin with a controlled audience. Monitor:
+
+- Customer experience.
+- Operational exceptions.
+- Partner contribution.
+- Commercial performance.
+
+Change one material variable at a time so results remain interpretable.
 
 ## Exit criteria
 
 A pilot should conclude with a documented scale, revise, or stop decision. See [analytics](../platform/analytics.md) and [enterprise deployment](../business/enterprise-deployment.md).
-

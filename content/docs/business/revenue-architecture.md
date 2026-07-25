@@ -30,7 +30,10 @@ updated: 2026-07-24
 
 ## Boundaries
 
-This page is a design framework, not a price list or binding offer. It does not claim that automated settlement, revenue sharing, or token-based payments are implemented.
+This page:
+
+- It is a design framework, not a price list or binding offer.
+- It does not claim that automated settlement, revenue sharing, or token-based payments are implemented.
 
 ## Evaluation
 

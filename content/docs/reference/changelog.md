@@ -31,7 +31,11 @@ updated: 2026-07-24
 
 ## Change policy
 
-Future entries should identify pages affected, material terminology changes, capability-status changes, and migration guidance where readers must act.
+Future entries should identify:
+
+- Pages affected.
+- Material terminology changes.
+- Capability-status changes.
+- Migration guidance where readers must act.
 
 See [release notes](./release-notes.md) for the reader-focused summary and the [documentation system](../DOCUMENTATION-SYSTEM.md) for governance.
-

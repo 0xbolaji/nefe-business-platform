@@ -26,11 +26,16 @@ updated: 2026-07-24
 
 ## Operating practices
 
-Keep profile details current, use descriptive campaign names, record approvals, and close expired activity. Investigate unexpected results before changing targeting or offer terms.
+- Keep profile details current.
+- Use descriptive campaign names.
+- Record approvals.
+- Close expired activity.
+- Investigate unexpected results before changing targeting or offer terms.
 
 > **Important:** Portal metrics are decision-support information. Reconcile material commercial or financial decisions with the appropriate source systems.
 
 ## Help and governance
 
-For campaign setup, see the [campaign builder](./campaign-builder.md). For access questions, see [roles and permissions](../security/roles-permissions.md). For definitions, consult the [glossary](../reference/glossary.md).
-
+- For campaign setup, see the [campaign builder](./campaign-builder.md).
+- For access questions, see [roles and permissions](../security/roles-permissions.md).
+- For definitions, consult the [glossary](../reference/glossary.md).

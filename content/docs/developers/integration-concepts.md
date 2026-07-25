@@ -52,7 +52,14 @@ Before launch, define:
 
 ## Security
 
-Never place secrets in source code, URLs, logs, or documentation examples. Confirm the deployment’s approved authentication and network controls during readiness review.
+Never place secrets in:
+
+- Source code.
+- URLs.
+- Logs.
+- Documentation examples.
+
+Confirm the deployment’s approved authentication and network controls during readiness review.
 
 ## Related pages
 

@@ -33,9 +33,19 @@ The engine turns approved commercial signals into explainable opportunity candid
 
 ## Inputs and outputs
 
-Inputs may include participant attributes, approved relationship data, campaign history, and aggregated outcome signals. Outputs should include a rationale, relevant constraints, and enough context for an accountable user to decide.
+Inputs may include:
+
+- Participant attributes.
+- Approved relationship data.
+- Campaign history.
+- Aggregated outcome signals.
+
+Outputs should include:
+
+- A rationale.
+- Relevant constraints.
+- Enough context for an accountable user to decide.
 
 ## Related guidance
 
 See the [Commerce Graph](./commerce-graph.md), [AI layer](./ai-layer.md), [campaign builder](../merchants/campaign-builder.md), and [analytics](./analytics.md).
-

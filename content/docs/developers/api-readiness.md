@@ -31,9 +31,13 @@ updated: 2026-07-24
 
 ## Publication gate
 
-Do not publish sample requests that appear executable until an interface is implemented, tested, secured, and approved for its intended audience.
+Do not publish sample requests that appear executable until the interface is:
+
+- Implemented.
+- Tested.
+- Secured.
+- Approved for its intended audience.
 
 ## Related pages
 
 See the [developer overview](./overview.md), [integration concepts](./integration-concepts.md), and [security overview](../security/overview.md).
-

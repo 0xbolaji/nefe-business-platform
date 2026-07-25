@@ -45,4 +45,6 @@ Merchants are responsible for:
 
 ## Next steps
 
-Continue to the [merchant portal guide](./portal-guide.md) and [campaign builder](./campaign-builder.md). Security teams should review [roles and permissions](../security/roles-permissions.md).
+- Continue to the [merchant portal guide](./portal-guide.md).
+- Review the [campaign builder](./campaign-builder.md).
+- If you are part of a security team, review [roles and permissions](../security/roles-permissions.md).

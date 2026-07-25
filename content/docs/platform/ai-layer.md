@@ -13,7 +13,14 @@ updated: 2026-07-24
 
 ## Intended role
 
-An AI-assisted layer may help summarize network context, explain opportunity signals, draft analysis, or surface questions for review. It should operate within approved data boundaries and provide users with enough context to challenge its output.
+An AI-assisted layer may help:
+
+- Summarize network context.
+- Explain opportunity signals.
+- Draft analysis.
+- Surface questions for review.
+
+It should operate within approved data boundaries and provide users with enough context to challenge its output.
 
 ## Current status
 
@@ -30,9 +37,13 @@ An AI-assisted layer may help summarize network context, explain opportunity sig
 
 ## Appropriate use
 
-AI output may be treated as decision support. It must not be treated as legal advice, a contractual commitment, a credit decision, or an authoritative statement about a customer.
+AI output may be treated as decision support. It must not be treated as:
+
+- Legal advice.
+- A contractual commitment.
+- A credit decision.
+- An authoritative statement about a customer.
 
 ## Related pages
 
 See the [Opportunity Engine](./opportunity-engine.md), [security overview](../security/overview.md), [privacy guidance](../security/privacy-data-protection.md), and [API readiness](../developers/api-readiness.md).
-

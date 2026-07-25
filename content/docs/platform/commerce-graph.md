@@ -57,4 +57,8 @@ See [privacy and data protection](../security/privacy-data-protection.md).
 
 ## Interpretation
 
-A graph connection indicates a modeled commercial relationship or signal, not guaranteed causation, endorsement, or legal partnership.
+A graph connection indicates a modeled commercial relationship or signal. It does not establish:
+
+- Guaranteed causation.
+- Endorsement.
+- A legal partnership.

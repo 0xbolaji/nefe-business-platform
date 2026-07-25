@@ -39,4 +39,7 @@ Integration should serve an approved commercial workflow.
 
 ## Next steps
 
-Read [integration concepts](./integration-concepts.md), [API readiness](./api-readiness.md), [security overview](../security/overview.md), and [enterprise deployment](../business/enterprise-deployment.md).
+- Read [integration concepts](./integration-concepts.md).
+- Review [API readiness](./api-readiness.md).
+- Consult the [security overview](../security/overview.md).
+- Review [enterprise deployment](../business/enterprise-deployment.md).
