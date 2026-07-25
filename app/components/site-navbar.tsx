@@ -18,8 +18,6 @@ const groups: NavGroup[] = [
       { label: "Commerce Graph", href: "/commerce-graph", description: "Map businesses, relationships, and journeys." },
       { label: "Opportunity Engine", href: "/opportunity-engine", description: "Identify explainable growth opportunities." },
       { label: "Analytics", href: "/docs/platform/analytics", description: "Measure outcomes against a clear baseline." },
-      { label: "Merchant Network", href: "/merchants", description: "Operate campaigns and partner activity." },
-      { label: "Consumer Experience", href: "/consumers", description: "Connect discovery, rewards, and redemption." },
     ],
   },
   {
@@ -49,7 +47,6 @@ const groups: NavGroup[] = [
     items: [
       { label: "About", href: "/about", description: "Mission, philosophy, and long-term direction." },
       { label: "Roadmap", href: "/about#roadmap", description: "An evidence-led path from foundation to enterprise." },
-      { label: "Founder’s Collection", href: "/docs/ecosystem/founders-collection", description: "The founder-aligned ecosystem framework." },
     ],
   },
 ];
@@ -62,6 +59,7 @@ function isActive(pathname: string, href: string) {
 export default function SiteNavbar() {
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [desktopOpen, setDesktopOpen] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileGroup, setMobileGroup] = useState<string | null>(null);
@@ -82,6 +80,19 @@ export default function SiteNavbar() {
     return () => document.removeEventListener("keydown", closeOnEscape);
   }, []);
 
+  useEffect(() => () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+  }, []);
+
+  const openDesktopGroup = (label: string) => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    setDesktopOpen(label);
+  };
+
+  const closeDesktopGroup = () => {
+    closeTimerRef.current = setTimeout(() => setDesktopOpen(null), 120);
+  };
+
   return (
     <header ref={headerRef} className="sticky top-0 z-[60] border-b border-[#EAE5EE] bg-white/92 backdrop-blur-xl">
       <div className="mx-auto flex h-[72px] max-w-[1480px] items-center justify-between px-4 sm:px-7 lg:px-9">
@@ -95,9 +106,9 @@ export default function SiteNavbar() {
               <div
                 key={group.label}
                 className="relative flex items-center"
-                onMouseEnter={() => setDesktopOpen(group.label)}
-                onMouseLeave={() => setDesktopOpen(null)}
-                onFocus={() => setDesktopOpen(group.label)}
+                onMouseEnter={() => openDesktopGroup(group.label)}
+                onMouseLeave={closeDesktopGroup}
+                onFocus={() => openDesktopGroup(group.label)}
                 onBlur={(event) => {
                   if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDesktopOpen(null);
                 }}
@@ -181,18 +192,19 @@ export default function SiteNavbar() {
                       <span aria-hidden className={`transition-transform ${expanded ? "rotate-180" : ""}`}>⌄</span>
                     </button>
                   </div>
-                  {expanded && (
-                    <div id={`mobile-${group.label.toLowerCase()}-menu`} className="grid gap-1 pb-3 pl-3">
+                  <div id={`mobile-${group.label.toLowerCase()}-menu`} aria-hidden={!expanded} className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out ${expanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                    <div className="grid min-h-0 gap-1 overflow-hidden pb-3 pl-3">
                       {group.items.map((item) => (
-                        <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className="rounded-xl px-4 py-3 text-[10px] font-medium text-[#706879] transition hover:bg-[#F7F4FA] focus-visible:outline-2 focus-visible:outline-[#5E3BEE]">{item.label}</Link>
+                        <Link key={item.href} href={item.href} tabIndex={expanded ? undefined : -1} onClick={() => setMobileOpen(false)} className="rounded-xl px-4 py-3 text-[10px] font-medium text-[#706879] transition hover:bg-[#F7F4FA] focus-visible:outline-2 focus-visible:outline-[#5E3BEE]">{item.label}</Link>
                       ))}
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             })}
-            <div className="flex pt-4">
+            <div className="grid grid-cols-2 gap-2 pt-4">
               <Link href="/contact" onClick={() => setMobileOpen(false)} className="rounded-xl border border-[#DED8E4] px-4 py-3 text-center text-[10px] font-semibold text-[#514A59]">Contact</Link>
+              <Link href="/onboarding" onClick={() => setMobileOpen(false)} className="rounded-xl bg-[#5E3BEE] px-4 py-3 text-center text-[10px] font-semibold text-white shadow-[0_8px_20px_rgba(94,59,238,.18)]">Get Started</Link>
             </div>
           </div>
         </nav>

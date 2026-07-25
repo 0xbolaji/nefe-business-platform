@@ -13,7 +13,7 @@ const columns = [
   },
   {
     title: "Company",
-    links: [["About", "/about"], ["Roadmap", "/about#roadmap"], ["Ecosystem", "/commercial-ecosystems"], ["Contact", "/contact"]],
+    links: [["About", "/about"], ["Roadmap", "/about#roadmap"], ["Contact", "/contact"]],
   },
 ];
 

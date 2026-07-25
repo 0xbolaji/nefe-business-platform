@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { FeatureSection, MarketingCta, MarketingHero, MarketingPage, ProcessSection } from "../components/marketing-page";
 import UAEFlag from "../components/uae-flag";
 
@@ -37,6 +38,7 @@ export default function AboutPage() {
             <span className="rounded-full border border-[#E1DCE5] bg-white px-3 py-2 text-[8px] font-semibold text-[#6D6574]">Commercial ecosystems</span>
             <span className="rounded-full border border-[#E1DCE5] bg-white px-3 py-2 text-[8px] font-semibold text-[#6D6574]">Golden Rock Blockchain LTD</span>
           </div>
+          <Link href="/docs/ecosystem/founders-collection" className="mt-7 inline-flex text-[9px] font-semibold text-[#5E3BEE] transition hover:text-[#4728C8]">Read the Founder’s Collection →</Link>
         </div>
       </div>
     </section>
