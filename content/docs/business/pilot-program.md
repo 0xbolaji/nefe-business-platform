@@ -13,7 +13,13 @@ updated: 2026-07-24
 
 ## Pilot charter
 
-Document the sponsor, objective, participants, customer scope, duration, baseline, target measures, operational owner, security owner, and exit decision.
+Document:
+
+- The sponsor and objective.
+- Participants and customer scope.
+- Duration, baseline, and target measures.
+- The operational owner and security owner.
+- The exit decision.
 
 ## Phases
 
@@ -41,4 +47,3 @@ Document the sponsor, objective, participants, customer scope, duration, baselin
 ## Evaluation
 
 Use [analytics](../platform/analytics.md) and the [revenue architecture](./revenue-architecture.md). A successful pilot demonstrates evidence within its scope; it does not prove universal performance.
-

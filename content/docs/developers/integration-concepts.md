@@ -24,7 +24,13 @@ These are architectural concepts, not implemented interface commitments.
 
 ## Event design
 
-A well-defined event has a business meaning, owner, timestamp, stable identifier, version, permitted attributes, and documented duplicate or correction behavior.
+A well-defined event has:
+
+- A business meaning and owner.
+- A timestamp and stable identifier.
+- A version.
+- Permitted attributes.
+- Documented duplicate or correction behavior.
 
 ```text
 Source system
@@ -36,7 +42,13 @@ Source system
 
 ## Failure handling
 
-Define timeouts, retries, idempotency, dead-letter handling, reconciliation, customer impact, and escalation before launch.
+Before launch, define:
+
+- Timeouts and retries.
+- Idempotency.
+- Dead-letter handling and reconciliation.
+- Customer impact.
+- Escalation.
 
 ## Security
 
@@ -45,4 +57,3 @@ Never place secrets in source code, URLs, logs, or documentation examples. Confi
 ## Related pages
 
 Continue to [API readiness](./api-readiness.md) and [privacy and data protection](../security/privacy-data-protection.md).
-

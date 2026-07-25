@@ -13,7 +13,13 @@ updated: 2026-07-24
 
 ## Before you begin
 
-Prepare the legal business name, trading name, approved locations, primary contact, billing or commercial contact where applicable, and the team members who need access.
+Prepare:
+
+- The legal business name and trading name.
+- Approved operating locations.
+- A primary contact.
+- A billing or commercial contact, where applicable.
+- The team members who need access.
 
 ## Onboarding sequence
 
@@ -31,9 +37,12 @@ Prepare the legal business name, trading name, approved locations, primary conta
 
 ## Responsibilities
 
-Merchants are responsible for keeping business information accurate, ensuring offer terms are lawful and clear, and limiting account access to authorized personnel.
+Merchants are responsible for:
+
+- Keeping business information accurate.
+- Ensuring offer terms are lawful and clear.
+- Limiting account access to authorized personnel.
 
 ## Next steps
 
 Continue to the [merchant portal guide](./portal-guide.md) and [campaign builder](./campaign-builder.md). Security teams should review [roles and permissions](../security/roles-permissions.md).
-

@@ -62,5 +62,9 @@ updated: 2026-07-24
 
 ## Ownership and review
 
-Business owners validate commercial claims, product owners validate capability status, security owners validate control language, and documentation maintainers validate structure and links. Release notes should identify changes without exposing confidential implementation details.
+- Business owners validate commercial claims.
+- Product owners validate capability status.
+- Security owners validate control language.
+- Documentation maintainers validate structure and links.
 
+Release notes should identify changes without exposing confidential implementation details.

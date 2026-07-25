@@ -13,7 +13,15 @@ updated: 2026-07-24
 
 ## Start with the business journey
 
-Before selecting a technical approach, define the participant, trigger, required data, expected outcome, latency, failure behavior, owner, and measurement plan. Integration should serve an approved commercial workflow.
+Before selecting a technical approach, define:
+
+- The participant and trigger.
+- Required data and the expected outcome.
+- Latency and failure behavior.
+- The accountable owner.
+- The measurement plan.
+
+Integration should serve an approved commercial workflow.
 
 ## Current status
 
@@ -32,4 +40,3 @@ Before selecting a technical approach, define the participant, trigger, required
 ## Next steps
 
 Read [integration concepts](./integration-concepts.md), [API readiness](./api-readiness.md), [security overview](../security/overview.md), and [enterprise deployment](../business/enterprise-deployment.md).
-

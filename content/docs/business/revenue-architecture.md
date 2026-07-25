@@ -34,5 +34,12 @@ This page is a design framework, not a price list or binding offer. It does not 
 
 ## Evaluation
 
-Review unit economics, participant incentives, measurement cost, operational burden, and downside scenarios. Align the model with the [business model](./business-model.md) and validate it through the [pilot program](./pilot-program.md).
+Review:
 
+- Unit economics.
+- Participant incentives.
+- Measurement cost.
+- Operational burden.
+- Downside scenarios.
+
+Align the model with the [business model](./business-model.md) and validate it through the [pilot program](./pilot-program.md).

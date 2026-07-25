@@ -23,15 +23,29 @@ updated: 2026-07-24
 
 ## Data categories
 
-Deployments may handle business profile data, user account data, campaign configuration, operational events, and aggregated commercial measures. The exact data inventory must be documented per deployment.
+Deployments may handle:
+
+- Business profile data.
+- User account data.
+- Campaign configuration.
+- Operational events.
+- Aggregated commercial measures.
+
+The exact data inventory must be documented per deployment.
 
 > **Important:** Do not place payment credentials, government identifiers, sensitive verification evidence, or unnecessary personal data into general-purpose profile, campaign, or analytics fields.
 
 ## Retention and deletion
 
-Retention should reflect purpose, contract, legal obligations, security needs, and customer expectations. Pilot closeout must include an explicit retention or deletion decision.
+Retention should reflect:
+
+- Purpose.
+- Contractual and legal obligations.
+- Security needs.
+- Customer expectations.
+
+Pilot closeout must include an explicit retention or deletion decision.
 
 ## Related guidance
 
 See [security overview](./overview.md), [roles and permissions](./roles-permissions.md), [consumer onboarding](../consumers/onboarding.md), and [verification](../merchants/verification.md).
-

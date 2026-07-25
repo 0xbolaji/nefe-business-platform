@@ -38,9 +38,12 @@ Typical role concepts may include:
 
 ## Separation of duties
 
-Where risk warrants it, separate campaign creation from approval, user administration from audit review, and data configuration from commercial sign-off.
+Where risk warrants it, separate:
+
+- Campaign creation from approval.
+- User administration from audit review.
+- Data configuration from commercial sign-off.
 
 ## Related pages
 
 See the [merchant portal guide](../merchants/portal-guide.md), [security overview](./overview.md), and [privacy guidance](./privacy-data-protection.md).
-

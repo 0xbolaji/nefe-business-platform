@@ -13,7 +13,13 @@ updated: 2026-07-24
 
 ## What may be verified
 
-Depending on jurisdiction and program policy, verification may cover business identity, registration details, authorized representatives, operating locations, contact channels, and acceptance of participation terms.
+Depending on jurisdiction and program policy, verification may cover:
+
+- Business identity and registration details.
+- Authorized representatives.
+- Operating locations.
+- Contact channels.
+- Acceptance of participation terms.
 
 ## Status
 
@@ -30,9 +36,15 @@ Verification is not an endorsement of a merchant’s products, financial conditi
 
 ## Data handling
 
-Collect only the evidence required for the stated purpose. Restrict access, document retention, and avoid placing sensitive verification material in campaign content or general profile fields. See [privacy and data protection](../security/privacy-data-protection.md).
+- Collect only the evidence required for the stated purpose.
+- Restrict access to authorized roles.
+- Document retention requirements.
+- Keep sensitive verification material out of campaign content and general profile fields.
+
+See [privacy and data protection](../security/privacy-data-protection.md).
 
 ## After verification
 
-Complete [merchant onboarding](./onboarding.md), assign [roles and permissions](../security/roles-permissions.md), and establish a review date.
-
+- Complete [merchant onboarding](./onboarding.md).
+- Assign [roles and permissions](../security/roles-permissions.md).
+- Establish a review date.

@@ -13,7 +13,14 @@ updated: 2026-07-24
 
 ## What it represents
 
-The graph may represent merchants, locations, categories, campaigns, offers, and observed commercial connections. It is intended to make network structure understandable and support opportunity analysis.
+The graph may represent:
+
+- Merchants and locations.
+- Commercial categories.
+- Campaigns and offers.
+- Observed commercial connections.
+
+It is intended to make network structure understandable and support opportunity analysis.
 
 ```text
 Business → Location → Offer
@@ -31,7 +38,14 @@ This conceptual diagram is not an API or physical database schema.
 
 ## Governance
 
-Only approved data should contribute to graph analysis. Participation agreements, access controls, purpose limitation, and retention rules determine what each role can see or use. See [privacy and data protection](../security/privacy-data-protection.md).
+Only approved data should contribute to graph analysis. What each role can see or use is determined by:
+
+- Participation agreements.
+- Access controls.
+- Purpose limitation.
+- Retention rules.
+
+See [privacy and data protection](../security/privacy-data-protection.md).
 
 ## Business uses
 
@@ -44,4 +58,3 @@ Only approved data should contribute to graph analysis. Participation agreements
 ## Interpretation
 
 A graph connection indicates a modeled commercial relationship or signal, not guaranteed causation, endorsement, or legal partnership.
-

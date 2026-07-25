@@ -30,9 +30,15 @@ Customers should be able to understand why an experience is shown, manage applic
 
 ## Issues and exceptions
 
-If an offer cannot be used, confirm the participating merchant, location, validity period, eligibility, and published restrictions. Do not expose internal risk or verification information to other customers.
+If an offer cannot be used, confirm:
+
+- The participating merchant and location.
+- The validity period.
+- Customer eligibility.
+- Published restrictions.
+
+Do not expose internal risk or verification information to other customers.
 
 ## Related pages
 
 See [consumer onboarding](./onboarding.md), [campaign builder](../merchants/campaign-builder.md), and [privacy and data protection](../security/privacy-data-protection.md).
-

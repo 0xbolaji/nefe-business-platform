@@ -34,9 +34,15 @@ updated: 2026-07-24
 
 ## Acceptance
 
-Acceptance criteria should cover functional journeys, security controls, data quality, performance, resilience, support, and commercial measurement.
+Acceptance criteria should cover:
+
+- Functional journeys.
+- Security controls.
+- Data quality.
+- Performance and resilience.
+- Support.
+- Commercial measurement.
 
 ## Related guidance
 
 Review [security](../security/overview.md), [integration concepts](../developers/integration-concepts.md), and [API readiness](../developers/api-readiness.md).
-
