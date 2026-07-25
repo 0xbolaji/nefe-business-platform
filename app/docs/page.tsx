@@ -53,9 +53,8 @@ export default function DocsHomePage() {
           <Link href="/docs/documentation-system">How this documentation works →</Link>
         </div>
         <div className="docs-category-grid">
-          {groups.map((group, index) => (
+          {groups.map((group) => (
             <Link key={group.slug} href={`/docs/${group.slug}`} className="docs-category-card">
-              <span className="docs-category-number">{String(index + 1).padStart(2, "0")}</span>
               <h3>{group.category}</h3>
               <p>{group.pages.length} {group.pages.length === 1 ? "guide" : "guides"}</p>
               <strong aria-hidden="true">→</strong>
@@ -85,4 +84,3 @@ export default function DocsHomePage() {
     </main>
   );
 }
-

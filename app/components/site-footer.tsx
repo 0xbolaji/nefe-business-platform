@@ -4,8 +4,8 @@ import UAEFlag from "./uae-flag";
 
 const columns = [
   {
-    title: "Explore",
-    links: [["Platform", "/platform"], ["Solutions", "/solutions"], ["Merchants", "/merchants"], ["Businesses", "/businesses"], ["Consumers", "/consumers"]],
+    title: "Product",
+    links: [["Platform Overview", "/platform"], ["Opportunity Engine", "/opportunity-engine"], ["Commerce Graph", "/commerce-graph"], ["Analytics", "/docs/platform/analytics"]],
   },
   {
     title: "Resources",
