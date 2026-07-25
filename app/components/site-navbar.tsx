@@ -154,7 +154,6 @@ export default function SiteNavbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href="/docs" className="hidden px-2 py-2 text-[9px] font-semibold text-[#5E3BEE] transition hover:text-[#4728C8] sm:block xl:hidden">Docs</Link>
           <ThemeToggle />
           <Link href="/onboarding" className="rounded-xl bg-[#5E3BEE] px-3 py-2.5 text-[8px] font-semibold text-white shadow-[0_8px_20px_rgba(94,59,238,.2)] transition hover:-translate-y-0.5 sm:px-4 sm:text-[9px]">
             Get Started
@@ -173,41 +172,50 @@ export default function SiteNavbar() {
       </div>
 
       {mobileOpen && (
-        <nav id="mobile-navigation" aria-label="Mobile navigation" className="absolute inset-x-0 top-full max-h-[calc(100vh-72px)] overflow-y-auto border-b border-[#E5E0E9] bg-white p-4 shadow-xl xl:hidden">
+        <>
+          <button
+            type="button"
+            aria-label="Close navigation"
+            tabIndex={-1}
+            onClick={() => setMobileOpen(false)}
+            className="fixed inset-x-0 bottom-0 top-[72px] z-0 bg-[#171122]/5 xl:hidden"
+          />
+          <nav id="mobile-navigation" aria-label="Mobile navigation" className="absolute inset-x-0 top-full z-10 max-h-[min(76vh,calc(100vh-84px))] overflow-y-auto rounded-b-2xl border-b border-[#E5E0E9] bg-white px-4 pb-4 pt-2 shadow-[0_18px_42px_rgba(41,28,63,.12)] xl:hidden">
           <div className="mx-auto max-w-[760px]">
             {groups.map((group) => {
               const expanded = mobileGroup === group.label;
               return (
-                <div key={group.label} className="border-b border-[#EEEAF1] py-1">
+                <div key={group.label} className="border-b border-[#EEEAF1] py-0.5">
                   <div className="flex items-center">
-                    <Link href={group.href} onClick={() => setMobileOpen(false)} className={`flex-1 rounded-xl px-4 py-3 text-[11px] font-semibold ${isActive(pathname, group.href) ? "text-[#5E3BEE]" : "text-[#514A59]"}`}>{group.label}</Link>
+                    <Link href={group.href} onClick={() => setMobileOpen(false)} className={`flex-1 rounded-xl px-3 py-2.5 text-[11px] font-semibold ${isActive(pathname, group.href) ? "text-[#5E3BEE]" : "text-[#514A59]"}`}>{group.label}</Link>
                     <button
                       type="button"
                       aria-expanded={expanded}
                       aria-controls={`mobile-${group.label.toLowerCase()}-menu`}
                       aria-label={`${expanded ? "Collapse" : "Expand"} ${group.label}`}
                       onClick={() => setMobileGroup(expanded ? null : group.label)}
-                      className="grid h-11 w-11 place-items-center rounded-xl text-[#6C6474] focus-visible:outline-2 focus-visible:outline-[#5E3BEE]"
+                      className="grid h-10 w-10 place-items-center rounded-xl text-[#6C6474] focus-visible:outline-2 focus-visible:outline-[#5E3BEE]"
                     >
                       <span aria-hidden className={`transition-transform ${expanded ? "rotate-180" : ""}`}>⌄</span>
                     </button>
                   </div>
                   <div id={`mobile-${group.label.toLowerCase()}-menu`} aria-hidden={!expanded} className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out ${expanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
-                    <div className="grid min-h-0 gap-1 overflow-hidden pb-3 pl-3">
+                    <div className="grid min-h-0 gap-0.5 overflow-hidden pb-2 pl-2">
                       {group.items.map((item) => (
-                        <Link key={item.href} href={item.href} tabIndex={expanded ? undefined : -1} onClick={() => setMobileOpen(false)} className="rounded-xl px-4 py-3 text-[10px] font-medium text-[#706879] transition hover:bg-[#F7F4FA] focus-visible:outline-2 focus-visible:outline-[#5E3BEE]">{item.label}</Link>
+                        <Link key={item.href} href={item.href} tabIndex={expanded ? undefined : -1} onClick={() => setMobileOpen(false)} className="rounded-xl px-3 py-2.5 text-[10px] font-medium text-[#706879] transition hover:bg-[#F7F4FA] focus-visible:outline-2 focus-visible:outline-[#5E3BEE]">{item.label}</Link>
                       ))}
                     </div>
                   </div>
                 </div>
               );
             })}
-            <div className="grid grid-cols-2 gap-2 pt-4">
+            <div className="grid gap-2 pt-3 min-[380px]:grid-cols-2">
               <Link href="/contact" onClick={() => setMobileOpen(false)} className="rounded-xl border border-[#DED8E4] px-4 py-3 text-center text-[10px] font-semibold text-[#514A59]">Contact</Link>
               <Link href="/onboarding" onClick={() => setMobileOpen(false)} className="rounded-xl bg-[#5E3BEE] px-4 py-3 text-center text-[10px] font-semibold text-white shadow-[0_8px_20px_rgba(94,59,238,.18)]">Get Started</Link>
             </div>
           </div>
         </nav>
+        </>
       )}
     </header>
   );
