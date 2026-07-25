@@ -13,6 +13,7 @@ const features = [
   { title: "Integration Concepts", description: "Evaluate bounded file exchange, assisted imports, service integrations, and event notifications against the real workflow.", href: "/docs/developers/integration-concepts" },
   { title: "Future APIs", description: "Use a clear readiness gate before specifying or publishing interfaces. NEFE does not present unimplemented public APIs as available.", href: "/docs/developers/api-readiness" },
   { title: "Security Boundaries", description: "Design least-privilege access, purpose-limited data exchange, safe retries, observability, support, and rollback.", href: "/docs/security/overview" },
+  { title: "Technology Foundation", description: "Review the infrastructure principles, modular architecture, and future interoperability direction beneath the commercial platform.", href: "/technology" },
 ];
 
 export default function DevelopersPage() {
@@ -22,4 +23,3 @@ export default function DevelopersPage() {
     <MarketingCta title="Build only after the workflow is ready." description="Confirm ownership, authorization, data contracts, failure handling, observability, and support before publishing an integration." primary={{label:"View documentation",href:"/docs/developers"}} secondary={{label:"Discuss enterprise integration",href:"/contact"}}/>
   </MarketingPage>;
 }
-

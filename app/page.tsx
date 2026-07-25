@@ -78,6 +78,15 @@ const features: { title: string; text: string; icon: IconName }[] = [
   { title: "Membership Management", text: "Manage access, benefits, and partner relationships from one workspace.", icon: "members" },
 ];
 
+const discoveryLinks = [
+  { title: "Merchants", text: "Onboard, coordinate campaigns, and measure partner growth.", href: "/merchants" },
+  { title: "Businesses", text: "Build partnerships, commercial value, and focused pilots.", href: "/businesses" },
+  { title: "Consumers", text: "See how discovery, rewards, and redemption connect.", href: "/consumers" },
+  { title: "Developers", text: "Review integration direction and technical readiness.", href: "/developers" },
+  { title: "Documentation", text: "Open detailed platform, business, and operating guidance.", href: "/docs" },
+  { title: "Contact", text: "Start a focused conversation with the NEFE team.", href: "/contact" },
+];
+
 function HeroDashboard() {
   return (
     <div className="hero-dashboard relative mx-auto w-full max-w-[610px]">
@@ -173,6 +182,27 @@ export default function Home() {
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature) => <article key={feature.title} className="feature-card"><div className="feature-icon"><Icon name={feature.icon} /></div><h3>{feature.title}</h3><p>{feature.text}</p><Link href="/platform">{feature.title} overview <Icon name="arrow" className="h-4 w-4" /></Link></article>)}
           </div>
+        </div>
+      </section>
+
+      <section className="page-shell py-20 sm:py-28" aria-labelledby="explore-nefe">
+        <div className="section-heading">
+          <div className="eyebrow">Explore NEFE</div>
+          <h2 id="explore-nefe">Find the path that matches your role.</h2>
+          <p>Move from a platform overview into the business, customer, technical, or implementation detail you need.</p>
+        </div>
+        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {discoveryLinks.map((item) => (
+            <Link key={item.href} href={item.href} className="group rounded-[20px] border border-[#E7E2EA] bg-white p-5 transition hover:-translate-y-1 hover:border-[#CFC2F4] hover:shadow-[0_16px_38px_rgba(52,35,88,.07)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5E3BEE]">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="text-[14px] font-semibold text-[#27202F]">{item.title}</h3>
+                  <p className="mt-2 text-[9px] leading-5 text-[#77707D]">{item.text}</p>
+                </div>
+                <span className="text-[#7658E8] transition group-hover:translate-x-0.5" aria-hidden>→</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
