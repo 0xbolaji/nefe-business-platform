@@ -58,24 +58,19 @@ function Icon({ name, className = "h-5 w-5" }: { name: IconName; className?: str
   return <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
 }
 
-const categories: { name: string; icon: IconName; color: string }[] = [
-  { name: "Hotels", icon: "hotel", color: "lavender" },
-  { name: "Restaurants", icon: "restaurant", color: "gold" },
-  { name: "Car Rental", icon: "car", color: "blue" },
-  { name: "Retail", icon: "retail", color: "pink" },
-  { name: "Healthcare", icon: "health", color: "mint" },
-  { name: "Beauty", icon: "beauty", color: "rose" },
-  { name: "Fitness", icon: "fitness", color: "orange" },
-  { name: "Entertainment", icon: "entertainment", color: "lavender" },
+const features: { title: string; text: string; icon: IconName; href: string }[] = [
+  { title: "Commerce Graph", text: "Organize businesses, commercial relationships, customer journeys, and permitted network signals.", icon: "referral", href: "/commerce-graph" },
+  { title: "Opportunity Engine", text: "Identify relevant partners and campaign opportunities for accountable teams to review.", icon: "search", href: "/opportunity-engine" },
+  { title: "Merchant Tools", text: "Manage participation, shared offers, approvals, and campaign operations.", icon: "campaign", href: "/merchants" },
+  { title: "Consumer Experiences", text: "Connect discovery, offers, rewards, and redemption across participating businesses.", icon: "reward", href: "/consumers" },
+  { title: "Analytics", text: "Measure referrals, conversion, attributed value, and network performance against a baseline.", icon: "chart", href: "/docs/platform/analytics" },
 ];
 
-const features: { title: string; text: string; icon: IconName }[] = [
-  { title: "Partner Discovery", text: "Find trusted businesses that complement your brand and share your ambitions.", icon: "search" },
-  { title: "Campaign Builder", text: "Launch polished joint offers and bundled experiences in a few simple steps.", icon: "campaign" },
-  { title: "Referral Exchange", text: "Create measurable referral programs that reward every successful connection.", icon: "referral" },
-  { title: "Business Analytics", text: "See revenue, campaign, and partner performance in one elegant dashboard.", icon: "chart" },
-  { title: "Customer Rewards", text: "Turn shared customers into loyal advocates with connected rewards.", icon: "reward" },
-  { title: "Membership Management", text: "Manage access, benefits, and partner relationships from one workspace.", icon: "members" },
+const outcomes: { title: string; text: string; icon: IconName }[] = [
+  { title: "Discover relevant partners", text: "Find businesses that serve the same customers at complementary moments.", icon: "search" },
+  { title: "Launch shared campaigns", text: "Coordinate offers, referrals, and bundled experiences with clear ownership.", icon: "campaign" },
+  { title: "Reach more customers", text: "Create connected journeys across trusted participating businesses.", icon: "members" },
+  { title: "Measure network growth", text: "Track commercial activity, conversion, and attributable value.", icon: "chart" },
 ];
 
 const discoveryLinks = [
@@ -145,42 +140,57 @@ export default function Home() {
         </div>
         <div className="landing-hero-shell grid min-h-[710px] items-center gap-14 pb-24 pt-16 lg:grid-cols-[minmax(0,.95fr)_minmax(460px,1.05fr)] lg:gap-10 lg:pb-32 lg:pt-20 xl:gap-16">
           <div className="relative z-10 min-w-0">
-            <div className="eyebrow"><Icon name="spark" className="h-4 w-4" /> Built for ambitious businesses</div>
-            <h1 className="mt-7 max-w-[650px] text-[44px] font-semibold leading-[1.08] tracking-[-.055em] text-[#181329] sm:text-[58px] lg:text-[67px]">Grow Your Business Through <span className="gradient-text">Connected Commerce.</span></h1>
-            <p className="mt-7 max-w-[590px] text-base leading-7 text-[#686276] sm:text-lg sm:leading-8">Connect with trusted businesses, launch joint campaigns, exchange referrals, and create measurable growth opportunities.</p>
+            <div className="eyebrow"><Icon name="spark" className="h-4 w-4" /> Connected commerce, built for growth</div>
+            <h1 className="mt-7 max-w-[680px] text-[42px] font-semibold leading-[1.08] tracking-[-.055em] text-[#181329] sm:text-[56px] lg:text-[65px]">Grow Through the <span className="gradient-text">Businesses Around You.</span></h1>
+            <p className="mt-7 max-w-[640px] text-base leading-7 text-[#686276] sm:text-lg sm:leading-8"><strong className="font-semibold text-[#30283B]">NEFE is the operating network for connected commerce.</strong> It brings merchants, businesses, partners, and customers together to discover opportunities, launch joint campaigns, and create better customer experiences.</p>
             <div className="hero-actions mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link id="access" href="/onboarding" className="button-primary">Request Early Access <Icon name="arrow" /></Link>
               <Link href="/platform" className="button-secondary">Explore Platform <Icon name="arrow" className="h-4 w-4" /></Link>
-              <Link href="/solutions" className="button-secondary">Explore Solutions <Icon name="arrow" className="h-4 w-4" /></Link>
             </div>
-            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium text-[#746E80]">
-              {["No credit card required", "Built for business", "Secure by design"].map((text) => <span key={text} className="flex items-center gap-1.5"><span className="grid h-4 w-4 place-items-center rounded-full bg-[#E9FFF5] text-[#16A36A]"><Icon name="check" className="h-3 w-3" /></span>{text}</span>)}
-            </div>
+            <p className="mt-7 max-w-[650px] text-[11px] font-medium leading-5 text-[#746E80]">Built for merchants, enterprises, tourism, hospitality, retail, events, and destination networks.</p>
           </div>
           <HeroDashboard />
         </div>
       </section>
 
-      <section id="solutions" className="page-shell py-24 sm:py-32">
+      <section className="page-shell py-20 sm:py-24">
         <div className="section-heading">
-          <div className="eyebrow">Built for every industry</div>
-          <h2>Build with <span className="gradient-text">trusted partners.</span></h2>
-          <p>Discover trusted partners across the industries your customers already love.</p>
+          <div className="eyebrow">Commercial outcomes</div>
+          <h2>More ways to grow, <span className="gradient-text">through one network.</span></h2>
+          <p>Turn complementary customer moments into measurable commercial activity.</p>
         </div>
-        <div className="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-5">
-          {categories.map((item) => <article key={item.name} className="category-card"><div className={`icon-tile ${item.color}`}><Icon name={item.icon} /></div><h3>{item.name}</h3><span className="category-arrow">↗</span></article>)}
+        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {outcomes.map((item) => <article key={item.title} className="feature-card"><div className="feature-icon"><Icon name={item.icon} /></div><h3>{item.title}</h3><p>{item.text}</p></article>)}
+        </div>
+      </section>
+
+      <section id="how-it-works" className="soft-section py-20 sm:py-28">
+        <div className="page-shell">
+          <div className="section-heading">
+            <div className="eyebrow">How NEFE works</div>
+            <h2>From joining the network to <span className="gradient-text">measurable growth.</span></h2>
+            <p>A simple commercial model for businesses that serve connected customer journeys.</p>
+          </div>
+          <div className="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+            <div className="absolute left-[16.66%] right-[16.66%] top-11 hidden h-px bg-gradient-to-r from-transparent via-[#CABEFF] to-transparent md:block" />
+            {[
+              ["Businesses join", "Merchants and enterprises establish their role, customer moments, and priorities.", "members"],
+              ["NEFE finds the fit", "The network identifies relevant partners, shared audiences, and explainable opportunities.", "search"],
+              ["Partners grow together", "Businesses collaborate, reach more customers, and measure the results.", "chart"],
+            ].map(([title,text,icon]) => <article key={title} className="step-card"><div className="step-icon"><Icon name={icon as IconName} /></div><h3>{title}</h3><p>{text}</p></article>)}
+          </div>
         </div>
       </section>
 
       <section id="platform" className="soft-section py-24 sm:py-32">
         <div className="page-shell">
           <div className="section-heading">
-            <div className="eyebrow">Everything in one place</div>
-            <h2>Connect businesses.<br /><span className="gradient-text">Increase customer value.</span></h2>
-            <p>Create coordinated customer journeys, from first introduction to repeat purchase.</p>
+            <div className="eyebrow">The platform behind the network</div>
+            <h2>Commercial coordination, <span className="gradient-text">from context to results.</span></h2>
+            <p>Each module supports how businesses discover, activate, and measure connected growth.</p>
           </div>
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => <article key={feature.title} className="feature-card"><div className="feature-icon"><Icon name={feature.icon} /></div><h3>{feature.title}</h3><p>{feature.text}</p><Link href="/platform">{feature.title} overview <Icon name="arrow" className="h-4 w-4" /></Link></article>)}
+            {features.map((feature) => <article key={feature.title} className="feature-card"><div className="feature-icon"><Icon name={feature.icon} /></div><h3>{feature.title}</h3><p>{feature.text}</p><Link href={feature.href}>Explore {feature.title} <Icon name="arrow" className="h-4 w-4" /></Link></article>)}
           </div>
         </div>
       </section>
@@ -206,42 +216,23 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="how-it-works" className="page-shell py-24 sm:py-32">
-        <div className="section-heading">
-          <div className="eyebrow">Simple by design</div>
-          <h2>Turn customer flow into<br /><span className="gradient-text">shared growth.</span></h2>
-        </div>
-        <div className="relative mt-20 grid gap-12 md:grid-cols-3 md:gap-8">
-          <div className="absolute left-[16.66%] right-[16.66%] top-11 hidden h-px bg-gradient-to-r from-transparent via-[#CABEFF] to-transparent md:block" />
-          {[
-            ["01", "Join", "Create your business profile and tell the network what makes your brand special.", "members"],
-            ["02", "Partner", "Discover complementary businesses and launch opportunities that work for both sides.", "referral"],
-            ["03", "Grow", "Track every campaign, referral, and dollar of shared growth in real time.", "chart"],
-          ].map(([num,title,text,icon]) => <article key={title} className="step-card"><div className="step-icon"><Icon name={icon as IconName} /><span>{num}</span></div><h3>{title}</h3><p>{text}</p></article>)}
-        </div>
-      </section>
-
       <section className="page-shell py-20 sm:py-28">
         <div className="grid overflow-hidden rounded-[32px] border border-[#E5DFE9] bg-white shadow-[0_18px_55px_rgba(42,28,72,.07)] lg:grid-cols-[.9fr_1.1fr]">
           <div className="p-8 sm:p-10 lg:p-12">
-            <div className="eyebrow">Curated ecosystems</div>
-            <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-[-.05em] sm:text-5xl">
-              Complementary businesses, not random competitors.
-            </h2>
-            <p className="mt-5 max-w-xl text-[12px] leading-6 text-[#675F6E]">
-              NEFE helps businesses collaborate when they serve the same customer before, during or after a purchase without competing for the same core transaction.
-            </p>
-            <Link href="/commercial-ecosystems" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#5E3BEE] px-5 py-3 text-[10px] font-semibold text-white shadow-[0_12px_28px_rgba(94,59,238,.18)] transition hover:-translate-y-1">
-              Explore Commercial Ecosystems <Icon name="arrow" className="h-4 w-4" />
+            <div className="eyebrow">Connected commerce in practice</div>
+            <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-[-.05em] sm:text-5xl">One guest journey. More value for every business.</h2>
+            <p className="mt-5 max-w-xl text-[12px] leading-6 text-[#675F6E]">A hotel connects with a restaurant, tour operator, retailer, and event venue. Together they create a more useful destination experience without giving up control of their own customer relationships.</p>
+            <Link href="/commercial-ecosystems" className="mt-8 inline-flex items-center gap-2 text-[10px] font-semibold text-[#5E3BEE]">
+              Explore commercial networks <Icon name="arrow" className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid gap-3 bg-gradient-to-br from-[#171122] to-[#3B2578] p-6 text-white sm:grid-cols-2 sm:p-8 lg:p-10">
-            {["Luxury travel", "Wellness", "Family weekend", "Business traveler"].map((item) => (
-              <div key={item} className="rounded-[20px] border border-white/10 bg-white/[.07] p-5 backdrop-blur">
-                <p className="text-[15px] font-semibold">{item}</p>
-                <p className="mt-2 text-[9px] leading-5 text-white/68">Built around shared customers and complementary moments.</p>
-              </div>
-            ))}
+            {[
+              ["Bundled experiences", "Combine stays, dining, activities, retail, and events."],
+              ["Relevant opportunities", "Connect customers to useful next moments."],
+              ["Coordinated campaigns", "Plan shared activity with clear participant roles."],
+              ["Destination spending", "Measure value created across the journey."],
+            ].map(([title,text]) => <div key={title} className="rounded-[20px] border border-white/10 bg-white/[.07] p-5 backdrop-blur"><p className="text-[15px] font-semibold">{title}</p><p className="mt-2 text-[9px] leading-5 text-white/68">{text}</p></div>)}
           </div>
         </div>
       </section>
@@ -249,13 +240,13 @@ export default function Home() {
       <section id="dashboard" className="dashboard-section py-24 text-white sm:py-32">
         <div className="page-shell grid items-center gap-16 lg:grid-cols-[.82fr_1.18fr]">
           <div>
-            <div className="eyebrow eyebrow-dark">Clarity at every turn</div>
-            <h2 className="mt-7 text-4xl font-semibold leading-tight tracking-[-.045em] sm:text-5xl">Where customer flow becomes visible.</h2>
-            <p className="mt-6 max-w-lg text-base leading-7 text-white/60">Turn every connection into clear, actionable insight. NEFE brings your network, campaigns, customers, and revenue together.</p>
+            <div className="eyebrow eyebrow-dark">Network analytics</div>
+            <h2 className="mt-7 text-4xl font-semibold leading-tight tracking-[-.045em] sm:text-5xl">See what connected activity creates.</h2>
+            <p className="mt-6 max-w-lg text-base leading-7 text-white/60">Analytics turn partner activity, campaigns, referrals, and customer journeys into commercial evidence teams can evaluate.</p>
             <div className="mt-9 space-y-4">
               {["Real-time revenue attribution", "Partner and campaign insights", "Beautiful, exportable reports"].map(t => <div key={t} className="flex items-center gap-3 text-sm text-white/85"><span className="grid h-6 w-6 place-items-center rounded-full bg-white/10 text-[#C5B7FF]"><Icon name="check" className="h-3.5 w-3.5" /></span>{t}</div>)}
             </div>
-            <Link href="/business-portal" className="mt-10 inline-flex items-center gap-2 font-semibold text-white">Explore the dashboard <Icon name="arrow" /></Link>
+            <Link href="/docs/platform/analytics" className="mt-10 inline-flex items-center gap-2 font-semibold text-white">Review analytics <Icon name="arrow" /></Link>
           </div>
           <div className="relative">
             <div className="dashboard-glow" />
