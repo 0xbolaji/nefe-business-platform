@@ -23,7 +23,10 @@ updated: 2026-07-24
 
 ## Operating model
 
-Network operators establish participation rules. Merchants contribute approved business information and configure commercial activity. Consumers interact with experiences under disclosed terms. The platform records appropriate operational and outcome signals for measurement.
+- Network operators establish participation rules.
+- Merchants contribute approved business information and configure commercial activity.
+- Consumers interact with experiences under disclosed terms.
+- The platform records appropriate operational and outcome signals for measurement.
 
 NEFE should not be described as an autonomous marketplace, financial institution, or universal customer-data repository.
 
@@ -38,4 +41,3 @@ NEFE should not be described as an autonomous marketplace, financial institution
 ## Learn more
 
 Read about the [Commerce Graph](./commerce-graph.md), [Opportunity Engine](./opportunity-engine.md), [analytics](./analytics.md), and [AI layer](./ai-layer.md). Operational guides are available for [merchants](../merchants/portal-guide.md) and [consumers](../consumers/app-guide.md).
-

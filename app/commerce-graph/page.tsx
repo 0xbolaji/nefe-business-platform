@@ -3,7 +3,7 @@ import CommerceGraph from "./commerce-graph";
 
 export const metadata: Metadata = {
   title: "Commerce Graph | NEFE",
-  description: "See the NEFE business ecosystem move in real time.",
+  description: "Explore how businesses, modeled referral paths, and opportunity gaps connect across a sample NEFE commercial ecosystem.",
 };
 
 export default function CommerceGraphPage() {

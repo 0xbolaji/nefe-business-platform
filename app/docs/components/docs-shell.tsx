@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import type { DocHeading, DocNavGroup } from "@/lib/docs";
 
 function Sidebar({ groups, close }: { groups: DocNavGroup[]; close?: () => void }) {
@@ -87,9 +87,47 @@ export default function DocsShell({
   children: ReactNode;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const drawer = drawerRef.current;
+    const focusable = () => Array.from(drawer?.querySelectorAll<HTMLElement>("a[href], button:not([disabled]), summary") ?? []);
+    focusable()[0]?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMobileOpen(false);
+        window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const items = focusable();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [mobileOpen]);
+
   return (
     <div className="docs-shell">
       <button
+        ref={menuButtonRef}
         className="docs-mobile-menu"
         type="button"
         onClick={() => setMobileOpen(true)}
@@ -104,6 +142,7 @@ export default function DocsShell({
       {mobileOpen && (
         <div className="docs-drawer-backdrop" role="presentation" onMouseDown={() => setMobileOpen(false)}>
           <aside
+            ref={drawerRef}
             id="docs-mobile-drawer"
             className="docs-drawer"
             role="dialog"
@@ -126,4 +165,3 @@ export default function DocsShell({
     </div>
   );
 }
-

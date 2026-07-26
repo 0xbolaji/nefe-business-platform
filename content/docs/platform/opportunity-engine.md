@@ -25,9 +25,8 @@ The engine turns approved commercial signals into explainable opportunity candid
 
 ## Status
 
-**Pilot:** Opportunity views and prioritization can be configured for controlled evaluations.
-
-**Proposed:** Fully autonomous campaign creation, guaranteed revenue forecasts, and unrestricted real-time optimization are not live capabilities.
+- **Pilot:** Opportunity views and prioritization can be configured for controlled evaluations.
+- **Proposed:** Fully autonomous campaign creation, guaranteed revenue forecasts, and unrestricted real-time optimization are not live capabilities.
 
 > **Key Insight:** A high opportunity score is a prompt for investigation. It is not a promise of performance.
 

@@ -1,0 +1,8 @@
+import Link from "next/link";
+import {redirect} from "next/navigation";
+import {can} from "../../../../lib/auth/permissions";
+import {requireWorkspaceContext} from "../../../../lib/auth/workspace-context";
+import {listAuditLogs} from "../../../../lib/data/audit";
+import {AppCard,DataTable,EmptyState,PageHeader} from "../../_components/ui";
+export const dynamic="force-dynamic";
+export default async function AuditLogPage(){const context=await requireWorkspaceContext();if(!can(context.membership.role,"audit.view"))redirect("/access-denied");if(!process.env.DATABASE_URL)return <><PageHeader title="Audit log" description="Database-backed audit history is unavailable in local demo bypass mode."/><AppCard><EmptyState title="Configure PostgreSQL" description="Apply migrations and seed the workspace to review persisted audit events."/></AppCard></>;const logs=await listAuditLogs(context.organization.id);return <><PageHeader eyebrow="Governance" title="Audit log" description="Append-oriented history of significant organization and workspace actions." action={<Link className="ws-button" href="/workspace/settings">Settings</Link>}/><AppCard>{logs.length?<DataTable label="Workspace audit log" headers={["Time","Action","Entity","Actor","Metadata"]}>{logs.map(item=><tr key={item.id}><td>{item.createdAt.toLocaleString()}</td><td><strong>{item.action}</strong></td><td>{item.entityType} · {item.entityId}</td><td>{item.actorId??"System"}</td><td><span className="ws-table-wrap-copy">{JSON.stringify(item.metadata)}</span></td></tr>)}</DataTable>:<EmptyState title="No audit events" description="Significant persisted actions will appear here."/>}</AppCard></>}

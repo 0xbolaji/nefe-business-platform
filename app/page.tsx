@@ -142,7 +142,7 @@ export default function Home() {
           <div className="relative z-10 min-w-0">
             <div className="eyebrow"><Icon name="spark" className="h-4 w-4" /> Connected commerce, built for growth</div>
             <h1 className="mt-7 max-w-[680px] text-[42px] font-semibold leading-[1.08] tracking-[-.055em] text-[#181329] sm:text-[56px] lg:text-[65px]">Grow Through the <span className="gradient-text">Businesses Around You.</span></h1>
-            <p className="mt-7 max-w-[640px] text-base leading-7 text-[#686276] sm:text-lg sm:leading-8"><strong className="font-semibold text-[#30283B]">NEFE is the operating network for connected commerce.</strong> It brings merchants, businesses, partners, and customers together to discover opportunities, launch joint campaigns, and create better customer experiences.</p>
+            <p className="mt-7 max-w-[640px] text-base leading-7 text-[#686276] sm:text-lg sm:leading-8"><strong className="font-semibold text-[#30283B]">NEFE is a business-first commercial platform for connected commerce.</strong> It brings merchants, businesses, partners, and customers together to discover opportunities, launch joint campaigns, and create better customer experiences.</p>
             <div className="hero-actions mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link id="access" href="/onboarding" className="button-primary">Request Early Access <Icon name="arrow" /></Link>
               <Link href="/platform" className="button-secondary">Explore Platform <Icon name="arrow" className="h-4 w-4" /></Link>
@@ -244,7 +244,7 @@ export default function Home() {
             <h2 className="mt-7 text-4xl font-semibold leading-tight tracking-[-.045em] sm:text-5xl">See what connected activity creates.</h2>
             <p className="mt-6 max-w-lg text-base leading-7 text-white/60">Analytics turn partner activity, campaigns, referrals, and customer journeys into commercial evidence teams can evaluate.</p>
             <div className="mt-9 space-y-4">
-              {["Real-time revenue attribution", "Partner and campaign insights", "Beautiful, exportable reports"].map(t => <div key={t} className="flex items-center gap-3 text-sm text-white/85"><span className="grid h-6 w-6 place-items-center rounded-full bg-white/10 text-[#C5B7FF]"><Icon name="check" className="h-3.5 w-3.5" /></span>{t}</div>)}
+              {["Modeled revenue attribution", "Partner and campaign insights", "Clear, exportable reports"].map(t => <div key={t} className="flex items-center gap-3 text-sm text-white/85"><span className="grid h-6 w-6 place-items-center rounded-full bg-white/10 text-[#C5B7FF]"><Icon name="check" className="h-3.5 w-3.5" /></span>{t}</div>)}
             </div>
             <Link href="/docs/platform/analytics" className="mt-10 inline-flex items-center gap-2 font-semibold text-white">Review analytics <Icon name="arrow" /></Link>
           </div>
@@ -254,7 +254,7 @@ export default function Home() {
               <div className="rounded-[18px] bg-[#F8F7FC] p-5 text-[#19152A] sm:p-7">
                 <div className="flex items-center justify-between"><div><p className="text-[10px] text-slate-400">PERFORMANCE</p><h3 className="mt-1 text-xl font-bold">Growth overview</h3></div><span className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-[10px] text-slate-500">Last 6 months</span></div>
                 <div className="mt-6 grid grid-cols-2 gap-3">
-                  {[["Revenue Growth", "$84,290", "+24.8%", "lav"], ["Partner Businesses", "36", "+8", "gold"], ["Campaign Performance", "92.4%", "+12.1%", "mint"], ["Customer Referrals", "2,841", "+31.6%", "pink"]].map(([a,b,c,color]) => <div key={a} className="metric-card"><div className={`metric-dot ${color}`} /><p>{a}</p><div><strong>{b}</strong><span>{c}</span></div></div>)}
+                  {[["Modeled Monthly Value", "AED 1.44M", "+24.8%", "lav"], ["Pilot Participants", "8", "+3", "gold"], ["Pilot Readiness", "92%", "+12.1%", "mint"], ["Modeled Monthly Referrals", "1,730", "+31.6%", "pink"]].map(([a,b,c,color]) => <div key={a} className="metric-card"><div className={`metric-dot ${color}`} /><p>{a}</p><div><strong>{b}</strong><span>{c}</span></div></div>)}
                 </div>
                 <div className="mt-4 rounded-2xl border border-slate-100 bg-white p-4">
                   <div className="flex items-center justify-between"><p className="text-xs font-semibold">Partnership revenue</p><div className="flex gap-3 text-[8px] text-slate-400"><span>● Revenue</span><span className="text-[#D3C9FA]">● Referrals</span></div></div>

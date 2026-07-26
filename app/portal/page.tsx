@@ -90,9 +90,9 @@ const partners = [
 ];
 
 const initialCampaigns = [
-  { name: "Weekend Stay + Fine Dining", businesses: ["CD", "MD"], revenue: "AED 286,400", reach: "18,420", conversion: "12.8%", status: "Live" },
-  { name: "Luxury Car + Hotel Pickup", businesses: ["AD", "CD"], revenue: "AED 194,650", reach: "12,840", conversion: "10.4%", status: "Live" },
-  { name: "Beach Club + Spa Day", businesses: ["AB", "SW"], revenue: "AED 142,820", reach: "15,290", conversion: "8.9%", status: "Live" },
+  { name: "Weekend Stay + Fine Dining", businesses: ["CD", "MD"], revenue: "AED 286,400", reach: "18,420", conversion: "12.8%", status: "Sample active" },
+  { name: "Luxury Car + Hotel Pickup", businesses: ["AD", "CD"], revenue: "AED 194,650", reach: "12,840", conversion: "10.4%", status: "Sample active" },
+  { name: "Beach Club + Spa Day", businesses: ["AB", "SW"], revenue: "AED 142,820", reach: "15,290", conversion: "8.9%", status: "Sample active" },
   { name: "Restaurant + Event Night", businesses: ["MD", "TF"], revenue: "AED 98,240", reach: "9,670", conversion: "7.6%", status: "Scheduled" },
 ];
 
@@ -311,12 +311,12 @@ export default function PortalPage() {
           </section>
 
           <section id="campaigns" className="scroll-mt-32 pt-12">
-            <SectionTitle eyebrow="Joint growth" title="Campaign performance" detail="Live and scheduled campaigns across your partner network." action="Create Campaign" onAction={() => setCreateOpen(true)} />
+            <SectionTitle eyebrow="Joint growth" title="Campaign performance" detail="Illustrative active and scheduled campaigns across the sample partner network." action="Create Campaign" onAction={() => setCreateOpen(true)} />
             <div className="overflow-hidden rounded-[22px] border border-[#E8E4EC] bg-white">
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[760px] text-left">
                   <thead className="border-b border-[#EEEAF2] bg-[#FAF9FB] text-[9px] font-bold uppercase tracking-[.08em] text-[#9A94A0]"><tr><th className="px-5 py-4">Campaign</th><th className="px-5 py-4">Partners</th><th className="px-5 py-4">Revenue generated</th><th className="px-5 py-4">Customers reached</th><th className="px-5 py-4">Conversion</th><th className="px-5 py-4">Status</th></tr></thead>
-                  <tbody className="divide-y divide-[#F0EDF3]">{campaignList.map((campaign) => <tr key={campaign.name} onClick={() => setSelectedCampaign(campaign)} className="cursor-pointer transition hover:bg-[#F8F5FF]"><td className="px-5 py-4 text-xs font-semibold">{campaign.name}<span className="ml-2 text-[8px] font-normal text-[#8A73E5]">View →</span></td><td className="px-5 py-4"><div className="flex -space-x-2">{campaign.businesses.map((b,i) => <span key={b} className={`grid h-7 w-7 place-items-center rounded-full border-2 border-white text-[7px] font-bold text-white ${i ? "bg-[#C0994F]" : "bg-[#6342E7]"}`}>{b}</span>)}</div></td><td className="px-5 py-4 text-xs font-semibold">{campaign.revenue}</td><td className="px-5 py-4 text-xs text-[#726B7B]">{campaign.reach}</td><td className="px-5 py-4"><span className="rounded-full bg-[#EAF9F2] px-2 py-1 text-[9px] font-bold text-[#159166]">{campaign.conversion}</span></td><td className="px-5 py-4"><span className={`rounded-full px-2.5 py-1.5 text-[9px] font-bold ${campaign.status === "Live" ? "bg-[#EEE9FF] text-[#5E3BEE]" : "bg-[#FFF4DE] text-[#A7751C]"}`}>● {campaign.status}</span></td></tr>)}</tbody>
+                  <tbody className="divide-y divide-[#F0EDF3]">{campaignList.map((campaign) => <tr key={campaign.name} onClick={() => setSelectedCampaign(campaign)} className="cursor-pointer transition hover:bg-[#F8F5FF]"><td className="px-5 py-4 text-xs font-semibold">{campaign.name}<span className="ml-2 text-[8px] font-normal text-[#8A73E5]">View →</span></td><td className="px-5 py-4"><div className="flex -space-x-2">{campaign.businesses.map((b,i) => <span key={b} className={`grid h-7 w-7 place-items-center rounded-full border-2 border-white text-[7px] font-bold text-white ${i ? "bg-[#C0994F]" : "bg-[#6342E7]"}`}>{b}</span>)}</div></td><td className="px-5 py-4 text-xs font-semibold">{campaign.revenue}</td><td className="px-5 py-4 text-xs text-[#726B7B]">{campaign.reach}</td><td className="px-5 py-4"><span className="rounded-full bg-[#EAF9F2] px-2 py-1 text-[9px] font-bold text-[#159166]">{campaign.conversion}</span></td><td className="px-5 py-4"><span className={`rounded-full px-2.5 py-1.5 text-[9px] font-bold ${campaign.status === "Sample active" ? "bg-[#EEE9FF] text-[#5E3BEE]" : "bg-[#FFF4DE] text-[#A7751C]"}`}>● {campaign.status}</span></td></tr>)}</tbody>
                 </table>
               </div>
             </div>
@@ -324,7 +324,7 @@ export default function PortalPage() {
 
           <section id="referrals" className="scroll-mt-32 pt-12">
             <div className="grid gap-4 xl:grid-cols-[1.15fr_.85fr]">
-              <div><SectionTitle eyebrow="Live network" title="Recent referrals" detail="Customer opportunities moving between your partners." />
+              <div><SectionTitle eyebrow="Sample network" title="Recent referrals" detail="Illustrative customer opportunities moving between sample partners." />
                 <div className="overflow-hidden rounded-[22px] border border-[#E8E4EC] bg-white divide-y divide-[#F0EDF3]">
                   {referrals.map((referral) => <div key={`${referral.from}-${referral.time}`} className="flex items-center gap-3 p-4 transition hover:bg-[#FCFBFE]">
                     <div className="flex shrink-0 -space-x-2">{referral.initials.map((b,i) => <span key={b} className={`grid h-9 w-9 place-items-center rounded-full border-2 border-white text-[8px] font-bold text-white ${i ? "bg-[#C19A50]" : "bg-[#6040DD]"}`}>{b}</span>)}</div>

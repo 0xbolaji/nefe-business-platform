@@ -1,0 +1,8 @@
+import type {AppRole,Permission} from "./types";
+const all:Permission[]=["workspace.settings","team.manage","business.manage","opportunity.update","pilot.create","pilot.approve","kpi.update","risk.update","recommendation.decide","analytics.view","audit.view"];
+export const rolePermissions:Record<AppRole,ReadonlySet<Permission>>={OWNER:new Set(all),ADMINISTRATOR:new Set(all),MANAGER:new Set(["business.manage","opportunity.update","pilot.create","pilot.approve","kpi.update","risk.update","recommendation.decide","analytics.view"]),ANALYST:new Set(["kpi.update","analytics.view"]),CONTRIBUTOR:new Set(["business.manage","opportunity.update","pilot.create","kpi.update","risk.update","analytics.view"]),VIEWER:new Set(["analytics.view"])};
+export function can(role:AppRole,permission:Permission){return rolePermissions[role].has(permission)}
+export function requirePermission(role:AppRole,permission:Permission){if(!can(role,permission))throw new AuthorizationError(permission)}
+export class AuthorizationError extends Error{constructor(public permission:Permission){super("You do not have permission to perform this action.");this.name="AuthorizationError"}}
+export function canChangeRole(actor:AppRole,target:AppRole,next:AppRole,isSelf:boolean){if(actor!=="OWNER"&&actor!=="ADMINISTRATOR")return false;if(isSelf&&next==="OWNER"&&actor!=="OWNER")return false;if(actor==="ADMINISTRATOR"&&(target==="OWNER"||next==="OWNER"))return false;return true}
+export function protectsFinalOwner(ownerCount:number,currentRole:AppRole,nextRole:AppRole){return !(currentRole==="OWNER"&&nextRole!=="OWNER"&&ownerCount<=1)}

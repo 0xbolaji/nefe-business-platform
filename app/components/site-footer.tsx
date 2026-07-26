@@ -24,7 +24,7 @@ export default function SiteFooter() {
         <div className="grid gap-12 border-b border-[#EEEAF1] pb-12 lg:grid-cols-[1.15fr_2fr]">
           <div>
             <BrandLogo />
-            <p className="mt-5 max-w-sm text-[11px] leading-6 text-[#77707D]">The commercial intelligence network helping businesses share customer value, coordinate growth, and build stronger local economies.</p>
+            <p className="mt-5 max-w-sm text-[11px] leading-6 text-[#77707D]">The business-first commercial platform helping connected businesses share customer value, coordinate growth, and build stronger local economies.</p>
             <Link href="/contact" className="mt-6 inline-flex text-[9px] font-semibold text-[#5E3BEE] transition hover:text-[#4728C8]">Start a conversation →</Link>
           </div>
           <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-x-7 gap-y-10 sm:grid-cols-3">
@@ -45,14 +45,14 @@ export default function SiteFooter() {
             <p>© 2026 NEFE Business Network</p>
             <p className="inline-flex items-center gap-2"><UAEFlag className="h-3.5 w-auto" title="United Arab Emirates flag" />Built in the United Arab Emirates.</p>
           </div>
-          <div className="flex items-center gap-4" aria-label="Prototype status">
-            <span className="font-semibold text-[#6F6876]">Private executive preview</span>
+          <div className="flex items-center gap-4" aria-label="Release status">
+            <span className="font-semibold text-[#6F6876]">Release candidate</span>
             <span className="hidden text-[#B1AAB6] sm:inline">Sample data environment</span>
           </div>
         </div>
       </div>
       <div className="border-t border-[#EEEAF1]">
-        <p className="mx-auto max-w-[1480px] px-5 py-4 text-[7px] text-[#A09AA4] sm:px-8 lg:px-10">Interactive product prototype using sample commercial data. Not a live financial or transactional service.</p>
+        <p className="mx-auto max-w-[1480px] px-5 py-4 text-[7px] text-[#A09AA4] sm:px-8 lg:px-10">This interactive prototype uses illustrative commercial data and does not represent live financial or transactional activity.</p>
       </div>
     </footer>
   );

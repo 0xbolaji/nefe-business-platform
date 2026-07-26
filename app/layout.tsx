@@ -4,12 +4,13 @@ import "./product-marketing.css";
 import SiteFooter from "./components/site-footer";
 import SiteNavbar from "./components/site-navbar";
 import MotionSystem from "./components/motion-system";
+import { SiteChrome } from "./components/site-chrome";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: "NEFE — Business Network",
   description:
-    "A commercial intelligence platform for complementary businesses to build shared customer value, referrals, rewards, and measurable growth.",
+    "A business-first commercial platform for connected commerce, shared customer value, and measurable growth.",
   icons: {
     icon: "/nefe-logo-purple.png",
     apple: "/nefe-logo-purple.png",
@@ -38,7 +39,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{__html:`try{var t=localStorage.getItem("nefe-theme");if(t!=="light"&&t!=="dark"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t}catch(e){document.documentElement.dataset.theme="light"}`}}/>
       </head>
-      <body className="min-h-full flex flex-col"><SiteNavbar /><MotionSystem>{children}</MotionSystem><SiteFooter /></body>
+      <body className="min-h-full flex flex-col"><SiteChrome><SiteNavbar /></SiteChrome><MotionSystem>{children}</MotionSystem><SiteChrome><SiteFooter /></SiteChrome></body>
     </html>
   );
 }

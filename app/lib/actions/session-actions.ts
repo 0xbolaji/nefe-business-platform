@@ -1,0 +1,11 @@
+"use server";
+import {cookies} from "next/headers";
+import {revalidatePath} from "next/cache";
+import {and,eq} from "drizzle-orm";
+import {z} from "zod";
+import {database} from "@/db/client";
+import {notifications,organizationMembers} from "@/db/schema";
+import {requireWorkspaceContext} from "@/app/lib/auth/workspace-context";
+export async function switchOrganization(input:unknown){const parsed=z.object({organizationId:z.string().uuid()}).safeParse(input);if(!parsed.success)return {ok:false,error:"Invalid organization."} as const;const context=await requireWorkspaceContext();const [membership]=await database().select({id:organizationMembers.id}).from(organizationMembers).where(and(eq(organizationMembers.userId,context.user.id),eq(organizationMembers.organizationId,parsed.data.organizationId),eq(organizationMembers.status,"ACTIVE"))).limit(1);if(!membership)return {ok:false,error:"Organization membership not found."} as const;(await cookies()).set("nefe-active-organization",parsed.data.organizationId,{httpOnly:true,sameSite:"lax",secure:process.env.NODE_ENV==="production",path:"/",maxAge:60*60*24*30});revalidatePath("/workspace","layout");return {ok:true} as const}
+export async function markNotificationRead(input:unknown){const parsed=z.object({id:z.string().uuid()}).safeParse(input);if(!parsed.success)return {ok:false,error:"Invalid notification."} as const;const context=await requireWorkspaceContext();const changed=await database().update(notifications).set({readAt:new Date(),updatedAt:new Date()}).where(and(eq(notifications.id,parsed.data.id),eq(notifications.organizationId,context.organization.id),eq(notifications.userId,context.user.id))).returning({id:notifications.id});if(!changed[0])return {ok:false,error:"Notification not found."} as const;revalidatePath("/workspace/notifications");return {ok:true} as const}
+export async function markAllNotificationsRead(){const context=await requireWorkspaceContext();await database().update(notifications).set({readAt:new Date(),updatedAt:new Date()}).where(and(eq(notifications.organizationId,context.organization.id),eq(notifications.userId,context.user.id)));revalidatePath("/workspace/notifications");return {ok:true} as const}

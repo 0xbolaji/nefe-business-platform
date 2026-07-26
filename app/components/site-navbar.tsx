@@ -59,6 +59,8 @@ function isActive(pathname: string, href: string) {
 export default function SiteNavbar() {
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
+  const mobileToggleRef = useRef<HTMLButtonElement>(null);
+  const mobileNavRef = useRef<HTMLElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [desktopOpen, setDesktopOpen] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -73,7 +75,6 @@ export default function SiteNavbar() {
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setDesktopOpen(null);
-        setMobileOpen(false);
       }
     };
     document.addEventListener("keydown", closeOnEscape);
@@ -83,6 +84,35 @@ export default function SiteNavbar() {
   useEffect(() => () => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const menu = mobileNavRef.current;
+    const focusable = () => Array.from(menu?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? []).filter((element) => element.tabIndex !== -1);
+    focusable()[0]?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMobileOpen(false);
+        window.requestAnimationFrame(() => mobileToggleRef.current?.focus());
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const items = focusable();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobileOpen]);
 
   const openDesktopGroup = (label: string) => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
@@ -159,6 +189,7 @@ export default function SiteNavbar() {
             Get Started
           </Link>
           <button
+            ref={mobileToggleRef}
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
@@ -180,7 +211,7 @@ export default function SiteNavbar() {
             onClick={() => setMobileOpen(false)}
             className="fixed inset-x-0 bottom-0 top-[72px] z-0 bg-[#171122]/5 xl:hidden"
           />
-          <nav id="mobile-navigation" aria-label="Mobile navigation" className="absolute inset-x-0 top-full z-10 max-h-[min(76vh,calc(100vh-84px))] overflow-y-auto rounded-b-2xl border-b border-[#E5E0E9] bg-white px-4 pb-4 pt-2 shadow-[0_18px_42px_rgba(41,28,63,.12)] xl:hidden">
+          <nav ref={mobileNavRef} id="mobile-navigation" aria-label="Mobile navigation" className="absolute inset-x-0 top-full z-10 max-h-[min(76vh,calc(100vh-84px))] overflow-y-auto rounded-b-2xl border-b border-[#E5E0E9] bg-white px-4 pb-4 pt-2 shadow-[0_18px_42px_rgba(41,28,63,.12)] xl:hidden">
           <div className="mx-auto max-w-[760px]">
             {groups.map((group) => {
               const expanded = mobileGroup === group.label;

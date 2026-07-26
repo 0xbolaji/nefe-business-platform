@@ -8,7 +8,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Platform | NEFE Business Network",
-  description: "Explore the commercial intelligence platform connecting businesses, customer journeys, campaigns, and measurable outcomes.",
+  description: "Explore the business-first commercial platform connecting businesses, customer journeys, campaigns, and measurable outcomes.",
   alternates: { canonical: "/platform" },
   openGraph: { title: "NEFE Platform", description: "The operating layer for connected commerce.", url: "/platform" },
 };

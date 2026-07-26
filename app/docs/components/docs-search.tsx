@@ -80,6 +80,9 @@ export default function DocsSearch({
       </div>
       {query && (
         <div className="docs-search-results" role="region" aria-label="Documentation search results">
+          <p className="sr-only" aria-live="polite">
+            {results.length} documentation {results.length === 1 ? "result" : "results"} found.
+          </p>
           {results.length ? (
             results.map(({ record }) => (
               <Link key={record.route} href={record.route} onClick={() => setQuery("")}>
@@ -96,4 +99,3 @@ export default function DocsSearch({
     </div>
   );
 }
-

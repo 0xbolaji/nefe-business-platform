@@ -36,13 +36,11 @@ Every campaign should identify:
 
 ## Status
 
-**Pilot:** Campaign configuration and approval features depend on the deployment.
-
-**Proposed:** Autonomous campaign launch or optimization without human approval is not live.
+- **Pilot:** Campaign configuration and approval features depend on the deployment.
+- **Proposed:** Autonomous campaign launch or optimization without human approval is not live.
 
 > **Best Practice:** Use the smallest viable audience for the first launch and document every material change.
 
 ## Related pages
 
 See [verification](./verification.md), the [Opportunity Engine](../platform/opportunity-engine.md), and the [consumer app guide](../consumers/app-guide.md).
-

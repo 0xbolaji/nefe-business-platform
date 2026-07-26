@@ -32,9 +32,8 @@ This conceptual diagram is not an API or physical database schema.
 
 ## Status
 
-**Pilot:** Graph-backed views and relationship analysis may be available in configured pilot environments. Exact entities, signals, and refresh behavior depend on the deployment.
-
-**Proposed:** Automated graph expansion, cross-network portability, and generalized external graph APIs are not represented as implemented.
+- **Pilot:** Graph-backed views and relationship analysis may be available in configured pilot environments. Exact entities, signals, and refresh behavior depend on the deployment.
+- **Proposed:** Automated graph expansion, cross-network portability, and generalized external graph APIs are not represented as implemented.
 
 ## Governance
 

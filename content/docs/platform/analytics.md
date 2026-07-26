@@ -32,9 +32,8 @@ Analytics should begin with a documented baseline and measurement plan. Common m
 
 ## Status
 
-**Pilot:** Configured dashboards and reports may be available for approved pilot datasets.
-
-**Proposed:** Universal cross-channel attribution, automated causal proof, and guaranteed forecasting are not live.
+- **Pilot:** Configured dashboards and reports may be available for approved pilot datasets.
+- **Proposed:** Universal cross-channel attribution, automated causal proof, and guaranteed forecasting are not live.
 
 ## Responsible interpretation
 
@@ -51,4 +50,7 @@ Small samples, selection bias, missing data, and changing market conditions can 
 
 ## Access and exports
 
-Access follows [roles and permissions](../security/roles-permissions.md). Any available export must follow the deployment’s privacy, retention, and contractual rules. See [privacy and data protection](../security/privacy-data-protection.md).
+- Access follows [roles and permissions](../security/roles-permissions.md).
+- Any available export must follow the deployment’s privacy, retention, and contractual rules.
+
+See [privacy and data protection](../security/privacy-data-protection.md).

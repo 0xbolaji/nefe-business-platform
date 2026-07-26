@@ -3,10 +3,9 @@ import OpportunityEngine from "./opportunity-engine";
 
 export const metadata: Metadata = {
   title: "Opportunity Engine | NEFE",
-  description: "Build, simulate and evaluate connected commercial ecosystems with NEFE intelligence.",
+  description: "Identify commercial opportunities, model connected ecosystems, predict outcomes and prepare coordinated pilots with NEFE.",
 };
 
 export default function OpportunityEnginePage() {
   return <OpportunityEngine />;
 }
-
