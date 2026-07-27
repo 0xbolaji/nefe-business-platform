@@ -5,7 +5,7 @@ import {eq,sql} from "drizzle-orm";
 import {redirect} from "next/navigation";
 import {database} from "@/db/client";
 import {auditLogs,organizationMembers,organizations,users} from "@/db/schema";
-import {GENERIC_REGISTRATION_ERROR,registerInternalAccount,RegistrationDiagnosticError,RegistrationUnavailableError,type RegistrationDiagnostic,type RegistrationResult,type RegistrationStage} from "@/app/lib/auth/internal-registration";
+import {GENERIC_REGISTRATION_ERROR,registerInternalAccount,RegistrationDiagnosticError,RegistrationUnavailableError,type RegistrationAvailabilityDiagnostic,type RegistrationDiagnostic,type RegistrationResult,type RegistrationStage} from "@/app/lib/auth/internal-registration";
 import {serverEnv} from "@/app/lib/server-env";
 
 export type RegistrationState=RegistrationResult&{attempt:number};
@@ -16,6 +16,7 @@ function rateLimited(email:string){const now=Date.now(),key=createHash("sha256")
 function errorField(error:unknown,field:"code"|"constraint"){if(typeof error!=="object"||error===null||!(field in error))return null;return String((error as Record<string,unknown>)[field])}
 function safePostgres(error:unknown){const code=errorField(error,"code"),constraint=errorField(error,"constraint");return {postgresCode:code&&allowedPostgresCodes.has(code)?code:null,constraint:constraint&&allowedConstraints.has(constraint)?constraint:null}}
 function reportFailure(value:RegistrationDiagnostic){console.error(JSON.stringify(value))}
+function reportAvailability(value:RegistrationAvailabilityDiagnostic){console.error(JSON.stringify(value))}
 async function databaseStage<T>(stage:RegistrationStage,operation:()=>Promise<T>):Promise<T>{try{return await operation()}catch(error){if(error instanceof RegistrationUnavailableError||error instanceof RegistrationDiagnosticError)throw error;const safe=safePostgres(error);const duplicate=stage==="user_insert"&&safe.postgresCode==="23505";throw new RegistrationDiagnosticError(stage,duplicate?"duplicate_email":"database_error",safe.postgresCode,safe.constraint)}}
 
 export async function registerInternalUser(previous:RegistrationState,formData:FormData):Promise<RegistrationState>{
@@ -25,7 +26,7 @@ export async function registerInternalUser(previous:RegistrationState,formData:F
   let environment:ReturnType<typeof serverEnv>;
   try{environment=serverEnv()}catch{reportFailure({event:"internal_registration_failed",attemptId,stage:"unexpected",reason:"configuration_error",postgresCode:null,constraint:null,timestamp:new Date().toISOString()});return {ok:false,error:`${GENERIC_REGISTRATION_ERROR} Reference: ${attemptId}`,attempt:previous.attempt+1}}
   const result=await registerInternalAccount({fullName:String(formData.get("fullName")??""),email,password:String(formData.get("password")??""),confirmPassword:String(formData.get("confirmPassword")??""),invitationCode:String(formData.get("invitationCode")??""),termsAccepted:formData.get("termsAccepted")==="on"},{invitationCode:environment.NEFE_INTERNAL_SIGNUP_CODE,organizationSlug:environment.NEFE_INTERNAL_ORGANIZATION_SLUG},{
-    hashPassword:value=>hash(value,12),reportFailure,
+    hashPassword:value=>hash(value,12),reportFailure,reportAvailability,
     async createAccount(input){
       try{await database().transaction(async tx=>{
         const [organization]=await databaseStage("organization_lookup",()=>tx.select({id:organizations.id}).from(organizations).where(eq(organizations.slug,input.organizationSlug)).limit(1));
