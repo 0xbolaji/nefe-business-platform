@@ -29,6 +29,9 @@ export async function registerInternalUser(previous:RegistrationState,formData:F
     hashPassword:value=>hash(value,12),reportFailure,reportAvailability,
     async createAccount(input){
       try{await database().transaction(async tx=>{
+        const [databaseIdentity]=await databaseStage("organization_lookup",()=>tx.execute<{databaseName:string;databaseSchema:string;serverAddress:string|null;serverPort:number|null}>(sql`SELECT current_database() AS "databaseName", current_schema() AS "databaseSchema", inet_server_addr()::text AS "serverAddress", inet_server_port() AS "serverPort"`));
+        const configuredHost=environment.DATABASE_URL?new URL(environment.DATABASE_URL).hostname:null;
+        console.error(JSON.stringify({event:"registration_database_identity",databaseHost:configuredHost??(databaseIdentity.serverAddress&&databaseIdentity.serverPort?`${databaseIdentity.serverAddress}:${databaseIdentity.serverPort}`:databaseIdentity.serverAddress),databaseName:databaseIdentity.databaseName,databaseBranch:null,organizationSlug:input.organizationSlug}));
         const [organization]=await databaseStage("organization_lookup",()=>tx.select({id:organizations.id}).from(organizations).where(eq(organizations.slug,input.organizationSlug)).limit(1));
         if(!organization)throw new RegistrationUnavailableError();
         const existing=await databaseStage("duplicate_check",()=>tx.select({id:users.id}).from(users).where(sql`lower(${users.email}) = ${input.email}`).limit(1));
