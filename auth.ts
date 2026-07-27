@@ -3,12 +3,12 @@ import type {NextAuthConfig} from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import {compare} from "bcryptjs";
-import {eq} from "drizzle-orm";
+import {sql} from "drizzle-orm";
 import {z} from "zod";
 import {database} from "@/db/client";
 import {users} from "@/db/schema";
 
-const credentialInput=z.object({email:z.string().email(),password:z.string().min(12).max(128)});
+const credentialInput=z.object({email:z.string().trim().toLowerCase().email(),password:z.string().min(12).max(128)});
 const credentialProvider=Credentials({
   name:"NEFE development credentials",
   credentials:{email:{label:"Email",type:"email"},password:{label:"Password",type:"password"}},
@@ -16,9 +16,9 @@ const credentialProvider=Credentials({
     const parsed=credentialInput.safeParse(raw);
     if(!parsed.success)return null;
     const demoEnabled=process.env.NODE_ENV!=="production"&&process.env.NEFE_DEMO_AUTH_ENABLED==="true";
-    if(demoEnabled&&parsed.data.email===process.env.NEFE_DEMO_EMAIL&&process.env.NEFE_DEMO_PASSWORD&&parsed.data.password===process.env.NEFE_DEMO_PASSWORD){return {id:"00000000-0000-4000-8000-000000000001",email:parsed.data.email,name:"Demo Owner"}}
+    if(demoEnabled&&parsed.data.email===process.env.NEFE_DEMO_EMAIL?.toLowerCase()&&process.env.NEFE_DEMO_PASSWORD&&parsed.data.password===process.env.NEFE_DEMO_PASSWORD){return {id:"00000000-0000-4000-8000-000000000001",email:parsed.data.email,name:"Demo Owner"}}
     if(!process.env.DATABASE_URL)return null;
-    const [user]=await database().select({id:users.id,name:users.name,email:users.email,passwordHash:users.passwordHash,disabledAt:users.disabledAt}).from(users).where(eq(users.email,parsed.data.email)).limit(1);
+    const [user]=await database().select({id:users.id,name:users.name,email:users.email,passwordHash:users.passwordHash,disabledAt:users.disabledAt}).from(users).where(sql`lower(${users.email}) = ${parsed.data.email}`).limit(1);
     if(!user?.passwordHash||user.disabledAt||!(await compare(parsed.data.password,user.passwordHash)))return null;
     return {id:user.id,email:user.email,name:user.name};
   },

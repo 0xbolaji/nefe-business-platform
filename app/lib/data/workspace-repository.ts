@@ -45,8 +45,10 @@ export const getWorkspaceData=cache(async():Promise<WorkspaceData>=>{
   ]=await Promise.all([
     db.select().from(regions),db.select().from(industries),
     db.select({id:users.id,name:users.name,email:users.email,role:organizationMembers.role}).from(organizationMembers).innerJoin(users,eq(users.id,organizationMembers.userId)).where(and(eq(organizationMembers.organizationId,organizationId),eq(organizationMembers.status,"ACTIVE"))),
-    db.select().from(businesses).where(and(eq(businesses.organizationId,organizationId),eq(businesses.status,businesses.status))).orderBy(asc(businesses.name)),
-    db.select().from(businessContacts).where(eq(businessContacts.organizationId,organizationId)),db.select().from(businessTags),db.select().from(businessServices),
+    db.select().from(businesses).where(eq(businesses.organizationId,organizationId)).orderBy(asc(businesses.name)),
+    db.select().from(businessContacts).where(eq(businessContacts.organizationId,organizationId)),
+    db.select({businessId:businessTags.businessId,tag:businessTags.tag}).from(businessTags).innerJoin(businesses,eq(businesses.id,businessTags.businessId)).where(eq(businesses.organizationId,organizationId)),
+    db.select({id:businessServices.id,businessId:businessServices.businessId,kind:businessServices.kind,name:businessServices.name}).from(businessServices).innerJoin(businesses,eq(businesses.id,businessServices.businessId)).where(eq(businesses.organizationId,organizationId)),
     db.select().from(businessRelationships).where(eq(businessRelationships.organizationId,organizationId)),
     db.select().from(opportunities).where(eq(opportunities.organizationId,organizationId)).orderBy(desc(opportunities.updatedAt)),
     db.select().from(opportunityParticipants).where(eq(opportunityParticipants.organizationId,organizationId)),

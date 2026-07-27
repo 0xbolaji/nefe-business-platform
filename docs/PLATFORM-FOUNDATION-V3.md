@@ -1,4 +1,4 @@
-# Platform Foundation v3.0
+# Platform Foundation RC1
 
 ## Selected stack
 
@@ -28,8 +28,49 @@ To reset local data, drop and recreate only the development database identified 
 
 All workspace records are organization-owned. Server-side context resolves the authenticated user, validates active membership, and accepts an active-organization cookie only when that user has a matching active membership. Repositories and mutations receive the resolved organization rather than trusting form or URL organization identifiers.
 
-The existing frontend domain types remain the stable inputs for commercial intelligence and readiness calculations. Drizzle records stay behind repositories and mapping boundaries. Existing fixtures remain available as UI compatibility data while route-by-route persistence migration proceeds.
+The existing frontend domain types remain the stable inputs for commercial intelligence and readiness calculations. Drizzle records stay behind the authenticated repository and mapping boundary. Production workspace routes do not import fixture view models; fixtures are retained only for development seed generation and deterministic automated tests.
+
+## Runtime architecture
+
+- The workspace layout resolves the authenticated user and active organization before loading workspace data.
+- `getWorkspaceData` performs request-cached, organization-scoped reads and maps database records into stable domain models.
+- Client providers receive serialized tenant data for optimistic interactions. Server Actions independently resolve authentication, membership, permissions, and organization ownership before every write.
+- Commercial and pilot intelligence are deterministic, side-effect-free calculations. Persisted data is supplied as input; the scoring engines do not query the database or make autonomous decisions.
+- Significant administrative and execution mutations append organization-scoped audit records.
+
+## Environment variables
+
+- `DATABASE_URL`: PostgreSQL connection string used by Drizzle and Auth.js. Required in production.
+- `AUTH_SECRET`: secret of at least 32 characters. Required in production and stored in the deployment secret manager.
+- `AUTH_URL`: canonical application URL, including HTTPS in production.
+- `NEFE_DEMO_AUTH_ENABLED`: development credential switch. It must be `false` in production.
+- `NEFE_DEMO_EMAIL` and `NEFE_DEMO_PASSWORD`: development seed/login values. The password must contain at least 12 characters.
+- `NEFE_INTERNAL_SIGNUP_CODE`: server-only internal registration secret. Use at least 16 high-entropy characters; leave blank to disable registration.
+- `NEFE_INTERNAL_ORGANIZATION_SLUG`: server-side slug of the workspace internal testers join. Leave blank to disable registration.
+- `AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET`: optional Google OAuth credentials.
+
+Do not commit `.env.local` or production values. Start from `.env.example` and inject production secrets through the hosting environment.
+
+## Migration and seed workflow
+
+1. Change `db/schema.ts` only when persistence correctness requires it.
+2. Run `npm run db:generate` and review the generated SQL before committing it.
+3. Apply migrations in a non-production environment with `npm run db:migrate`.
+4. Run the validation suite and exercise authenticated tenant reads and mutations.
+5. Apply the reviewed migration as a separate deployment step before starting the new application version.
+
+`npm run db:seed` is development-only and creates the demonstration workspace in a freshly migrated development database. It imports fixture data solely as seed input and refuses to run when `NODE_ENV=production`. Do not use the seed command as a production migration or data-reconciliation process.
 
 ## Deployment controls
 
-Deploy behind TLS and a reverse proxy or platform boundary that provides authentication rate limiting, request-size limits, malformed-request protection, and abuse monitoring. Rotate `AUTH_SECRET` through the deployment secret manager. OAuth callback URLs must be allowlisted with the provider. Database credentials require least privilege, encrypted transport, backups, and migration access separated from runtime access where practical.
+Deploy behind TLS and a proxy or platform boundary that provides authentication rate limiting, request-size limits, malformed-request protection, and abuse monitoring. Rotate `AUTH_SECRET` through the deployment secret manager. OAuth callback URLs must be allowlisted with the provider. Database credentials require least privilege, encrypted transport, point-in-time recovery or tested backups, and migration access separated from runtime access where practical.
+
+Before promotion, run `npm run lint`, `npm run type-check`, `npm run test`, `npm run build`, and `git diff --check`. Confirm migrations are current, production demo authentication is disabled, Auth.js callback URLs match the public origin, and the runtime database role cannot alter schemas. Monitor authentication failures, server-action errors, database saturation, and audit-write failures after deployment.
+
+## Internal registration
+
+`/sign-up` is a controlled credentials-registration route for the internal testing group. It is enabled only when both `NEFE_INTERNAL_SIGNUP_CODE` and `NEFE_INTERNAL_ORGANIZATION_SLUG` are configured. The client cannot select an organization or role: the server resolves the configured organization by slug and assigns the existing least-privileged `VIEWER` role. User creation, active membership creation, and the safe `internal_user.registered` audit event run in one PostgreSQL transaction. Accounts then use the existing Auth.js credentials sign-in flow.
+
+To rotate access, generate a new high-entropy invitation code in the deployment secret manager, replace `NEFE_INTERNAL_SIGNUP_CODE`, and redeploy all instances together. Existing accounts and memberships are unaffected. To disable new registrations, remove either internal-registration variable and redeploy; the route remains present but registration returns an unavailable response.
+
+The application applies strict field limits, generic invitation and duplicate-account errors, pending-submit protection, and a per-instance attempt throttle. Production deployments should additionally rate-limit `/sign-up` and Server Action requests at the shared edge or load balancer so protection is coordinated across instances. Before broader external use, replace the shared code with expiring, single-use managed invitations and add verified-email activation, recovery, revocation, and security-event monitoring.

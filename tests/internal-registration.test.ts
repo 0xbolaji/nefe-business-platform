@@ -1,0 +1,17 @@
+import {describe,expect,it,vi} from "vitest";
+import {GENERIC_REGISTRATION_ERROR,INTERNAL_REGISTRATION_ROLE,registerInternalAccount,RegistrationUnavailableError,type AtomicRegistration} from "../app/lib/auth/internal-registration";
+
+const configuration={invitationCode:"a-secure-internal-code",organizationSlug:"nefe-internal-testing"};
+const valid={fullName:"Amina Rahman",email:" Amina@Example.com ",password:"correct-horse-battery",confirmPassword:"correct-horse-battery",invitationCode:configuration.invitationCode,termsAccepted:true};
+function dependencies(createAccount=vi.fn(async (input:AtomicRegistration)=>{void input})){return {hashPassword:vi.fn(async()=>"secure-hash"),createAccount}}
+
+describe("internal registration",()=>{
+  it("normalizes a successful registration and creates the tenant membership with the least-privileged role",async()=>{const deps=dependencies();expect(await registerInternalAccount(valid,configuration,deps)).toEqual({ok:true});expect(deps.createAccount).toHaveBeenCalledWith(expect.objectContaining({name:"Amina Rahman",email:"amina@example.com",organizationSlug:"nefe-internal-testing",role:INTERNAL_REGISTRATION_ROLE,passwordHash:"secure-hash"}))});
+  it("rejects an invalid invitation without invoking persistence",async()=>{const deps=dependencies();expect(await registerInternalAccount({...valid,invitationCode:"incorrect-invitation"},configuration,deps)).toEqual({ok:false,error:GENERIC_REGISTRATION_ERROR});expect(deps.createAccount).not.toHaveBeenCalled()});
+  it("returns a non-enumerating error for a duplicate email",async()=>{const deps=dependencies(vi.fn(async()=>{throw new Error("duplicate")}));expect(await registerInternalAccount(valid,configuration,deps)).toEqual({ok:false,error:GENERIC_REGISTRATION_ERROR})});
+  it("reports a password mismatch at the field",async()=>{const result=await registerInternalAccount({...valid,confirmPassword:"different-password"},configuration,dependencies());expect(result.ok).toBe(false);if(!result.ok)expect(result.fieldErrors?.confirmPassword).toBe("Passwords do not match.")});
+  it("rejects a weak password before hashing",async()=>{const deps=dependencies();const result=await registerInternalAccount({...valid,password:"weak",confirmPassword:"weak"},configuration,deps);expect(result.ok).toBe(false);expect(deps.hashPassword).not.toHaveBeenCalled()});
+  it("cannot accept a client-selected organization or role",async()=>{const deps=dependencies();await registerInternalAccount({...valid,organizationSlug:"attacker-org",organizationId:"attacker-id",role:"OWNER"},configuration,deps);expect(deps.createAccount).toHaveBeenCalledWith(expect.objectContaining({organizationSlug:configuration.organizationSlug,role:"VIEWER"}))});
+  it("surfaces unavailable organization configuration safely",async()=>{const deps=dependencies(vi.fn(async()=>{throw new RegistrationUnavailableError()}));expect(await registerInternalAccount(valid,configuration,deps)).toEqual({ok:false,error:"Registration is currently unavailable."})});
+  it("does not report success when the atomic persistence operation rolls back",async()=>{const committed:AtomicRegistration[]=[];const deps=dependencies(vi.fn(async input=>{const staged=[input];expect(staged).toHaveLength(1);throw new Error("audit insert failed")}));expect(await registerInternalAccount(valid,configuration,deps)).toEqual({ok:false,error:GENERIC_REGISTRATION_ERROR});expect(committed).toEqual([])});
+});
