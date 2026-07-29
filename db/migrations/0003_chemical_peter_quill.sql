@@ -1,0 +1,5 @@
+ALTER TABLE "collaboration_activity_events" ADD CONSTRAINT "collab_activity_entity_type_ck" CHECK ("collaboration_activity_events"."entity_type" in ('business','opportunity','campaign','journey','pilot','recommendation'));--> statement-breakpoint
+ALTER TABLE "collaboration_assignments" ADD CONSTRAINT "collab_assignments_entity_type_ck" CHECK ("collaboration_assignments"."entity_type" in ('business','opportunity','campaign','journey','pilot','recommendation'));--> statement-breakpoint
+ALTER TABLE "collaboration_comments" ADD CONSTRAINT "collab_comments_entity_type_ck" CHECK ("collaboration_comments"."entity_type" in ('business','opportunity','campaign','journey','pilot','recommendation'));--> statement-breakpoint
+ALTER TABLE "collaboration_comments" ADD CONSTRAINT "collab_comments_body_length_ck" CHECK (char_length("collaboration_comments"."body") between 1 and 5000);--> statement-breakpoint
+ALTER TABLE "collaboration_watchers" ADD CONSTRAINT "collab_watchers_entity_type_ck" CHECK ("collaboration_watchers"."entity_type" in ('business','opportunity','campaign','journey','pilot','recommendation'));

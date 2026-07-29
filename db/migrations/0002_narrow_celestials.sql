@@ -1,0 +1,3 @@
+ALTER TABLE "notifications" ADD COLUMN "dedupe_key" text;--> statement-breakpoint
+CREATE UNIQUE INDEX "collab_assignments_current_uq" ON "collaboration_assignments" USING btree ("organization_id","entity_type","entity_id") WHERE "collaboration_assignments"."deleted_at" is null;--> statement-breakpoint
+CREATE UNIQUE INDEX "notifications_org_user_dedupe_uq" ON "notifications" USING btree ("organization_id","user_id","dedupe_key");
