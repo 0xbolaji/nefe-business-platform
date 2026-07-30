@@ -1,3 +1,2 @@
 import type {ReactNode} from "react";
-import EntityCollaboration from "../../_components/entity-collaboration";
-export default async function OpportunityCollaborationLayout({children,params}:{children:ReactNode;params:Promise<{id:string}>}){const {id}=await params;return <>{children}<EntityCollaboration entityType="opportunity" entityId={id}/></>}
+export default function OpportunityCollaborationLayout({children}:{children:ReactNode}){return children}

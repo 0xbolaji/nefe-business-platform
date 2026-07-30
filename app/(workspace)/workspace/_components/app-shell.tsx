@@ -9,7 +9,7 @@ import ThemeToggle from "../../../components/theme-toggle";
 import CommandPalette from "./command-palette";
 
 const primary = [
-  ["Overview","/workspace/dashboard"],["Businesses","/workspace/businesses"],["Opportunities","/workspace/opportunities"],["Pilots","/workspace/pilots"],["Campaigns","/workspace/campaigns"],["Journeys","/workspace/journeys"],["Analytics","/workspace/analytics"],
+  ["Overview","/workspace/dashboard"],["Businesses","/workspace/businesses"],["Opportunities","/workspace/opportunities"],["Decisions","/workspace/decisions"],["Pilots","/workspace/pilots"],["Campaigns","/workspace/campaigns"],["Journeys","/workspace/journeys"],["Analytics","/workspace/analytics"],
 ];
 const secondary = [["Notifications","/workspace/notifications"],["Settings","/workspace/settings"],["Help","/workspace/help"]];
 
