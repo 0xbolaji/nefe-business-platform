@@ -3,7 +3,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, useTransition, type ReactNode } from "react";
+import {switchWorkspace} from "@/app/lib/actions/workspace-switch";
 import BrandLogo from "../../../components/brand-logo";
 import ThemeToggle from "../../../components/theme-toggle";
 import CommandPalette from "./command-palette";
@@ -18,19 +19,23 @@ function SidebarItem({ label, href, pathname, onSelect }: { label:string; href:s
   return <Link href={href} onClick={onSelect} aria-current={active?"page":undefined} className={`ws-sidebar-item ${active?"active":""}`}><span aria-hidden="true">{label.slice(0,1)}</span><b>{label}</b></Link>;
 }
 
-export default function AppShell({ children,identity,workspaceName,unreadNotifications }: { children: ReactNode;identity:{name:string;email:string;initials:string;role:string};workspaceName:string;unreadNotifications:number }) {
+export default function AppShell({ children,identity,workspaceName,activeWorkspaceId,workspaces,permissions,unreadNotifications }: { children: ReactNode;identity:{name:string;email:string;initials:string;role:string};workspaceName:string;activeWorkspaceId:string;workspaces:Array<{id:string;name:string;workspaceName:string}>;permissions:{manage:boolean};unreadNotifications:number }) {
   const pathname=usePathname();
   const [open,setOpen]=useState(false);
   const [profileOpen,setProfileOpen]=useState(false);
+  const [workspaceOpen,setWorkspaceOpen]=useState(false);
+  const [switching,startSwitch]=useTransition();
+  const switcherRef=useRef<HTMLDivElement>(null);
   useEffect(()=>{document.body.classList.toggle("ws-menu-open",open);return()=>document.body.classList.remove("ws-menu-open")},[open]);
+  useEffect(()=>{const close=(event:MouseEvent)=>{if(!switcherRef.current?.contains(event.target as Node))setWorkspaceOpen(false)},escape=(event:KeyboardEvent)=>{if(event.key==="Escape"){setWorkspaceOpen(false);setProfileOpen(false);setOpen(false)}};document.addEventListener("pointerdown",close);document.addEventListener("keydown",escape);return()=>{document.removeEventListener("pointerdown",close);document.removeEventListener("keydown",escape)}},[]);
   const current=[...primary,...secondary].find(([,href])=>href===pathname)?.[0]??"Workspace";
   return <div className="ws-root">
     <a className="ws-skip" href="#workspace-content">Skip to workspace content</a>
     <aside className={`ws-sidebar ${open?"open":""}`} aria-label="Workspace navigation">
       <div className="ws-sidebar-brand"><BrandLogo size="sm" priority/><button type="button" onClick={()=>setOpen(false)} aria-label="Close workspace menu">×</button></div>
-      <div className="ws-workspace-switch"><span>RAK</span><div><small>Workspace</small><strong>{workspaceName}</strong></div><i>⌄</i></div>
+      <div className="ws-workspace-switcher" ref={switcherRef}><button type="button" className="ws-workspace-switch" onClick={()=>setWorkspaceOpen(value=>!value)} aria-expanded={workspaceOpen} aria-haspopup="menu"><span>{workspaceName.slice(0,3).toUpperCase()}</span><div><small>Workspace</small><strong>{workspaceName}</strong></div>{workspaces.length>1&&<i>⌄</i>}</button>{workspaceOpen&&<div className="ws-workspace-menu" role="menu"><strong>Available workspaces</strong>{workspaces.length===1?<p>Only one workspace available.</p>:workspaces.map(item=><button role="menuitem" type="button" disabled={switching||item.id===activeWorkspaceId} key={item.id} onClick={()=>startSwitch(async()=>switchWorkspace(item.id))}><span>{item.workspaceName}</span><small>{item.id===activeWorkspaceId?"Active workspace":item.name}</small></button>)}</div>}</div>
       <nav><p>Operate</p>{primary.map(([label,href])=><SidebarItem key={href} label={label} href={href} pathname={pathname} onSelect={()=>setOpen(false)}/>)}</nav>
-      <nav className="ws-sidebar-secondary"><p>Manage</p>{secondary.map(([label,href])=><SidebarItem key={href} label={label} href={href} pathname={pathname} onSelect={()=>setOpen(false)}/>)}</nav>
+      <nav className="ws-sidebar-secondary"><p>Manage</p>{secondary.filter(([label])=>permissions.manage||label!=="Settings").map(([label,href])=><SidebarItem key={href} label={label} href={href} pathname={pathname} onSelect={()=>setOpen(false)}/>)}</nav>
       <div className="ws-sidebar-foot"><span>{identity.initials}</span><div><strong>{identity.name}</strong><small>{identity.role}</small></div></div>
     </aside>
     {open&&<button type="button" aria-label="Close workspace menu" className="ws-backdrop" onClick={()=>setOpen(false)}/>} 
