@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
+import {useRenderLifecycleDiagnostics} from "./render-lifecycle-diagnostics";
 
 const pageName=(pathname:string)=>{
   if(pathname==="/") return "home";
@@ -14,6 +15,7 @@ export default function MotionSystem({children}:{children:ReactNode}){
   const pathname=usePathname();
   const reduced=useReducedMotion();
   const workspace=pathname==="/workspace"||pathname.startsWith("/workspace/");
+  useRenderLifecycleDiagnostics("MotionSystem");
 
   useEffect(()=>{
     const root=document.documentElement;

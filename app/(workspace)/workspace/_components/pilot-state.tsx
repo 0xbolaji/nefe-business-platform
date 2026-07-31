@@ -4,9 +4,11 @@ import {useRouter} from "next/navigation";
 import {createPilotRecord,recordPilotDecision,updatePilotExecution,updatePilotParticipant} from "@/app/lib/actions/workspace-mutations";
 import type {Pilot,PilotApproval,PilotDecision,PilotKPI,PilotMilestone,PilotParticipant,PilotRisk,PilotTask,PilotUpdate} from "../../_lib/models";
 import {useCollaboration} from "./collaboration-state";
+import {useRenderLifecycleDiagnostics} from "@/app/components/render-lifecycle-diagnostics";
 type PilotContextValue={pilots:Pilot[];createPilot:(pilot:Pilot)=>void;updatePilot:(id:string,update:Partial<Pilot>)=>void;updateParticipant:(pilotId:string,businessId:string,update:Partial<PilotParticipant>)=>void;updateMilestone:(pilotId:string,id:string,update:Partial<PilotMilestone>)=>void;updateTask:(pilotId:string,id:string,update:Partial<PilotTask>)=>void;addTask:(pilotId:string,task:PilotTask)=>void;updateKPI:(pilotId:string,id:string,update:Partial<PilotKPI>)=>void;updateApproval:(pilotId:string,id:string,update:Partial<PilotApproval>)=>void;updateRisk:(pilotId:string,id:string,update:Partial<PilotRisk>)=>void;addUpdate:(pilotId:string,update:PilotUpdate)=>void;addDecision:(pilotId:string,decision:PilotDecision)=>void};
 const PilotContext=createContext<PilotContextValue|null>(null);
 export function PilotProvider({children,initialPilots}:{children:ReactNode;initialPilots:Pilot[]}){
+ useRenderLifecycleDiagnostics("PilotProvider");
  const [pilots,setPilots]=useState(initialPilots);
  const [,startTransition]=useTransition();const router=useRouter();
  const {addDecision:addWorkspaceDecision}=useCollaboration();

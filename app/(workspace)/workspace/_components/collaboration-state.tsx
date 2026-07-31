@@ -5,6 +5,7 @@ import {useRouter} from "next/navigation";
 import type { Decision, OpportunityStage } from "../../_lib/models";
 import type {WorkspaceData} from "@/app/lib/data/workspace-repository";
 import {recordRecentlyViewed,toggleFavorite as persistFavorite,updateOpportunityStage,updateRecommendationStatus} from "@/app/lib/actions/workspace-mutations";
+import {useRenderLifecycleDiagnostics} from "@/app/components/render-lifecycle-diagnostics";
 
 type FavoriteType = "business" | "campaign" | "opportunity" | "journey";
 export type RecentItem = { id: string; type: FavoriteType; title: string; href: string; viewedAt: string };
@@ -31,6 +32,7 @@ const emptyFavorites:Record<FavoriteType,string[]>={business:[],campaign:[],oppo
 const CollaborationContext=createContext<CollaborationContextValue|null>(null);
 
 export function CollaborationProvider({children,initialData}:{children:ReactNode;initialData:WorkspaceData}){
+  useRenderLifecycleDiagnostics("CollaborationProvider");
   const router=useRouter();
   const [,startTransition]=useTransition();
   const [favorites,setFavorites]=useState(initialData.favorites??emptyFavorites);
