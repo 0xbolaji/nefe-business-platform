@@ -305,3 +305,17 @@ SSO, service accounts and native-mobile tokens remain outside EH1 unless a separ
 
 The biggest confirmed risk is not stale role authorization: that was already corrected architecturally by resolving membership on each request. The larger identity gap is that a valid JWT remains independent of current user disablement and has no administrative revocation mechanism. The biggest architectural surprise is the divergence between schema capability and active behavior: session, verification-token and invitation tables exist, while the running system uses JWT sessions, no verification/reset workflow and a shared environment invitation code.
 
+## EH1.0–EH1.1 resolution
+
+The revocation question is now resolved by [ADR-0001](../architecture-decisions/ADR-0001-authentication-session-revocation.md): the installed Auth.js version rejects credentials-only database-session strategy, so NEFE retains JWT transport and adds a PostgreSQL-authoritative `users.security_version` check to every JWT resolution. Global disablement and version changes invalidate prior authentication state without embedding role or tenant permissions in the JWT.
+
+Implemented in this increment:
+
+- global disabled-user enforcement on authoritative authentication resolution;
+- all-session invalidation through a monotonic security version;
+- one-time forced sign-in for pre-cutover JWTs;
+- inactive-membership access-denied routing;
+- transactional, server-only global disable/invalidation primitives with tenant and final-owner safeguards;
+- explicit authentication contract and regression matrix.
+
+Still deferred: durable throttling, recovery/verification, managed invitations, reauthentication, MFA and individual-session inventory.

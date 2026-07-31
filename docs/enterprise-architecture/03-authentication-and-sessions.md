@@ -37,3 +37,12 @@ Although `sessions`, `accounts` and `verification_tokens` exist in [`db/schema.t
 - Owner/Admin MFA is enforced and recovery is tested.
 - Authentication logs contain category and safe identifiers, never credentials or tokens.
 
+## EH1.0–EH1.1 implementation status
+
+**Implemented:** JWT plus authoritative user security version, selected in [ADR-0001](../architecture-decisions/ADR-0001-authentication-session-revocation.md). `users.security_version` is compared with the JWT security version on every authoritative Auth.js resolution, together with current `disabled_at`. A mismatch, missing user or disabled user fails closed.
+
+**Cutover:** migration `0005_wet_firelord.sql` must be applied before the code deployment. JWTs issued before this change lack the security version and require one new sign-in.
+
+**Preserved:** role and organization membership remain database-resolved per request and are not placed in JWT claims.
+
+**Deferred:** individual-session/device revocation, password reset, email verification, managed invitations, durable throttling, reauthentication and MFA.

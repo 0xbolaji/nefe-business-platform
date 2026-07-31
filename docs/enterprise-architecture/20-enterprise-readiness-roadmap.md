@@ -18,6 +18,15 @@
 - Claude review: adversarial threat-model packet.
 - Founder decisions: JWT+session-version versus database sessions; MFA provider; managed email provider.
 
+### Delivered increment: EH1.0–EH1.1
+
+- Authentication invariants and regression matrix documented under `docs/security`.
+- [ADR-0001](../architecture-decisions/ADR-0001-authentication-session-revocation.md) selects JWT plus authoritative security version after verifying the installed Auth.js credentials constraint.
+- Global user disablement and security-version mismatch reject existing authentication state on the next authoritative request.
+- All-session invalidation and tightly constrained server-only global-disable primitives are transactionally audited.
+- Membership disablement/removal remain organization-scoped and distinct from global account status.
+- EH1.2 and later work remains pending.
+
 ## EH2 — Authorization and Tenant Isolation
 
 - Purpose: prove and strengthen tenant boundaries.
@@ -75,4 +84,3 @@
 - Gate: signed founder release decision with residual risks.
 
 High-risk workstreams should be delivered as small vertical increments, each independently testable and reversible.
-

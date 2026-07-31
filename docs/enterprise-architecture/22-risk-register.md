@@ -3,7 +3,7 @@
 | Risk | Probability | Impact | Existing control | Mitigation | Trigger | Owner | Target phase |
 |---|---:|---:|---|---|---|---|---|
 | Cross-tenant access defect | 2 | 5 | Server context and predicates | EH2 two-tenant suite/RLS decision | Any failed isolation test | Backend/security | EH2 |
-| Session theft cannot be revoked | 3 | 5 | 8h secure cookie | Revocation and reauth | Disable does not end session | Identity owner | EH1 |
+| Session theft cannot be revoked | 2 | 5 | 8h secure cookie plus authoritative security version and all-session invalidation | Add reauth and later session inventory if justified | Version invalidation fails or is bypassed | Identity owner | EH1.1 implemented; residual EH1 |
 | Brute-force/registration abuse | 4 | 4 | Generic errors, local limiter | Durable rate limit/alerts | Distributed attempts | Identity owner | EH1 |
 | Data loss/failed restore | 3 | 5 | Unverified managed controls | Backup confirmation/drills | Restore misses objective | Operations | EH7 |
 | Bad migration outage | 3 | 5 | Drizzle ledger | Staging rehearsal/expand-contract | Lock/failure in staging | Backend/ops | EH3/EH7 |
@@ -19,6 +19,6 @@
 | Compliance assumptions | 3 | 5 | No compliance claims in EH0 | Legal/privacy review and evidence | Customer asks for certification | Founder/legal | Pre-contract |
 | Secret exposure | 2 | 5 | env placeholders/safe logger | Secret scan/managed rotation | Scan or access anomaly | Operations | EH1/EH8 |
 | Private content in telemetry/AI | 3 | 5 | safe logger fields | Classification/allowlists/evaluation | New telemetry/model feature | Security/data | EH7/EH10 |
+| Per-request session validation depends on PostgreSQL | 2 | 4 | Fail-closed security-version check | Monitor auth query latency/availability; retain bounded DB connections | Authentication error/latency budget exceeded | Identity/operations | EH1.1/EH5 |
 
 Probability and impact use a 1–5 qualitative scale and require owner review before pilot.
-

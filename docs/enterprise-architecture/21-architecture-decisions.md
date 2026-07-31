@@ -16,8 +16,7 @@
 | ADR-012 | MFA timing | Proposed | Owner/Admin before pilot expansion | MFA missing | Later | Account takeover | Required |
 | ADR-013 | SSO timing | Postponed | Evidence-backed enterprise demand | Optional Google only | OIDC/SAML now | Complexity | Required |
 | ADR-014 | Backup objectives | Requires founder decision | Pilot RPO ≤24h target 1h; RTO 8h | No verified backup evidence | Stricter/looser | Loss/cost | Required |
-| ADR-015 | Session architecture | Requires founder decision | DB sessions or JWT session version/revocation | JWT 8h now | Short JWT only | Revocation gap | Required |
+| ADR-015 | Session architecture | Accepted | JWT plus authoritative PostgreSQL security version | Auth.js credentials-only database sessions are unsupported by installed package; [ADR-0001](../architecture-decisions/ADR-0001-authentication-session-revocation.md) | Session registry; combined model | Per-request DB dependency; no device revocation | Recorded for EH1.1 |
 | ADR-016 | Hosting/data region | Requires founder decision | Choose against residency and latency | Not verified in repo | Provider options | Compliance/latency/lock-in | Required |
 
 Accepted decisions should become individual ADRs with context, decision, consequences, owner, date and review trigger.
-
