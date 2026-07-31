@@ -13,11 +13,16 @@ const pageName=(pathname:string)=>{
 export default function MotionSystem({children}:{children:ReactNode}){
   const pathname=usePathname();
   const reduced=useReducedMotion();
+  const workspace=pathname==="/workspace"||pathname.startsWith("/workspace/");
 
   useEffect(()=>{
     const root=document.documentElement;
     root.dataset.nefePage=pageName(pathname);
   },[pathname]);
+
+  // Workspace navigation owns its mobile drawer and must remain one stable
+  // compositing surface while authenticated routes stream and replace content.
+  if(workspace) return <div className="nefe-page-stage nefe-workspace-stage">{children}</div>;
 
   const transition=reduced?{duration:0}:{duration:.42,ease:[.22,1,.36,1] as [number,number,number,number]};
   return <AnimatePresence initial={false}>
