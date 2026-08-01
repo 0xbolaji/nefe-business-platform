@@ -3,8 +3,8 @@ import {Children,type ReactNode} from "react";
 export function AppCard({ children, className = "" }: { children: ReactNode; className?: string }) { return <section className={`ws-card ${className}`}>{children}</section>; }
 export function Panel({ children, className = "" }: { children: ReactNode; className?: string }) { return <div className={`ws-panel ${className}`}>{children}</div>; }
 
-export function PageHeader({ eyebrow, title, description, action }: { eyebrow?: string; title: string; description: string; action?: ReactNode }) {
-  return <header className="ws-page-header"><div>{eyebrow&&<span>{eyebrow}</span>}<h1>{title}</h1><p>{description}</p></div>{action&&<div className="ws-page-action">{action}</div>}</header>;
+export function PageHeader({ eyebrow, title, description, action, className="" }: { eyebrow?: string; title: string; description: string; action?: ReactNode; className?:string }) {
+  return <header className={`ws-page-header ${className}`}><div>{eyebrow&&<span>{eyebrow}</span>}<h1>{title}</h1><p>{description}</p></div>{action&&<div className="ws-page-action">{action}</div>}</header>;
 }
 export function SectionHeader({ title, description, action }: { title: string; description?: string; action?: ReactNode }) {
   return <header className="ws-section-header"><div><h2>{title}</h2>{description&&<p>{description}</p>}</div>{action}</header>;
@@ -22,8 +22,8 @@ const statusToneGroups:Record<Exclude<StatusVisualTone,"neutral">,Set<string>>={
 const normalizeTone=(value?:string)=>value?.trim().toLowerCase().replaceAll("_"," ").replaceAll("-"," ")??"";
 const matchStatusTone=(value?:string):StatusVisualTone|null=>{const normalized=normalizeTone(value);for(const [tone,values] of Object.entries(statusToneGroups) as [Exclude<StatusVisualTone,"neutral">,Set<string>][])if(values.has(normalized))return tone;if(["on hold","paused","cancelled","expired","abstained","dismissed","not started","inactive"].includes(normalized))return "neutral";return null};
 export const getStatusVisualTone=(value?:string):StatusVisualTone=>matchStatusTone(value)??"neutral";
-export function MetricCard({ label, value, detail, progress, tone = "purple" }: { label: string; value: ReactNode; detail?: string; progress?: number; tone?: "purple" | "gold" | "green" | "blue" }) {
-  return <AppCard className="ws-metric"><div className={`ws-metric-mark ${tone}`} /><p>{label}</p><strong>{value}</strong>{detail&&<small>{detail}</small>}{progress!==undefined&&<ProgressBar value={progress} label={`${label}: ${progress}%`} tone={tone}/>}</AppCard>;
+export function MetricCard({ label, value, detail, progress, tone = "purple", icon, trend }: { label: string; value: ReactNode; detail?: string; progress?: number; tone?: "purple" | "gold" | "green" | "blue"; icon?:ReactNode; trend?:{label:string;tone?:"positive"|"neutral"|"negative"} }) {
+  return <AppCard className={`ws-metric ${icon?"has-icon":""}`}><div className="ws-metric-top"><div className={`ws-metric-mark ${tone}`} />{icon&&<span className={`ws-metric-icon ${tone}`} aria-hidden="true">{icon}</span>}</div><p>{label}</p><strong>{value}</strong>{(detail||trend)&&<div className="ws-metric-footer">{detail&&<small>{detail}</small>}{trend&&<span className={`ws-metric-trend ${trend.tone??"neutral"}`}>{trend.label}</span>}</div>}{progress!==undefined&&<ProgressBar value={progress} label={`${label}: ${progress}%`} tone={tone}/>}</AppCard>;
 }
 export function StatusBadge({ children, tone }: { children: ReactNode; tone?: string }) { const displayedTone=typeof children==="string"?matchStatusTone(children):null;return <span className={`ws-status ${displayedTone??getStatusVisualTone(tone)}`}>{children}</span>; }
 export function StatBadge({ label, value }: { label: string; value: string }) { return <span className="ws-stat-badge"><small>{label}</small><strong>{value}</strong></span>; }
