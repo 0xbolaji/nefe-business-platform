@@ -144,7 +144,8 @@ export default function Home() {
             <h1 className="mt-7 max-w-[680px] text-[42px] font-semibold leading-[1.08] tracking-[-.055em] text-[#181329] sm:text-[56px] lg:text-[65px]">Grow Through the <span className="gradient-text">Businesses Around You.</span></h1>
             <p className="mt-7 max-w-[640px] text-base leading-7 text-[#686276] sm:text-lg sm:leading-8"><strong className="font-semibold text-[#30283B]">NEFE is a business-first commercial platform for connected commerce.</strong> It brings merchants, businesses, partners, and customers together to discover opportunities, launch joint campaigns, and create better customer experiences.</p>
             <div className="hero-actions mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Link id="access" href="/onboarding" className="button-primary">Request Early Access <Icon name="arrow" /></Link>
+              <Link id="access" href="/sign-up" className="button-primary">Get Started <Icon name="arrow" /></Link>
+              <Link href="/onboarding" className="button-secondary">Apply as a business <Icon name="arrow" className="h-4 w-4" /></Link>
               <Link href="/platform" className="button-secondary">Explore Platform <Icon name="arrow" className="h-4 w-4" /></Link>
             </div>
             <p className="mt-7 max-w-[650px] text-[11px] font-medium leading-5 text-[#746E80]">Built for merchants, enterprises, tourism, hospitality, retail, events, and destination networks.</p>
@@ -277,7 +278,10 @@ export default function Home() {
             <div className="eyebrow mx-auto w-fit border-white/15 bg-white/10 text-white/85"><Icon name="spark" className="h-4 w-4" /> Your next opportunity is waiting</div>
             <h2 className="mx-auto mt-7 max-w-3xl text-4xl font-semibold leading-tight tracking-[-.045em] text-white sm:text-5xl">Start with one valuable connection.</h2>
             <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-white/60">Join the early access list and help shape the first generation of cross-business customer journeys.</p>
-            <Link href="/onboarding" className="mt-9 inline-flex min-h-13 items-center justify-center gap-2 rounded-xl bg-white px-6 font-semibold text-[#4F30D7] shadow-xl transition hover:-translate-y-1">Request Early Access <Icon name="arrow" /></Link>
+            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+              <Link href="/sign-up" className="inline-flex min-h-13 items-center justify-center gap-2 rounded-xl bg-white px-6 font-semibold text-[#4F30D7] shadow-xl transition hover:-translate-y-1">Get Started <Icon name="arrow" /></Link>
+              <Link href="/onboarding" className="inline-flex min-h-13 items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/10 px-6 font-semibold text-white transition hover:-translate-y-1 hover:bg-white/15">Apply as a business <Icon name="arrow" /></Link>
+            </div>
           </div>
         </div>
       </section>

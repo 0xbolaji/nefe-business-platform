@@ -14,7 +14,7 @@ export interface Opportunity { id: string; title: string; status: EntityStatus; 
 export interface CampaignMilestone { title: string; date: string; status: "complete" | "current" | "upcoming" }
 export interface Campaign { id: string; title: string; objective: string; status: EntityStatus; businessIds: string[]; budget: number; startDate: string; endDate: string; modeledValue: number; conversion: number; progress: number; milestones: CampaignMilestone[]; kpis: { label: string; value: string }[] }
 export interface JourneyStage { id: string; title: string; businessId: string; touchpoint: string; status: "covered" | "gap" }
-export interface Journey { id: string; name: string; businessIds: string[]; coverage: number; completion: number; touchpoints: number; stages: JourneyStage[] }
+export interface Journey { id: string; name: string; journeyType?:string; objective?:string; targetCustomer?:string; intendedOutcome?:string; businessIds: string[]; coverage: number; completion: number; touchpoints: number; stages: JourneyStage[] }
 export interface AnalyticsSnapshot { id: string; period: string; modeledValue: number; referrals: number; conversion: number; partnerGrowth: number; journeyCoverage: number; series: number[] }
 export interface Invitation { id: string; email: string; role: string; status: "accepted" | "pending"; sentAt: string }
 export interface Recommendation { id: string; title: string; description: string; priority: Priority; recommendedBusinessId?: string; opportunityId?: string; estimatedImpact: number; journeyImprovement: string; commercialRationale: string; confidence: number }
