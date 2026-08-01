@@ -18,7 +18,7 @@ export interface Journey { id: string; name: string; businessIds: string[]; cove
 export interface AnalyticsSnapshot { id: string; period: string; modeledValue: number; referrals: number; conversion: number; partnerGrowth: number; journeyCoverage: number; series: number[] }
 export interface Invitation { id: string; email: string; role: string; status: "accepted" | "pending"; sentAt: string }
 export interface Recommendation { id: string; title: string; description: string; priority: Priority; recommendedBusinessId?: string; opportunityId?: string; estimatedImpact: number; journeyImprovement: string; commercialRationale: string; confidence: number }
-export interface Notification { id: string; title: string; detail: string; type: "partner" | "opportunity" | "campaign" | "journey" | "pilot"; read: boolean; createdAt: string }
+export interface Notification { id: string; title: string; detail: string; type: "partner" | "opportunity" | "campaign" | "journey" | "pilot"; read: boolean; createdAt: string; href?:string }
 export interface Activity { id: string; title: string; detail: string; actorId: string; createdAt: string; type: string }
 export interface Task { id: string; title: string; due: string; ownerId: string; status: "open" | "done" }
 export interface Decision { id: string; action: string; detail: string; createdAt: string; type: "recommendation" | "partner" | "opportunity" | "priority" | "pilot" }

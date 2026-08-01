@@ -185,7 +185,10 @@ export default function SiteNavbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Link href="/onboarding" className="rounded-xl bg-[#5E3BEE] px-3 py-2.5 text-[8px] font-semibold text-white shadow-[0_8px_20px_rgba(94,59,238,.2)] transition hover:-translate-y-0.5 sm:px-4 sm:text-[9px]">
+          <Link href="/sign-in" className="hidden rounded-xl px-3 py-2.5 text-[9px] font-semibold text-[#5E3BEE] transition hover:bg-[#F4F1F7] xl:inline-flex">
+            Sign in
+          </Link>
+          <Link href="/sign-up" className="rounded-xl bg-[#5E3BEE] px-3 py-2.5 text-[8px] font-semibold text-white shadow-[0_8px_20px_rgba(94,59,238,.2)] transition hover:-translate-y-0.5 sm:px-4 sm:text-[9px]">
             Get Started
           </Link>
           <button
@@ -242,7 +245,8 @@ export default function SiteNavbar() {
             })}
             <div className="grid gap-2 pt-3 min-[380px]:grid-cols-2">
               <Link href="/contact" onClick={() => setMobileOpen(false)} className="rounded-xl border border-[#DED8E4] px-4 py-3 text-center text-[10px] font-semibold text-[#514A59]">Contact</Link>
-              <Link href="/onboarding" onClick={() => setMobileOpen(false)} className="rounded-xl bg-[#5E3BEE] px-4 py-3 text-center text-[10px] font-semibold text-white shadow-[0_8px_20px_rgba(94,59,238,.18)]">Get Started</Link>
+              <Link href="/sign-in" onClick={() => setMobileOpen(false)} className="rounded-xl border border-[#DED8E4] px-4 py-3 text-center text-[10px] font-semibold text-[#514A59]">Sign in</Link>
+              <Link href="/sign-up" onClick={() => setMobileOpen(false)} className="rounded-xl bg-[#5E3BEE] px-4 py-3 text-center text-[10px] font-semibold text-white shadow-[0_8px_20px_rgba(94,59,238,.18)] min-[380px]:col-span-2">Get Started</Link>
             </div>
           </div>
         </nav>

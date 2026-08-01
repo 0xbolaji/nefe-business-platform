@@ -8,7 +8,7 @@ import {
   campaignParticipants,campaigns,favorites,industries,journeyStages,journeys,notifications,
   opportunities,opportunityParticipants,opportunityStatusHistory,organizationMembers,
   pilotApprovals,pilotDecisions,pilotKpis,pilotMilestones,pilotParticipants,pilotRisks,pilotTasks,
-  pilotUpdates,pilots,recentlyViewedItems,recommendations,regions,users,
+  pilotUpdates,pilots,recentlyViewedItems,recommendations,regions,users,executiveDecisions,
 } from "@/db/schema";
 import {requireWorkspaceContext} from "@/app/lib/auth/workspace-context";
 import type {
@@ -21,6 +21,7 @@ const status=(value:string)=>value.toLowerCase() as Business["status"];
 const priority=(value:string)=>value.toLowerCase() as Opportunity["priority"];
 const number=(value:string|null|undefined)=>Number(value??0);
 const date=(value:Date|string|null|undefined)=>value?new Date(value).toISOString().slice(0,10):"";
+const notificationHref=(entityType:string|null,entityId:string|null)=>!entityId?undefined:entityType==="business"?`/workspace/businesses/${entityId}`:entityType==="opportunity"?`/workspace/opportunities/${entityId}`:entityType==="campaign"?`/workspace/campaigns/${entityId}`:entityType==="journey"?`/workspace/journeys/${entityId}`:entityType==="pilot"?`/workspace/pilots/${entityId}`:entityType==="decision"?`/workspace/decisions/${entityId}`:undefined;
 
 export type WorkspaceData={
   regions:Region[];industries:Industry[];users:User[];businesses:Business[];partners:Partner[];
@@ -29,6 +30,7 @@ export type WorkspaceData={
   favorites:Record<"business"|"campaign"|"opportunity"|"journey",string[]>;
   recentlyViewed:{id:string;type:"business"|"campaign"|"opportunity"|"journey";title:string;href:string;viewedAt:string}[];
   unreadNotifications:number;
+  executiveDecisions:Array<{id:string;title:string;status:string;priority:string;entityType:string;requestedOutcome:string}>;
 };
 
 export const getWorkspaceData=cache(async():Promise<WorkspaceData>=>{
@@ -41,7 +43,7 @@ export const getWorkspaceData=cache(async():Promise<WorkspaceData>=>{
     opportunityRows,opportunityParticipantRows,historyRows,campaignRows,campaignParticipantRows,
     journeyRows,journeyStageRows,recommendationRows,notificationRows,activityRows,pilotRows,
     participantRows,milestoneRows,taskRows,kpiRows,approvalRows,riskRows,updateRows,decisionRows,
-    favoriteRows,recentRows,
+    favoriteRows,recentRows,executiveDecisionRows,
   ]=await Promise.all([
     db.select().from(regions),db.select().from(industries),
     db.select({id:users.id,name:users.name,email:users.email,role:organizationMembers.role}).from(organizationMembers).innerJoin(users,eq(users.id,organizationMembers.userId)).where(and(eq(organizationMembers.organizationId,organizationId),eq(organizationMembers.status,"ACTIVE"))),
@@ -71,6 +73,7 @@ export const getWorkspaceData=cache(async():Promise<WorkspaceData>=>{
     db.select().from(pilotDecisions).where(eq(pilotDecisions.organizationId,organizationId)).orderBy(desc(pilotDecisions.createdAt)),
     db.select().from(favorites).where(and(eq(favorites.organizationId,organizationId),eq(favorites.userId,userId))),
     db.select().from(recentlyViewedItems).where(and(eq(recentlyViewedItems.organizationId,organizationId),eq(recentlyViewedItems.userId,userId))).orderBy(desc(recentlyViewedItems.viewedAt)).limit(8),
+    db.select({id:executiveDecisions.id,title:executiveDecisions.title,status:executiveDecisions.status,priority:executiveDecisions.priority,entityType:executiveDecisions.entityType,requestedOutcome:executiveDecisions.requestedOutcome}).from(executiveDecisions).where(eq(executiveDecisions.organizationId,organizationId)).orderBy(desc(executiveDecisions.updatedAt)),
   ]);
   const workspaceUsers:User[]=userRows.map(row=>({id:row.id,name:row.name??row.email,email:row.email,role:titleCase(row.role),initials:(row.name??row.email).split(" ").map(part=>part[0]).join("").slice(0,2).toUpperCase(),organizationId}));
   const workspaceBusinesses:Business[]=businessRows.map(row=>({id:row.id,name:row.name,initials:row.initials,industryId:row.industryId??"",regionId:row.regionId??"",location:row.location,category:row.category,description:row.description,services:serviceRows.filter(item=>item.businessId===row.id&&item.kind==="SERVICE").map(item=>item.name),products:serviceRows.filter(item=>item.businessId===row.id&&item.kind==="PRODUCT").map(item=>item.name),status:status(row.status),verification:row.verification as Business["verification"],partnerCount:relationshipRows.filter(item=>item.fromBusinessId===row.id||item.toBusinessId===row.id).length,partnerScore:row.partnerScore,opportunityScore:row.opportunityScore,tags:tagRows.filter(item=>item.businessId===row.id).map(item=>item.tag),contacts:contactRows.filter(item=>item.businessId===row.id).map(item=>({name:item.name,role:item.role,email:item.email}))}));
@@ -83,5 +86,5 @@ export const getWorkspaceData=cache(async():Promise<WorkspaceData>=>{
   const analyticsSnapshots:AnalyticsSnapshot[]=[{id:`${organizationId}-current`,period:"Current workspace",modeledValue,referrals:workspaceCampaigns.length*340,conversion:workspaceCampaigns.length?Math.round(workspaceCampaigns.reduce((sum,item)=>sum+item.conversion,0)/workspaceCampaigns.length*10)/10:0,partnerGrowth:workspaceBusinesses.length,journeyCoverage:workspaceJourneys.length?Math.round(workspaceJourneys.reduce((sum,item)=>sum+item.coverage,0)/workspaceJourneys.length):0,series:Array.from({length:12},(_,index)=>Math.round(modeledValue*(0.35+index*0.055)))}];
   const favoriteState={business:[],campaign:[],opportunity:[],journey:[]} as WorkspaceData["favorites"];
   for(const item of favoriteRows)if(item.entityType in favoriteState)favoriteState[item.entityType as keyof typeof favoriteState].push(item.entityId);
-  return {regions:regionRows.map(row=>({id:row.id,name:row.name,country:row.country,code:row.code})),industries:industryRows.map(row=>({id:row.id,name:row.name,category:row.category})),users:workspaceUsers,businesses:workspaceBusinesses,partners:relationshipRows.map(row=>({id:row.id,businessId:row.toBusinessId,relationship:row.relationship,status:status(row.status),since:row.since??""})),opportunities:workspaceOpportunities,campaigns:workspaceCampaigns,journeys:workspaceJourneys,recommendations:workspaceRecommendations,notifications:notificationRows.map(row=>({id:row.id,title:row.title,detail:row.detail,type:row.type as Notification["type"],read:Boolean(row.readAt),createdAt:date(row.createdAt)})),activities:activityRows.map(row=>({id:row.id,title:row.title,detail:row.detail,actorId:row.actorId??"",createdAt:date(row.createdAt),type:row.type})),tasks:taskRows.map(row=>({id:row.id,title:row.title,due:row.dueDate??"",ownerId:row.assigneeId??"",status:row.status==="COMPLETE"?"done":"open"})),pilots:workspacePilots,analyticsSnapshots,favorites:favoriteState,recentlyViewed:recentRows.map(row=>({id:row.entityId,type:row.entityType as WorkspaceData["recentlyViewed"][number]["type"],title:row.title,href:row.href,viewedAt:date(row.viewedAt)})),unreadNotifications:notificationRows.filter(row=>!row.readAt).length};
+  return {executiveDecisions:executiveDecisionRows,regions:regionRows.map(row=>({id:row.id,name:row.name,country:row.country,code:row.code})),industries:industryRows.map(row=>({id:row.id,name:row.name,category:row.category})),users:workspaceUsers,businesses:workspaceBusinesses,partners:relationshipRows.map(row=>({id:row.id,businessId:row.toBusinessId,relationship:row.relationship,status:status(row.status),since:row.since??""})),opportunities:workspaceOpportunities,campaigns:workspaceCampaigns,journeys:workspaceJourneys,recommendations:workspaceRecommendations,notifications:notificationRows.map(row=>({id:row.id,title:row.title,detail:row.detail,type:row.type as Notification["type"],read:Boolean(row.readAt),createdAt:date(row.createdAt),href:notificationHref(row.entityType,row.entityId)})),activities:activityRows.map(row=>({id:row.id,title:row.title,detail:row.detail,actorId:row.actorId??"",createdAt:date(row.createdAt),type:row.type})),tasks:taskRows.map(row=>({id:row.id,title:row.title,due:row.dueDate??"",ownerId:row.assigneeId??"",status:row.status==="COMPLETE"?"done":"open"})),pilots:workspacePilots,analyticsSnapshots,favorites:favoriteState,recentlyViewed:recentRows.map(row=>({id:row.entityId,type:row.entityType as WorkspaceData["recentlyViewed"][number]["type"],title:row.title,href:row.href,viewedAt:date(row.viewedAt)})),unreadNotifications:notificationRows.filter(row=>!row.readAt).length};
 });

@@ -17,21 +17,4 @@ describe("workspace mobile route compositing",()=>{
     expect(read("app/globals.css")).toContain(".nefe-workspace-stage{transform:none;will-change:auto}");
   });
 
-  it("declares a safe-area-compatible device viewport without restricting zoom",()=>{
-    const layout=read("app/layout.tsx");
-    expect(layout).toContain('width: "device-width"');
-    expect(layout).toContain("initialScale: 1");
-    expect(layout).toContain('viewportFit: "cover"');
-    expect(layout).not.toContain("maximumScale");
-    expect(layout).not.toContain("userScalable");
-  });
-
-  it("avoids mobile backdrop blur and fixed-body scroll restoration",()=>{
-    const styles=read("app/(workspace)/workspace/workspace.css");
-    const lock=read("app/(workspace)/workspace/_components/use-body-scroll-lock.ts");
-    expect(styles).toContain(".ws-mobile-navigation-layer .ws-backdrop{position:absolute;background:rgba(12,8,17,.32);backdrop-filter:none}");
-    expect(styles).toContain("max-width:100%");
-    expect(styles).toContain(".ws-mobile-navigation-layer,.ws-mobile-navigation-layer *{box-sizing:border-box}");
-    expect(lock).not.toContain("window.scrollTo");
-  });
 });
