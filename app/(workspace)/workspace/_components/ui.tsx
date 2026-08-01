@@ -9,13 +9,26 @@ export function PageHeader({ eyebrow, title, description, action }: { eyebrow?: 
 export function SectionHeader({ title, description, action }: { title: string; description?: string; action?: ReactNode }) {
   return <header className="ws-section-header"><div><h2>{title}</h2>{description&&<p>{description}</p>}</div>{action}</header>;
 }
+type StatusVisualTone="success"|"warning"|"info"|"planning"|"progress"|"neutral"|"danger";
+type ProgressTone="purple"|"gold"|"green"|"blue"|"teal"|"red";
+const statusToneGroups:Record<Exclude<StatusVisualTone,"neutral">,Set<string>>={
+  success:new Set(["active","approved","complete","completed","achieved","verified","covered","confirmed","ready","ready to launch","low"]),
+  warning:new Set(["negotiating","medium","nearly ready","not requested","upcoming"]),
+  info:new Set(["pending","pending approval","pending review","qualified","identified"]),
+  planning:new Set(["planning","pilot","draft","invited","saved"]),
+  progress:new Set(["in progress","in review","reviewing","current","mitigating"]),
+  danger:new Set(["high","critical","declined","rejected","blocked","at risk","changes requested"]),
+};
+const normalizeTone=(value?:string)=>value?.trim().toLowerCase().replaceAll("_"," ").replaceAll("-"," ")??"";
+const matchStatusTone=(value?:string):StatusVisualTone|null=>{const normalized=normalizeTone(value);for(const [tone,values] of Object.entries(statusToneGroups) as [Exclude<StatusVisualTone,"neutral">,Set<string>][])if(values.has(normalized))return tone;if(["on hold","paused","cancelled","expired","abstained","dismissed","not started","inactive"].includes(normalized))return "neutral";return null};
+export const getStatusVisualTone=(value?:string):StatusVisualTone=>matchStatusTone(value)??"neutral";
 export function MetricCard({ label, value, detail, progress, tone = "purple" }: { label: string; value: ReactNode; detail?: string; progress?: number; tone?: "purple" | "gold" | "green" | "blue" }) {
-  return <AppCard className="ws-metric"><div className={`ws-metric-mark ${tone}`} /><p>{label}</p><strong>{value}</strong>{detail&&<small>{detail}</small>}{progress!==undefined&&<ProgressBar value={progress} label={`${label}: ${progress}%`}/>}</AppCard>;
+  return <AppCard className="ws-metric"><div className={`ws-metric-mark ${tone}`} /><p>{label}</p><strong>{value}</strong>{detail&&<small>{detail}</small>}{progress!==undefined&&<ProgressBar value={progress} label={`${label}: ${progress}%`} tone={tone}/>}</AppCard>;
 }
-export function StatusBadge({ children, tone }: { children: ReactNode; tone?: string }) { return <span className={`ws-status ${tone ?? "neutral"}`}>{children}</span>; }
+export function StatusBadge({ children, tone }: { children: ReactNode; tone?: string }) { const displayedTone=typeof children==="string"?matchStatusTone(children):null;return <span className={`ws-status ${displayedTone??getStatusVisualTone(tone)}`}>{children}</span>; }
 export function StatBadge({ label, value }: { label: string; value: string }) { return <span className="ws-stat-badge"><small>{label}</small><strong>{value}</strong></span>; }
 export function InsightCard({ type, title, description, value }: { type:"risk"|"strength"|"gap"|"opportunity"|"growth"|"readiness"|"coverage"; title:string; description:string; value?:string }) { return <article className={`ws-insight ${type}`}><div><span>{type}</span>{value&&<strong>{value}</strong>}</div><h3>{title}</h3><p>{description}</p></article>; }
-export function ProgressBar({ value, label }: { value: number; label?: string }) { const safeValue=Math.max(0,Math.min(100,value));return <div className="ws-progress" role="progressbar" aria-label={label ?? `${safeValue}% complete`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={safeValue}><span className="ws-progress-track" aria-hidden="true"><i style={{width:`${safeValue}%`}} /></span><strong aria-hidden="true">{safeValue}%</strong></div>; }
+export function ProgressBar({ value, label, tone="purple" }: { value: number; label?: string; tone?: ProgressTone }) { const safeValue=Math.max(0,Math.min(100,value));return <div className={`ws-progress ${tone}`} role="progressbar" aria-label={label ?? `${safeValue}% complete`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={safeValue}><span className="ws-progress-track" aria-hidden="true"><i style={{width:`${safeValue}%`}} /></span><strong aria-hidden="true">{safeValue}%</strong></div>; }
 
 export function EmptyState({ title = "Nothing here yet", description = "New items will appear here when they are available." }: { title?: string; description?: string }) {
   return <div className="ws-empty"><span aria-hidden="true">◇</span><h3>{title}</h3><p>{description}</p></div>;

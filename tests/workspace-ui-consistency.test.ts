@@ -1,6 +1,7 @@
 import {readFileSync} from "node:fs";
 import {join} from "node:path";
 import {describe,expect,it} from "vitest";
+import {getStatusVisualTone} from "../app/(workspace)/workspace/_components/ui";
 
 const read=(path:string)=>readFileSync(join(process.cwd(),path),"utf8");
 
@@ -33,5 +34,16 @@ describe("workspace visual consistency",()=>{
     for(const token of ["--ws-type-caption","--ws-type-label","--ws-type-body","--ws-type-card-title","--ws-control-height","--ws-card-padding","--ws-card-radius"]){
       expect(styles).toContain(token);
     }
+  });
+
+  it("maps workspace statuses and stages to one semantic color standard",()=>{
+    expect(getStatusVisualTone("Approved")).toBe("success");
+    expect(getStatusVisualTone("Negotiating")).toBe("warning");
+    expect(getStatusVisualTone("Pending")).toBe("info");
+    expect(getStatusVisualTone("Planning")).toBe("planning");
+    expect(getStatusVisualTone("IN_PROGRESS")).toBe("progress");
+    expect(getStatusVisualTone("On Hold")).toBe("neutral");
+    expect(getStatusVisualTone("Declined")).toBe("danger");
+    expect(getStatusVisualTone("Completed")).toBe("success");
   });
 });

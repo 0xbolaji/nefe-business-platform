@@ -324,6 +324,29 @@ html[data-theme="dark"] .ws-progress>.ws-progress-track{background:rgba(255,255,
 .ws-command-results small,.ws-command-recent small,.ws-command-recent button,.ws-command footer{font-size:var(--ws-type-caption);line-height:1.4}
 .ws-search-trigger b{font-size:var(--ws-type-label)}
 
+/* Status, stage, and progress language from the workspace reference */
+.ws-status{border:1px solid transparent;font-weight:750;letter-spacing:0;text-align:center}
+.ws-status.success{border-color:#bbf7d0;background:#f0fdf4;color:#16a34a}
+.ws-status.warning{border-color:#fde7b0;background:#fffbeb;color:#b86a06}
+.ws-status.info{border-color:#bfdbfe;background:#eff6ff;color:#2563eb}
+.ws-status.planning{border-color:#ddd6fe;background:#f5f3ff;color:#7c3aed}
+.ws-status.progress{border-color:#bae6fd;background:#ecfeff;color:#0e86a0}
+.ws-status.neutral{border-color:#e5e7eb;background:#f3f4f6;color:#5f6671}
+.ws-status.danger{border-color:#fecdd3;background:#fff1f2;color:#dc2626}
+.ws-progress.purple .ws-progress-track>i{background:#7c3aed}
+.ws-progress.gold .ws-progress-track>i{background:#d69722}
+.ws-progress.green .ws-progress-track>i{background:#16a34a}
+.ws-progress.blue .ws-progress-track>i{background:#2563eb}
+.ws-progress.teal .ws-progress-track>i{background:#0891b2}
+.ws-progress.red .ws-progress-track>i{background:#dc2626}
+html[data-theme="dark"] .ws-status.success{border-color:rgba(34,197,94,.3);background:rgba(22,163,74,.16);color:#86efac}
+html[data-theme="dark"] .ws-status.warning{border-color:rgba(245,158,11,.3);background:rgba(217,119,6,.16);color:#fcd34d}
+html[data-theme="dark"] .ws-status.info{border-color:rgba(59,130,246,.3);background:rgba(37,99,235,.16);color:#93c5fd}
+html[data-theme="dark"] .ws-status.planning{border-color:rgba(139,92,246,.3);background:rgba(124,58,237,.16);color:#c4b5fd}
+html[data-theme="dark"] .ws-status.progress{border-color:rgba(6,182,212,.3);background:rgba(8,145,178,.16);color:#67e8f9}
+html[data-theme="dark"] .ws-status.neutral{border-color:rgba(156,163,175,.24);background:rgba(107,114,128,.16);color:#d1d5db}
+html[data-theme="dark"] .ws-status.danger{border-color:rgba(244,63,94,.3);background:rgba(220,38,38,.16);color:#fda4af}
+
 @media(max-width:700px){
   .ws-root{--ws-card-padding:1rem}
   .ws-page-header h1{font-size:1.6875rem}
