@@ -15,17 +15,27 @@ Evidence: [`auth.ts`](../../auth.ts), [`workspace-context.ts`](../../app/lib/aut
 
 ## Implemented session invariants
 
-- Auth.js remains on JWT transport with an eight-hour maximum lifetime.
-- The JWT contains user identity and a security version; it does not contain workspace role, organization ID, or permissions.
+- Auth.js remains on JWT transport. Standard sessions have an eight-hour logical lifetime; an explicit Remember Me choice extends it to 30 days.
+- The JWT contains user identity, a security version, an opaque session-registry ID and a logical expiry. It does not contain workspace role, organization ID, or permissions.
 - Every authoritative Auth.js resolution reads current global user status and security version from PostgreSQL.
 - Workspace role and active organization membership are freshly resolved from `organization_members` per server request and are only deduplicated within one render.
-- Signing out invalidates the current browser cookie according to Auth.js JWT behavior.
+- Signing out invalidates the current registry entry and the browser cookie. Users can revoke another session, all other sessions, or all sessions.
 - Incrementing `users.security_version` invalidates all previously issued JWT authentication states for that user.
 - Global disablement and all-session invalidation share the same authoritative version mechanism.
 - Pre-EH1 JWTs contain no security version and are rejected after rollout. This is a one-time cutover behavior: users with an existing pre-deployment cookie must sign in once, while newly issued versioned JWTs continue normally.
-- Future password reset must increment the security version in the same transaction as password replacement.
+- Password reset increments the security version and revokes registered sessions in the same transaction as password replacement.
 
-Individual-session/device revocation is deferred. EH1.1 provides all-session invalidation only.
+The session registry stores only an opaque UUID and limited browser/platform/location metadata; it never stores raw JWTs or cookies.
+
+## Onboarding and recovery invariants
+
+- Registration requires a tenant-bound, hashed, single-use managed invitation. Shared registration codes are not accepted.
+- Pending invitations expire, may be revoked, and remain in organization history.
+- New memberships remain `INVITED` until a hashed, single-use email-verification token is consumed.
+- Password-reset and email-verification responses do not disclose whether an account exists.
+- Reset and verification tokens expire, are stored only as HMAC-SHA-256 hashes, and are invalidated after use.
+- Authentication email is delivered through the configured server-only provider; API credentials never enter client bundles.
+- Authentication throttles are stored in PostgreSQL rather than process memory.
 
 ## Membership invariants
 
@@ -53,4 +63,4 @@ Individual-session/device revocation is deferred. EH1.1 provides all-session inv
 
 ## Deferred controls
 
-Password reset, email verification, managed invitations, durable throttling, sensitive-action reauthentication, MFA, session inventory, device revocation and email delivery remain unimplemented.
+MFA, sensitive-action reauthentication, verified device naming, IP-risk analysis, SSO and administrator-enforced session policy remain unimplemented.

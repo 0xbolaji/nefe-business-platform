@@ -45,8 +45,8 @@ The existing frontend domain types remain the stable inputs for commercial intel
 - `AUTH_URL`: canonical application URL, including HTTPS in production.
 - `NEFE_DEMO_AUTH_ENABLED`: development credential switch. It must be `false` in production.
 - `NEFE_DEMO_EMAIL` and `NEFE_DEMO_PASSWORD`: development seed/login values. The password must contain at least 12 characters.
-- `NEFE_INTERNAL_SIGNUP_CODE`: server-only internal registration secret. Use at least 16 high-entropy characters; leave blank to disable registration.
-- `NEFE_INTERNAL_ORGANIZATION_SLUG`: server-side slug of the workspace internal testers join. Leave blank to disable registration.
+- `NEFE_APP_URL`: canonical origin used to build invitation, verification and password-reset links.
+- `RESEND_API_KEY` and `NEFE_EMAIL_FROM`: server-only transactional-email configuration.
 - `AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET`: optional Google OAuth credentials.
 
 Do not commit `.env.local` or production values. Start from `.env.example` and inject production secrets through the hosting environment.
@@ -69,8 +69,6 @@ Before promotion, run `npm run lint`, `npm run type-check`, `npm run test`, `npm
 
 ## Internal registration
 
-`/sign-up` is a controlled credentials-registration route for the internal testing group. It is enabled only when both `NEFE_INTERNAL_SIGNUP_CODE` and `NEFE_INTERNAL_ORGANIZATION_SLUG` are configured. The client cannot select an organization or role: the server resolves the configured organization by slug and assigns the existing least-privileged `VIEWER` role. User creation, active membership creation, and the safe `internal_user.registered` audit event run in one PostgreSQL transaction. Accounts then use the existing Auth.js credentials sign-in flow.
+`/sign-up` accepts only a managed organization invitation. Owners and Administrators create tenant-scoped, expiring invitations in Settings; only a token hash is persisted. Registration consumes the invitation once, creates an `INVITED` membership and sends email verification. The membership becomes active only after verification.
 
-To rotate access, generate a new high-entropy invitation code in the deployment secret manager, replace `NEFE_INTERNAL_SIGNUP_CODE`, and redeploy all instances together. Existing accounts and memberships are unaffected. To disable new registrations, remove either internal-registration variable and redeploy; the route remains present but registration returns an unavailable response.
-
-The application applies strict field limits, generic invitation and duplicate-account errors, pending-submit protection, and a per-instance attempt throttle. Production deployments should additionally rate-limit `/sign-up` and Server Action requests at the shared edge or load balancer so protection is coordinated across instances. Before broader external use, replace the shared code with expiring, single-use managed invitations and add verified-email activation, recovery, revocation, and security-event monitoring.
+Password recovery uses generic responses and hashed, expiring, single-use tokens. PostgreSQL-backed throttles coordinate abuse protection across application instances. JWT transport remains in place, augmented by a revocable server-side session registry and the existing security-version invalidation control. Operational setup and rollout details are in [`docs/security/enterprise-onboarding.md`](security/enterprise-onboarding.md).

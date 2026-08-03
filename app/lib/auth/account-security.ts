@@ -2,7 +2,7 @@ import "server-only";
 
 import {and,count,eq,ne,sql} from "drizzle-orm";
 import {database} from "../../../db/client";
-import {auditLogs,organizationMembers,users} from "../../../db/schema";
+import {auditLogs,authSessionRegistry,organizationMembers,users} from "../../../db/schema";
 import {requirePermission} from "./permissions";
 import type {WorkspaceContext} from "./types";
 import {administrativeAccountActionAllowed} from "./session-security-policy";
@@ -43,8 +43,10 @@ function audit(tx:Tx,context:WorkspaceContext,action:string,targetUserId:string,
 export async function invalidateAllUserSessions(context:WorkspaceContext,targetUserId=context.user.id){
   return database().transaction(async tx=>{
     if(targetUserId!==context.user.id)await assertAdministrativeTarget(tx,context,targetUserId,{global:true});
-    const [updated]=await tx.update(users).set({securityVersion:sql`${users.securityVersion} + 1`,updatedAt:new Date()}).where(eq(users.id,targetUserId)).returning({id:users.id,securityVersion:users.securityVersion});
+    const now=new Date();
+    const [updated]=await tx.update(users).set({securityVersion:sql`${users.securityVersion} + 1`,updatedAt:now}).where(eq(users.id,targetUserId)).returning({id:users.id,securityVersion:users.securityVersion});
     if(!updated)throw new AccountSecurityError("NOT_FOUND");
+    await tx.update(authSessionRegistry).set({revokedAt:now}).where(and(eq(authSessionRegistry.userId,targetUserId),sql`${authSessionRegistry.revokedAt} is null`));
     await audit(tx,context,"session.all_invalidated",targetUserId,{securityVersion:updated.securityVersion});
     return updated;
   });
@@ -59,6 +61,7 @@ export async function globallyDisableUser(context:WorkspaceContext,targetUserId:
     const now=new Date();
     const [updated]=await tx.update(users).set({disabledAt:now,securityVersion:sql`${users.securityVersion} + 1`,updatedAt:now}).where(and(eq(users.id,targetUserId),sql`${users.disabledAt} is null`)).returning({id:users.id,disabledAt:users.disabledAt,securityVersion:users.securityVersion});
     if(!updated){const [concurrent]=await tx.select({id:users.id,disabledAt:users.disabledAt,securityVersion:users.securityVersion}).from(users).where(eq(users.id,targetUserId)).limit(1);if(concurrent?.disabledAt)return concurrent;throw new AccountSecurityError("NOT_FOUND")}
+    await tx.update(authSessionRegistry).set({revokedAt:now}).where(and(eq(authSessionRegistry.userId,targetUserId),sql`${authSessionRegistry.revokedAt} is null`));
     await audit(tx,context,"user.globally_disabled",targetUserId,{disabledAt:now.toISOString()});
     await audit(tx,context,"session.all_invalidated",targetUserId,{reason:"global_disablement",securityVersion:updated.securityVersion});
     return updated;

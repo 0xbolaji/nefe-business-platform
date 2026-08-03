@@ -1,0 +1,4 @@
+"use client";
+import {useActionState} from "react";import {useFormStatus} from "react-dom";import {requestPasswordReset,type ForgotState} from "./actions";
+const initial:ForgotState={submitted:false};function Submit(){const {pending}=useFormStatus();return <button disabled={pending}>{pending?"Sending…":"Send reset link"}</button>}
+export function ForgotPasswordForm(){const [state,action]=useActionState(requestPasswordReset,initial);if(state.submitted)return <div className="auth-success" role="status"><strong>Check your email</strong><p>If an eligible account exists, a password-reset link has been sent.</p></div>;return <form action={action} noValidate><label><span>Email address <b className="auth-required" aria-hidden="true">*</b></span><input name="email" type="email" autoComplete="email" required aria-invalid={Boolean(state.error)}/>{state.error&&<small className="auth-field-error">{state.error}</small>}</label><Submit/></form>}

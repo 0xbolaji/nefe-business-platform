@@ -27,7 +27,7 @@ describe("authoritative session security",()=>{
 
   it("executes the real JWT callback and accepts the current persisted version",async()=>{
     const {run,lookupUser,log}=callback();
-    const token={sub:"user-a",securityVersion:3};
+    const token={sub:"user-a",securityVersion:3,authExpiresAt:Date.now()+60_000};
     await expect(run({token})).resolves.toBe(token);
     expect(lookupUser).toHaveBeenCalledWith("user-a");
     expect(log).not.toHaveBeenCalled();
@@ -35,20 +35,20 @@ describe("authoritative session security",()=>{
 
   it("rejects a stale version through the real JWT callback",async()=>{
     const {run,log}=callback({...active,securityVersion:4});
-    await expect(run({token:{sub:"user-a",securityVersion:3}})).resolves.toBeNull();
+    await expect(run({token:{sub:"user-a",securityVersion:3,authExpiresAt:Date.now()+60_000}})).resolves.toBeNull();
     expect(log).toHaveBeenCalledWith(expect.objectContaining({event:"authentication.session_rejected",category:"security_version_mismatch",userId:"user-a"}));
   });
 
   it("rejects disabled, deleted, and unversioned authentication states",async()=>{
-    await expect(callback({...active,disabledAt:new Date()}).run({token:{sub:"user-a",securityVersion:3}})).resolves.toBeNull();
-    await expect(callback(null).run({token:{sub:"user-a",securityVersion:3}})).resolves.toBeNull();
+    await expect(callback({...active,disabledAt:new Date()}).run({token:{sub:"user-a",securityVersion:3,authExpiresAt:Date.now()+60_000}})).resolves.toBeNull();
+    await expect(callback(null).run({token:{sub:"user-a",securityVersion:3,authExpiresAt:Date.now()+60_000}})).resolves.toBeNull();
     await expect(callback().run({token:{sub:"user-a"}})).resolves.toBeNull();
   });
 
   it("fails closed and classifies a database outage separately",async()=>{
     const log=vi.fn();
     const run=createJwtSessionCallback({lookupUser:vi.fn().mockRejectedValue(new Error("connection failed")),log,developmentDemo:()=>false});
-    await expect(run({token:{sub:"user-a",securityVersion:3}})).resolves.toBeNull();
+    await expect(run({token:{sub:"user-a",securityVersion:3,authExpiresAt:Date.now()+60_000}})).resolves.toBeNull();
     expect(log).toHaveBeenCalledOnce();
     expect(log).toHaveBeenCalledWith({event:"authentication.database_unavailable",category:"user_security_lookup_failed",userId:"user-a"});
     expect(JSON.stringify(log.mock.calls)).not.toContain("connection failed");
@@ -57,8 +57,8 @@ describe("authoritative session security",()=>{
   it("does not invalidate an unrelated user's current authentication state",async()=>{
     const revoked=callback({id:"user-a",disabledAt:null,securityVersion:4});
     const unrelated=createJwtSessionCallback({lookupUser:vi.fn().mockResolvedValue({id:"user-b",disabledAt:null,securityVersion:7}),log:vi.fn(),developmentDemo:()=>false});
-    await expect(revoked.run({token:{sub:"user-a",securityVersion:3}})).resolves.toBeNull();
-    await expect(unrelated({token:{sub:"user-b",securityVersion:7}})).resolves.toMatchObject({sub:"user-b",securityVersion:7});
+    await expect(revoked.run({token:{sub:"user-a",securityVersion:3,authExpiresAt:Date.now()+60_000}})).resolves.toBeNull();
+    await expect(unrelated({token:{sub:"user-b",securityVersion:7,authExpiresAt:Date.now()+60_000}})).resolves.toMatchObject({sub:"user-b",securityVersion:7});
   });
 });
 

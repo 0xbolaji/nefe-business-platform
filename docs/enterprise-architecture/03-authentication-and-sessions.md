@@ -4,27 +4,23 @@
 
 - **Implemented:** Auth.js v5 beta with credentials and optional Google OAuth in [`auth.ts`](../../auth.ts).
 - **Implemented:** normalized email, 12–128 character input boundary, bcrypt comparison, disabled-user rejection.
-- **Implemented:** JWT session, eight-hour maximum age, secure production cookie named `__Secure-nefe.session-token`, HttpOnly, SameSite=Lax.
+- **Implemented:** JWT session with an eight-hour standard or explicit 30-day remembered logical lifetime, secure production cookie named `__Secure-nefe.session-token`, HttpOnly, SameSite=Lax.
 - **Implemented:** session contains user ID; workspace role is not embedded.
-- **Implemented:** internal registration uses a server-side invitation code, least-privileged `VIEWER` role, bcrypt cost 12 and an atomic user/membership/audit transaction in [`app/sign-up/actions.ts`](../../app/sign-up/actions.ts).
+- **Implemented:** managed tenant invitations, required email verification, bcrypt cost 12 and atomic user/membership/invitation/token/audit registration in [`app/sign-up/actions.ts`](../../app/sign-up/actions.ts).
+- **Implemented:** hashed single-use password recovery, PostgreSQL-backed authentication throttling, and a revocable JWT session registry.
 - **Partial:** optional Google provider is environment-triggered; account linking and enterprise administration are not documented.
-- **Missing:** email verification enforcement, password reset, recovery, MFA, session/device management, JWT revocation, suspicious-login detection, SSO administration and service accounts.
+- **Missing:** MFA, sensitive-action reauthentication, suspicious-login detection, SSO administration and service accounts.
 
 Although `sessions`, `accounts` and `verification_tokens` exist in [`db/schema.ts`](../../db/schema.ts), Auth.js is configured for JWT sessions. Their presence does not prove database session use.
 
 ## Immediate target
 
-1. Define authentication policy: password requirements, failed-attempt limits, session idle/absolute lifetime, disabled-user behavior and reauthentication events.
-2. Replace process-local registration throttling in [`app/sign-up/actions.ts`](../../app/sign-up/actions.ts) with a deployment-compatible durable control or edge/platform rate limit.
-3. Add password reset and recovery with single-use, hashed, expiring tokens and non-enumerating responses.
-4. Enforce verified email for non-demo production users.
-5. Add a session version or database-backed session registry so password, role-security events and disablement can revoke access.
-6. Require reauthentication for owner role changes, sensitive exports and security-setting changes.
-7. Add MFA for Owner and Administrator before broader rollout.
+1. Require reauthentication for owner role changes, sensitive exports and security-setting changes.
+2. Add MFA for Owner and Administrator before broader rollout.
+3. Add authentication risk signals and administrator-enforced session policy when operating requirements are defined.
 
 ## Later target
 
-- Managed invitations rather than a shared code.
 - OIDC first for enterprise federation; SAML through an identity broker when customer demand is proven.
 - Service accounts with scoped credentials, expiry, rotation and separate audit identity.
 - Mobile authorization-code flow with PKCE, secure OS keychain storage, rotating refresh tokens and per-device revocation.
@@ -45,4 +41,6 @@ Although `sessions`, `accounts` and `verification_tokens` exist in [`db/schema.t
 
 **Preserved:** role and organization membership remain database-resolved per request and are not placed in JWT claims.
 
-**Deferred:** individual-session/device revocation, password reset, email verification, managed invitations, durable throttling, reauthentication and MFA.
+**Sprint 2:** migration `0007_conscious_arclight.sql` adds managed invitations, verification/reset tokens, durable throttling and an opaque session registry. Email verification gates new memberships, resets invalidate prior authentication, and Security Settings exposes password/session controls.
+
+**Deferred:** reauthentication, MFA, enterprise federation and risk-based authentication.

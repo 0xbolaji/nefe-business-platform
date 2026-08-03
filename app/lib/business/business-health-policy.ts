@@ -1,0 +1,2 @@
+export type BusinessHealthInputs={activeOpportunities:number;activeCampaigns:number;activePilots:number;journeys:number;decisionAttention:number};
+export function deriveBusinessHealth(input:BusinessHealthInputs):"Healthy"|"Developing"|"Needs attention"{const engagement=input.activeOpportunities+input.activeCampaigns+input.activePilots+input.journeys;if(input.decisionAttention>0||engagement===0)return "Needs attention";return engagement<3?"Developing":"Healthy"}

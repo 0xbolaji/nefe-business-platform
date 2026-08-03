@@ -9,9 +9,10 @@ type JwtSecurityDependencies={lookupUser:(userId:string)=>Promise<PersistedUserS
 
 export function createJwtSessionCallback(dependencies:JwtSecurityDependencies){
   return async({token,user}:JwtInput):Promise<JWT|null>=>{
-    if(user?.id){token.sub=user.id;token.securityVersion=user.securityVersion}
+    if(user?.id){token.sub=user.id;token.securityVersion=user.securityVersion;token.authSessionId=user.authSessionId;token.authExpiresAt=user.authExpiresAt}
     if(!token.sub)return null;
     if(dependencies.developmentDemo())return token;
+    if(!token.authExpiresAt||token.authExpiresAt<=Date.now())return null;
     let current:PersistedUserSecurity|null;
     try{current=await dependencies.lookupUser(token.sub)}catch{
       dependencies.log({event:"authentication.database_unavailable",category:"user_security_lookup_failed",userId:token.sub});

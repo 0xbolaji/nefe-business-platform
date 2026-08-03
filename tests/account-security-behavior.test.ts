@@ -49,8 +49,8 @@ describe("all-session invalidation implementation",()=>{
     const updated=await invalidateAllUserSessions(context);
     const revoked=createJwtSessionCallback({lookupUser:vi.fn().mockResolvedValue({...updated,disabledAt:null}),log:vi.fn(),developmentDemo:()=>false});
     const unrelated=createJwtSessionCallback({lookupUser:vi.fn().mockResolvedValue({id:"user-b",disabledAt:null,securityVersion:8}),log:vi.fn(),developmentDemo:()=>false});
-    await expect(revoked({token:{sub:"user-a",securityVersion:3}})).resolves.toBeNull();
-    await expect(unrelated({token:{sub:"user-b",securityVersion:8}})).resolves.toMatchObject({sub:"user-b",securityVersion:8});
+    await expect(revoked({token:{sub:"user-a",securityVersion:3,authExpiresAt:Date.now()+60_000}})).resolves.toBeNull();
+    await expect(unrelated({token:{sub:"user-b",securityVersion:8,authExpiresAt:Date.now()+60_000}})).resolves.toMatchObject({sub:"user-b",securityVersion:8});
   });
 
   it("is monotonic across repeated invalidation requests",async()=>{

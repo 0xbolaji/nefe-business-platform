@@ -17,10 +17,14 @@ describe("RC4 connected commercial workflow",()=>{
 
   it("connects business and opportunity workspaces to persisted downstream records",()=>{
     const business=read("app/(workspace)/workspace/businesses/[businessId]/page.tsx");
+    const businessRepository=read("app/lib/data/business-repository.ts");
     const opportunity=read("app/(workspace)/workspace/opportunities/[id]/page.tsx");
-    expect(business).toContain("participantIds.includes(business.id)");
-    expect(business).toContain("recommendedBusinessId===business.id");
-    expect(opportunity).toContain("item.opportunityId===opportunity.id");
+    const opportunityRepository=read("app/lib/data/opportunity-repository.ts");
+    expect(business).toContain("detail.opportunities");
+    expect(businessRepository).toContain("eq(opportunityParticipants.businessId,businessId)");
+    expect(businessRepository).toContain("eq(recommendations.recommendedBusinessId,businessId)");
+    expect(opportunity).toContain("detail.pilots");
+    expect(opportunityRepository).toContain("eq(pilots.opportunityId,id)");
     expect(opportunity).toContain("NextActions");
   });
 
